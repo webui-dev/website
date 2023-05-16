@@ -16,8 +16,8 @@
     - [Startup Timeout](/nim_api?id=startup-timeout)
     - [Multi Access](/nim_api?id=multi-access)
 - JavaScript
-    - [Run JavaScript From Python](/nim_api?id=run-javascript-from-nim)
-    - [Run Python From JavaScript](/nim_api?id=run-nim-from-javascript)
+    - [Run JavaScript From Nim](/nim_api?id=run-javascript-from-nim)
+    - [Run Nim From JavaScript](/nim_api?id=run-nim-from-javascript)
     - [TypeScript Runtimes](/nim_api?id=typescript-runtimes)
 
 ---
@@ -302,7 +302,7 @@ JavaScript:
 
 ```js
 webui_fn('MyID', 'Message from JS').then((response) => {
-    console.log(response); // "Message from Python
+    console.log(response); // "Message from Nim"
 });
 ```
 
