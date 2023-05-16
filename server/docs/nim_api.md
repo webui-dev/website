@@ -103,7 +103,7 @@ window.show("my_file.html")
 
 Show a window using a specific web browser
 
-```python
+```nim
 const html = "<html>Hello!</html>"
 
 # Chrome
@@ -229,7 +229,7 @@ exit()
 
 You can call `close()` to close a specific window, if there is no running window left *[wait](/nim_api?id=wait)* will break.
 
-```python
+```nim
 window.close()
 ```
 
@@ -271,7 +271,7 @@ window.multiAccess = true
 
 You can run JavaScript on any window to read values, update the view, or anything else. In addition, you can check if the script execution has errors, as well as receive data.
 
-```python
+```nim
 window.bind("ExampleElement") do (e: Event):
   # Run JavaScript to get the result
   let res = e.window.script("return 2*2;")
@@ -291,7 +291,7 @@ window.bind("ExampleElement") do (e: Event):
 
 To call a Nim function from JavaScript and get the result back please use `webui_fn('MyID', 'My Data').then((response) => { ... });`. If the function does not have a response then it's safe to remove the `then` method like this `webui_fn('MyID_NoResponse', 'My Data');`.
 
-```python
+```nim
 window.bind("MyID") do (e: Event) -> string:
   echo "Data from JavaScript: ", e.data # Message from JS
 
@@ -311,7 +311,7 @@ webui_fn('MyID', 'Message from JS').then((response) => {
 
 You may want to interpret JavaScript & TypeScript files and show the output in the UI. You can use `runtime=` and choose between Deno or Nodejs as your runtime.
 
-```python
+```nim
 # Deno
 window.runtime = Deno
 window.show("my_file.ts")
