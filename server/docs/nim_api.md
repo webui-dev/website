@@ -7,7 +7,8 @@
     - [Show Window](/nim_api?id=show-window)
     - [Window status](/nim_api?id=window-status)
 - Binding & Events
-    - [Bind](/nim_api?id=Bind)
+    - [Bind](/nim_api?id=bind)
+    - [Bind All](/nim_api?id=bind-all)
     - [Events](/nim_api?id=events)
 - Application
     - [Wait](/nim_api?id=wait)
@@ -181,13 +182,17 @@ window.bind("MyID") do (e: Event) -> int:
   return 1 + 2  # 3
 ```
 
-### Events
+### Bind All
+
+You can also listen for all events by binding an empty ID.
 
 ```nim
 # Empty ID means bind all events on all elements
 window.bind("") do (e: Event):
   echo "Hi!, You clicked on ", e.element, " element"
 ```
+
+### Events
 
 The *e* corresponds to the *Event* object. `e` is a object that has these elements:
 
