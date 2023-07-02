@@ -16,18 +16,12 @@
     - [Startup Timeout](/v_api?id=startup-timeout)
     - [Multi Access](/v_api?id=multi-access)
 - JavaScript
-    - [Run JavaScript From V](/v_api?id=run-javascript-from-c)
-    - [Run V From JavaScript](/v_api?id=run-c-from-javascript)
+    - [Run JavaScript From V](/v_api?id=run-javascript-from-v)
+    - [Run V From JavaScript](/v_api?id=run-v-from-javascript)
     - [TypeScript Runtimes](/v_api?id=typescript-runtimes)
 
 ---
 ### Download and Install
-
-Install the WebUI package from vpm (*~1.5 Mb*).
-
-`v install webui-dev.v-webui`
-
-Or from github
 
 `v install https://github.com/webui-dev/v-webui`
 
@@ -37,7 +31,7 @@ Or from github
 A minimal V example
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
 
 mut my_window := webui.new_window()
 my_window.show("<html>Hello</html>")
@@ -47,7 +41,7 @@ webui.wait()
 Using a local HTML file. Please note that you need to add `<script src="/webui.js"></script>` to all your HTML files
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
 
 // Please add <script src="/webui.js"></script> to your HTML files
 mut my_window := webui.new_window()
@@ -58,10 +52,10 @@ webui.wait()
 Using a specific web browser
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
 
 mut my_window := webui.new_window()
-my_window.show_browser("<html>Hello</html>", webui.browser_chrome)
+my_window.show_browser("<html>Hello</html>", webui.chrome)
 webui.wait()
 ```
 
@@ -73,7 +67,7 @@ Please visit [V Examples](https://github.com/webui-dev/v-webui/tree/main/example
 To create a new window object, you can use `new_window()`, which returns a void pointer. Please note that this pointer does *NOT* need to be freed.
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
 
 mut my_window := webui.new_window()
 ```
@@ -84,7 +78,8 @@ mut my_window := webui.new_window()
 To show a window, you can use `webui_show()`. If the window is already shown, the UI will get refreshed in the same window.
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
+
 // Create a new window
 mut my_window := webui.new_window()
 // Show a window using the embedded HTML
@@ -98,42 +93,42 @@ my_window.show("my_file.html")
 Show a window using a specific web browser
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
 
 my_html := "<html>Hello!</html>";
 
 // Google Chrome
-my_window.show_browser(my_html, webui.browser_chrome)
+my_window.show_browser(my_html, .chrome)
 
 // Mozilla Firefox
-my_window.show_browser(my_html, webui.browser_firefox)
+my_window.show_browser(my_html, .firefox)
 
 // Microsoft Edge
-my_window.show_browser(my_html, webui.browser_edge)
+my_window.show_browser(my_html, .edge)
 
 // Apple Safari (Not Ready)
-my_window.show_browser(my_html, webui.browser_safari)
+my_window.show_browser(my_html, .safari)
 
 // The Chromium Project
-my_window.show_browser(my_html, webui.browser_chromium)
+my_window.show_browser(my_html, .chromium)
 
 // The Opera Browser (Not Ready)
-my_window.show_browser(my_html, webui.browser_opera)
+my_window.show_browser(my_html, .opera)
 
 // The Brave Browser
-my_window.show_browser(my_html, webui.browser_brave)
+my_window.show_browser(my_html, .brave)
 
 // The Vivaldi Browsex
-my_window.show_browser(my_html, webui.browser_vivaldi)
+my_window.show_browser(my_html, .vivaldi)
 
 // The Epic Browser
-my_window.show_browser(my_html, webui.browser_epic)
+my_window.show_browser(my_html, .epic)
 
 // The Yandex Browser
-my_window.show_browser(my_html, webui.browser_yandex)
+my_window.show_browser(my_html, .yandex)
 
 // Default recommended web browser
-my_window.show_browser(my_html, webui.browser_any)
+my_window.show_browser(my_html, .any)
 
 // Or simply
 webui_show(my_window, my_html)
@@ -142,7 +137,7 @@ webui_show(my_window, my_html)
 If you need to update the whole UI content, you can also use the same function `show()`, which allows you to refresh the window UI with any new HTML content.
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
 
 html := "<html>Hello</html>"
 new_html := "<html>New World!</html>"
@@ -162,12 +157,12 @@ my_window.show(new_html)
 To know if a specific window is running, you can use `is_shown()`.
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
 
 if webui.is_shown(my_window) {
-    println("The window is still running")
+	println('The window is still running')
 } else {
-    println("The window is closed.")
+	println('The window is closed.')
 }
 ```
 
@@ -177,9 +172,10 @@ if webui.is_shown(my_window) {
 Use `bind()` to receive click events when the user clicks on any HTML element with a specific ID, for example `<button id="MyID">Hello</button>`.
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
+
 fn my_function_string(e &webui.Event) {
-    // <button id="MyID">Hello</button> gets clicked!
+	// <button id="MyID">Hello</button> gets clicked!
 }
 
 my_window.bind("MyID", my_function)
@@ -190,57 +186,57 @@ my_window.bind("MyID", my_function)
 `Event` is a struct that has these elements:
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
+
 pub struct Event {
-	pub mut:
-		window			Window // Pointer to the window object
-		event_type		u64 // Event type
-		element			&char // HTML element ID
-		data			&char // JavaScript data
-		event_number	u64 // To set the callback response
+pub mut:
+	window       Window // Pointer to the window object
+	event_type   u64    // Event type
+	element      &char  // HTML element ID
+	data         &char  // JavaScript data
+	event_number u64    // To set the callback response
 }
 ```
 
 Also you can see the `element` and `data` is not native V string. So you can use these functions to get values as native string without requiring a conversion steps.
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
 
 fn my_function(e &webui.Event) {
-    // Get data
-    str := e.get().str // As a string
-    number := e.get().int // As an int
-    status := e.get().bool // As a boolean
-    // Also you can use `json` module from V standard library to parse json
+	// Get data
+	str := e.data.string
+	number = e.data.int
+	status = e.data.bool
 
-    // Get target element
-    target_element := e.element()
+	// Get target element
+	target_element := e.element
 }
 ```
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
 
-fn my_function(e &webui.Event) { 
-    // This function gets called every time
-    // there is an event
-    if e.event_type == webui.event_connected {
-        println("Connected.")
-    } else if e.event_type == webui.event_disconnected {
-        println("Disconnected.")
-    } else if e.event_type == webui.event_mouse_click {
-        println("Click.")
-    } else if e.event_type == webui.event_navigation {
-        //println("Starting navigation to: ${e.data}")
-    }
+fn my_function(e &webui.Event) {
+	// This function gets called every time
+	// there is an event
+	if e.event_type == webui.event_connected {
+		println('Connected.')
+	} else if e.event_type == webui.event_disconnected {
+		println('Disconnected.')
+	} else if e.event_type == webui.event_mouse_click {
+		println('Click.')
+	} else if e.event_type == webui.event_navigation {
+		// println("Starting navigation to: ${e.data}")
+	}
 
-    // Send back a response to JavaScript
-    e.@return("Hi!") // WebUI will handle type automatically
-    // string, int, bool is supported
+	// Send back a response to JavaScript
+	e.@return('Hi!') // WebUI will handle types automatically
+	// string, int, bool is supported
 }
 
 // Empty ID means all events on all elements
-webui_bind(my_window, "", my_function)
+webui_bind(my_window, '', my_function)
 ```
 
 ---
@@ -249,19 +245,17 @@ webui_bind(my_window, "", my_function)
 It is essential to call `wait()` at the end of your main function, after you create/shows all your windows. This will make your application run until the user closes all visible windows or when calling *[exit()](/v_api?id=exit)*.
 
 ```v
-import webui-dev.v-webui as webui
-int main() {
+import vwebui as webui
 
+fn main() {
 	mut my_window := webui.new_window() // Create windows...
 	// Bind HTML elements...
-    // Show the windows...
-    // Show a window using the embedded HTML
+	// Show the windows...
+	// Show a window using the embedded HTML
 
-    // Wait until all windows get closed
-    // or when calling webui.exit()
+	// Wait until all windows get closed
+	// or when calling webui.exit()
 	my_window.wait()
-
-    return 0;
 }
 ```
 
@@ -271,7 +265,8 @@ int main() {
 At any moment, you can call `exit()`, which tries to close all related opened windows and make *[webui.wait](/v_api?id=wait)* break.
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
+
 webui.exit()
 ```
 
@@ -281,8 +276,9 @@ webui.exit()
 You can call `webui.close()` to close a specific window, if there is no running window left *[webui_wait](/v_api?id=wait)* will break.
 
 ```v
-import webui-dev.v-webui as webui
-mut my_window := webui.new_window() 
+import vwebui as webui
+
+mut my_window := webui.new_window()
 my_window.close()
 ```
 
@@ -292,11 +288,12 @@ my_window.close()
 WebUI waits a couple of seconds (_Default is 30 seconds_) to let the web browser start and connect. You can control this behavior by using `webui.set_timeout()`.
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
+
 // Wait 10 seconds for the browser to start
 webui.set_timeout(10)
 
-mut my_window := webui.new_window() 
+mut my_window := webui.new_window()
 
 // Now, After 10 seconds, if the browser did
 // not get started, wait() will break
@@ -304,11 +301,11 @@ my_window.wait()
 ```
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
 // Wait forever.
 webui.set_timeout(0)
 
-mut my_window := webui.new_window() 
+mut my_window := webui.new_window()
 
 // webui_wait() will never end
 my_window.wait()
@@ -322,8 +319,9 @@ my_window.wait()
 After the window is loaded, the URL is not valid anymore for safety. V-WebUI will show an error if someone else tries to access the URL. To allow multi-user access to the same URL, you can use `webui_set_multi_access()`.
 
 ```v
-import webui-dev.v-webui as webui
-mut my_window := webui.new_window() 
+import vwebui as webui
+
+mut my_window := webui.new_window()
 
 my_window.set_multi_access(true)
 ```
@@ -334,18 +332,17 @@ my_window.set_multi_access(true)
 You can run JavaScript on any window to read values, update the view, or anything else. In addition, you can check if the script execution has errors, as well as receive data.
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
 
 fn my_function(e &webui.Event) {
+	// Run JavaScript
+	response := e.window.script('return 2*2;', 0, 64)
 
-    // Run JavaScript
-    response := e.window.script("return 2*2;", 0, 64)
+	// Print the result
+	println('JavaScript Response: ${response.int()}') // 4
 
-    // Print the result
-    println("JavaScript Response: ${response.int()}") // 4
-
-    // Run JavaScript quickly with no waiting for the response
-    e.window.run("alert('Fast!');")
+	// Run JavaScript quickly with no waiting for the response
+	e.window.run("alert('Fast!');")
 }
 ```
 
@@ -355,52 +352,49 @@ fn my_function(e &webui.Event) {
 To call a V function from JavaScript and get the result back please use `webui_fn('MyID', 'My Data').then((response) => { ... });`. If the function does not have a response then it's safe to remove the `then` method like this `webui_fn('MyID_NoResponse', 'My Data');`.
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
 
-mut my_window := webui.new_window() 
+mut my_window := webui.new_window()
 
-void my_function(webui_event_t* e) {
-    // Get data from JavaScript
-    str = e.get().str
-    // number = e.get().int
-    // status = e.get().bool
+fn my_function(e &webui.Event) webui.Response {
+	str := e.data.string
+	// number = e.data.int
+	// status = e.data.bool
 
-    // Print the received data
-    println("Data from JavaScript: ${str}") // Message from JS
+	// Print the received data
+	println('Data from JavaScript: ${str}') // Message from JS
 
-    // Return back a response to JavaScript
-    e.@return(e, "Message from V")
-    // e.@return(e, number)
-    // e.@return(e, true)
-    // WebUI will handle type automatically
+	// Return a response to JavaScript
+	// WebUI will handle types automatically
+	return 'Message from V'
 }
 
-my_window.bind("MyID", my_function)
+my_window.bind('MyID', my_function)
 ```
 
 JavsScript:
 
 ```js
 webui_fn('MyID', 'Message from JS').then((response) => {
-    console.log(response); // "Message from V
+	console.log(response); // "Message from V
 });
 ```
 
 ---
 ### TypeScript Runtimes
 
-You may want to interpret JavaScript & TypeScript files and show the output in the UI. You can use `set_runtime()` and choose between `runtime_deno` or `runtime_nodejs` as your runtimes.
+You may want to interpret JavaScript & TypeScript files and show the output in the UI. You can use `set_runtime()` and choose between `.runtime_deno` or `.runtime_nodejs` as your runtimes.
 
 ```v
-import webui-dev.v-webui as webui
+import vwebui as webui
 
 mut my_window := webui.new_window()
 
 // Deno
-my_window.set_runtime(webui.runtime_deno)
+my_window.set_runtime(.runtime_deno)
 my_window.show("my_file.ts")
 
 // Nodejs
-my_window.set_runtime(webui.runtime_nodejs)
+my_window.set_runtime(.runtime_nodejs)
 my_window.show("my_file.js")
 ```
