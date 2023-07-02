@@ -16,8 +16,8 @@
     - [Startup Timeout](/v_api?id=startup-timeout)
     - [Multi Access](/v_api?id=multi-access)
 - JavaScript
-    - [Run JavaScript From V](/v_api?id=run-javascript-from-c)
-    - [Run V From JavaScript](/v_api?id=run-c-from-javascript)
+    - [Run JavaScript From V](/v_api?id=run-javascript-from-v)
+    - [Run V From JavaScript](/v_api?id=run-v-from-javascript)
     - [TypeScript Runtimes](/v_api?id=typescript-runtimes)
 
 ---
