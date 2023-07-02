@@ -23,12 +23,6 @@
 ---
 ### Download and Install
 
-Install the WebUI package from vpm (*~1.5 Mb*).
-
-`v install webui-dev.v-webui`
-
-Or from github
-
 `v install https://github.com/webui-dev/v-webui`
 
 ---
