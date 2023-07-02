@@ -201,14 +201,13 @@ Also you can see the `element` and `data` is not native V string. So you can use
 import vwebui as webui
 
 fn my_function(e &webui.Event) {
-    // Get data
-    str := e.get().str // As a string
-    number := e.get().int // As an int
-    status := e.get().bool // As a boolean
-    // Also you can use `json` module from V standart library to parse json
+	// Get data
+	str := e.data.string
+	number = e.data.int
+	status = e.data.bool
 
-    // Get target element
-    target_element := e.element()
+	// Get target element
+	target_element := e.element
 }
 ```
 
@@ -244,18 +243,16 @@ It is essential to call `wait()` at the end of your main function, after you cre
 
 ```v
 import vwebui as webui
-int main() {
 
+fn main() {
 	mut my_window := webui.new_window() // Create windows...
 	// Bind HTML elements...
-    // Show the windows...
-    // Show a window using the embedded HTML
+	// Show the windows...
+	// Show a window using the embedded HTML
 
-    // Wait until all windows get closed
-    // or when calling webui.exit()
+	// Wait until all windows get closed
+	// or when calling webui.exit()
 	my_window.wait()
-
-    return 0;
 }
 ```
 
@@ -353,20 +350,17 @@ import vwebui as webui
 
 mut my_window := webui.new_window() 
 
-void my_function(webui_event_t* e) {
-    // Get data from JavaScript
-    str = e.get().str
-    // number = e.get().int
-    // status = e.get().bool
+fn my_function(e &webui.Event) webui.Response {
+	str := e.data.string
+	// number = e.data.int
+	// status = e.data.bool
 
-    // Print the received data
-    println("Data from JavaScript: ${str}") // Message from JS
+	// Print the received data
+	println('Data from JavaScript: ${str}') // Message from JS
 
-    // Return back a response to JavaScript
-    e.@return(e, "Message from V")
-    // e.@return(e, number)
-    // e.@return(e, true)
-    // WebUI will handle type automatically
+	// Return a response to JavaScript
+	// WebUI will handle types automatically
+	return 'Message from V'
 }
 
 my_window.bind("MyID", my_function)
