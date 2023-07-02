@@ -79,6 +79,7 @@ To show a window, you can use `webui_show()`. If the window is already shown, th
 
 ```v
 import vwebui as webui
+
 // Create a new window
 mut my_window := webui.new_window()
 // Show a window using the embedded HTML
@@ -159,9 +160,9 @@ To know if a specific window is running, you can use `is_shown()`.
 import vwebui as webui
 
 if webui.is_shown(my_window) {
-    println("The window is still running")
+	println('The window is still running')
 } else {
-    println("The window is closed.")
+	println('The window is closed.')
 }
 ```
 
@@ -172,8 +173,9 @@ Use `bind()` to receive click events when the user clicks on any HTML element wi
 
 ```v
 import vwebui as webui
+
 fn my_function_string(e &webui.Event) {
-    // <button id="MyID">Hello</button> gets clicked!
+	// <button id="MyID">Hello</button> gets clicked!
 }
 
 my_window.bind("MyID", my_function)
@@ -185,13 +187,14 @@ my_window.bind("MyID", my_function)
 
 ```v
 import vwebui as webui
+
 pub struct Event {
-	pub mut:
-		window			Window // Pointer to the window object
-		event_type		u64 // Event type
-		element			&char // HTML element ID
-		data			&char // JavaScript data
-		event_number	u64 // To set the callback response
+pub mut:
+	window       Window // Pointer to the window object
+	event_type   u64    // Event type
+	element      &char  // HTML element ID
+	data         &char  // JavaScript data
+	event_number u64    // To set the callback response
 }
 ```
 
@@ -214,26 +217,26 @@ fn my_function(e &webui.Event) {
 ```v
 import vwebui as webui
 
-fn my_function(e &webui.Event) { 
-    // This function gets called every time
-    // there is an event
-    if e.event_type == webui.event_connected {
-        println("Connected.")
-    } else if e.event_type == webui.event_disconnected {
-        println("Disconnected.")
-    } else if e.event_type == webui.event_mouse_click {
-        println("Click.")
-    } else if e.event_type == webui.event_navigation {
-        //println("Starting navigation to: ${e.data}")
-    }
+fn my_function(e &webui.Event) {
+	// This function gets called every time
+	// there is an event
+	if e.event_type == webui.event_connected {
+		println('Connected.')
+	} else if e.event_type == webui.event_disconnected {
+		println('Disconnected.')
+	} else if e.event_type == webui.event_mouse_click {
+		println('Click.')
+	} else if e.event_type == webui.event_navigation {
+		// println("Starting navigation to: ${e.data}")
+	}
 
-    // Send back a response to JavaScript
-    e.@return("Hi!") // WebUI will handle type automatically
-    // string, int, bool is supported
+	// Send back a response to JavaScript
+	e.@return('Hi!') // WebUI will handle types automatically
+	// string, int, bool is supported
 }
 
 // Empty ID means all events on all elements
-webui_bind(my_window, "", my_function)
+webui_bind(my_window, '', my_function)
 ```
 
 ---
@@ -263,6 +266,7 @@ At any moment, you can call `exit()`, which tries to close all related opened wi
 
 ```v
 import vwebui as webui
+
 webui.exit()
 ```
 
@@ -273,7 +277,8 @@ You can call `webui.close()` to close a specific window, if there is no running 
 
 ```v
 import vwebui as webui
-mut my_window := webui.new_window() 
+
+mut my_window := webui.new_window()
 my_window.close()
 ```
 
@@ -284,10 +289,11 @@ WebUI waits a couple of seconds (_Default is 30 seconds_) to let the web browser
 
 ```v
 import vwebui as webui
+
 // Wait 10 seconds for the browser to start
 webui.set_timeout(10)
 
-mut my_window := webui.new_window() 
+mut my_window := webui.new_window()
 
 // Now, After 10 seconds, if the browser did
 // not get started, wait() will break
@@ -299,7 +305,7 @@ import vwebui as webui
 // Wait forever.
 webui.set_timeout(0)
 
-mut my_window := webui.new_window() 
+mut my_window := webui.new_window()
 
 // webui_wait() will never end
 my_window.wait()
@@ -314,7 +320,8 @@ After the window is loaded, the URL is not valid anymore for safety. V-WebUI wil
 
 ```v
 import vwebui as webui
-mut my_window := webui.new_window() 
+
+mut my_window := webui.new_window()
 
 my_window.set_multi_access(true)
 ```
@@ -328,15 +335,14 @@ You can run JavaScript on any window to read values, update the view, or anythin
 import vwebui as webui
 
 fn my_function(e &webui.Event) {
+	// Run JavaScript
+	response := e.window.script('return 2*2;', 0, 64)
 
-    // Run JavaScript
-    response := e.window.script("return 2*2;", 0, 64)
+	// Print the result
+	println('JavaScript Response: ${response.int()}') // 4
 
-    // Print the result
-    println("JavaScript Response: ${response.int()}") // 4
-
-    // Run JavaScript quickly with no waiting for the response
-    e.window.run("alert('Fast!');")
+	// Run JavaScript quickly with no waiting for the response
+	e.window.run("alert('Fast!');")
 }
 ```
 
@@ -348,7 +354,7 @@ To call a V function from JavaScript and get the result back please use `webui_f
 ```v
 import vwebui as webui
 
-mut my_window := webui.new_window() 
+mut my_window := webui.new_window()
 
 fn my_function(e &webui.Event) webui.Response {
 	str := e.data.string
@@ -363,14 +369,14 @@ fn my_function(e &webui.Event) webui.Response {
 	return 'Message from V'
 }
 
-my_window.bind("MyID", my_function)
+my_window.bind('MyID', my_function)
 ```
 
 JavsScript:
 
 ```js
 webui_fn('MyID', 'Message from JS').then((response) => {
-    console.log(response); // "Message from V
+	console.log(response); // "Message from V
 });
 ```
 
