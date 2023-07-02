@@ -44,7 +44,7 @@ MyWindow.show('<html>Hello World</html>')
 webui.wait()
 ```
 
-Using a local HTML file. Please not that you need to add `<script src="/webui.js"></script>` to all your HTML files
+Using a local HTML file. Please note that you need to add `<script src="/webui.js"></script>` to all your HTML files
 
 ```python
 from webui import webui
