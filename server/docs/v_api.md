@@ -61,7 +61,7 @@ Using a specific web browser
 import webui-dev.v-webui as webui
 
 mut my_window := webui.new_window()
-my_window.show_browser("<html>Hello</html>", webui.browser_chrome)
+my_window.show_browser("<html>Hello</html>", webui.chrome)
 webui.wait()
 ```
 
@@ -103,37 +103,37 @@ import webui-dev.v-webui as webui
 my_html := "<html>Hello!</html>";
 
 // Google Chrome
-my_window.show_browser(my_html, webui.browser_chrome)
+my_window.show_browser(my_html, webui.chrome)
 
 // Mozilla Firefox
-my_window.show_browser(my_html, webui.browser_firefox)
+my_window.show_browser(my_html, webui.firefox)
 
 // Microsoft Edge
-my_window.show_browser(my_html, webui.browser_edge)
+my_window.show_browser(my_html, webui.edge)
 
 // Apple Safari (Not Ready)
-my_window.show_browser(my_html, webui.browser_safari)
+my_window.show_browser(my_html, webui.safari)
 
 // The Chromium Project
-my_window.show_browser(my_html, webui.browser_chromium)
+my_window.show_browser(my_html, webui.chromium)
 
 // The Opera Browser (Not Ready)
-my_window.show_browser(my_html, webui.browser_opera)
+my_window.show_browser(my_html, webui.opera)
 
 // The Brave Browser
-my_window.show_browser(my_html, webui.browser_brave)
+my_window.show_browser(my_html, webui.brave)
 
 // The Vivaldi Browsex
-my_window.show_browser(my_html, webui.browser_vivaldi)
+my_window.show_browser(my_html, webui.vivaldi)
 
 // The Epic Browser
-my_window.show_browser(my_html, webui.browser_epic)
+my_window.show_browser(my_html, webui.epic)
 
 // The Yandex Browser
-my_window.show_browser(my_html, webui.browser_yandex)
+my_window.show_browser(my_html, webui.yandex)
 
 // Default recommended web browser
-my_window.show_browser(my_html, webui.browser_any)
+my_window.show_browser(my_html, webui.any)
 
 // Or simply
 webui_show(my_window, my_html)
