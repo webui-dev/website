@@ -44,7 +44,7 @@ my_window.show("<html>Hello</html>")
 webui.wait()
 ```
 
-Using a local HTML file. Please not that you need to add `<script src="/webui.js"></script>` to all your HTML files
+Using a local HTML file. Please note that you need to add `<script src="/webui.js"></script>` to all your HTML files
 
 ```v
 import webui-dev.v-webui as webui
@@ -211,7 +211,7 @@ fn my_function(e &webui.Event) {
     str := e.get().str // As a string
     number := e.get().int // As an int
     status := e.get().bool // As a boolean
-    // Also you can use `json` module from V standart library to parse json
+    // Also you can use `json` module from V standard library to parse json
 
     // Get target element
     target_element := e.element()
