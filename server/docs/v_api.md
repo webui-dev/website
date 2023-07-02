@@ -98,37 +98,37 @@ import vwebui as webui
 my_html := "<html>Hello!</html>";
 
 // Google Chrome
-my_window.show_browser(my_html, webui.chrome)
+my_window.show_browser(my_html, .chrome)
 
 // Mozilla Firefox
-my_window.show_browser(my_html, webui.firefox)
+my_window.show_browser(my_html, .firefox)
 
 // Microsoft Edge
-my_window.show_browser(my_html, webui.edge)
+my_window.show_browser(my_html, .edge)
 
 // Apple Safari (Not Ready)
-my_window.show_browser(my_html, webui.safari)
+my_window.show_browser(my_html, .safari)
 
 // The Chromium Project
-my_window.show_browser(my_html, webui.chromium)
+my_window.show_browser(my_html, .chromium)
 
 // The Opera Browser (Not Ready)
-my_window.show_browser(my_html, webui.opera)
+my_window.show_browser(my_html, .opera)
 
 // The Brave Browser
-my_window.show_browser(my_html, webui.brave)
+my_window.show_browser(my_html, .brave)
 
 // The Vivaldi Browsex
-my_window.show_browser(my_html, webui.vivaldi)
+my_window.show_browser(my_html, .vivaldi)
 
 // The Epic Browser
-my_window.show_browser(my_html, webui.epic)
+my_window.show_browser(my_html, .epic)
 
 // The Yandex Browser
-my_window.show_browser(my_html, webui.yandex)
+my_window.show_browser(my_html, .yandex)
 
 // Default recommended web browser
-my_window.show_browser(my_html, webui.any)
+my_window.show_browser(my_html, .any)
 
 // Or simply
 webui_show(my_window, my_html)
@@ -383,7 +383,7 @@ webui_fn('MyID', 'Message from JS').then((response) => {
 ---
 ### TypeScript Runtimes
 
-You may want to interpret JavaScript & TypeScript files and show the output in the UI. You can use `set_runtime()` and choose between `runtime_deno` or `runtime_nodejs` as your runtimes.
+You may want to interpret JavaScript & TypeScript files and show the output in the UI. You can use `set_runtime()` and choose between `.runtime_deno` or `.runtime_nodejs` as your runtimes.
 
 ```v
 import vwebui as webui
@@ -391,10 +391,10 @@ import vwebui as webui
 mut my_window := webui.new_window()
 
 // Deno
-my_window.set_runtime(webui.runtime_deno)
+my_window.set_runtime(.runtime_deno)
 my_window.show("my_file.ts")
 
 // Nodejs
-my_window.set_runtime(webui.runtime_nodejs)
+my_window.set_runtime(.runtime_nodejs)
 my_window.show("my_file.js")
 ```
