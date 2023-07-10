@@ -6,3 +6,4 @@
   - [WebUI Go APIs](/go_api)
   - [WebUI V APIs](/v_api)
   - [WebUI Nim APIs](/nim_api)
+  - [WebUI Deno/JS APIs](/deno_api)
