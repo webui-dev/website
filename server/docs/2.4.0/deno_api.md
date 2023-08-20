@@ -1,4 +1,4 @@
-# WebUI v2.3.0 Deno APIs
+# WebUI v2.4.0 Deno APIs
 
 - [Import](/deno_api?id=import)
 - [Examples](/deno_api?id=examples)

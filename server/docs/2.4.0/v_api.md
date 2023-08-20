@@ -1,4 +1,4 @@
-# V-WebUI v2.3.0 APIs
+# V-WebUI v2.4.0 APIs
 
 - [Download and Install](/v_api?id=download-and-install)
 - [Examples](/v_api?id=examples)

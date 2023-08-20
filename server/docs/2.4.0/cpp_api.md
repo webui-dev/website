@@ -1,4 +1,4 @@
-# WebUI v2.3.0 C++ APIs
+# WebUI v2.4.0 C++ APIs
 
 - [Download](/cpp_api?id=download)
 - [Build From Source](/cpp_api?id=build-from-source)
@@ -24,7 +24,7 @@
 ---
 ### Download
 
-Download WebUI v2.3.0 prebuilt binaries here: https://webui.me/#download
+Download WebUI v2.4.0 prebuilt binaries here: https://webui.me/#download
 
 ---
 ### Build from Source

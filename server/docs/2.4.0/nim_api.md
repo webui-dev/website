@@ -1,4 +1,4 @@
-# WebUI v2.3.0 Nim APIs
+# WebUI v2.4.0 Nim APIs
 
 - [Download And Install](/nim_api?id=download-and-install)
 - [Examples](/nim_api?id=examples)
