@@ -34,6 +34,9 @@
         fill: #000000;
       }
 
+      .github-icon svg {
+        fill: #A486BC;
+      }
       .github-corner:hover .octo-arm{
         animation:octocat-wave 560ms ease-in-out;
       }
@@ -237,27 +240,33 @@
         </g>
       </g>
     </svg>
-    <section id="contact" class="container mx-auto text-center pt-6 mb-12">
+    <section id="contact" class="container mx-auto text-center pt-4 mb-12">
       <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Open Source</h1>
       <div class="w-full mb-4">
         <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
       </div>
       <h3 class="m-4 text-3xl leading-tight">Contribute to the WebUI project using your preferred programming language!</h3>
     </section>
-    <section class="container mx-auto mb-12 text-center">
+    <section class="container mx-auto mb-16 text-center">
         <p class="text-center">
-          WebUI is written in pure C, and the wrappers are written in multiple different language.<br>
-          This means you can contribute to the WebUI project using your main programming language, we need your expertise.<br>
-          <a class="underline" href="https://github.com/webui-dev/webui" target="_blank">GitHub</a><br>
+        WebUI is written in pure C. It is lightweight and has an easy-to-use API.<br>
+        Due to its high interoperability, it has wrappers in multiple different languages.<br>
+        You can contribute to the WebUI project using your preferred programming language.<br>
         </p>
     </section>
     <footer class="bg-white">
       <div class="container mx-auto">
-        <div class="w-full flex flex-col md:flex-row p-4 py-6 text-gray-500">
-          <p>
-            &copy;2020-2023 <a href="https://github.com/hassandraga" class="text-gray-500">Hassan Draga</a>.<br>
-            <a href="https://github.com/webui-dev" class="text-gray-500">GitHub</a>.
-          </p>
+        <div class="w-full flex justify-between px-4 py-6 text-gray-500">
+          <div>
+            &copy;2020-2023 <a href="https://github.com/hassandraga">Hassan Draga</a>.
+          </div>
+          <div class="github-icon opacity-75 hover:opacity-100">
+            <a href="https://github.com/webui-dev">
+              <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title" aria-describedby="desc" role="img" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <path d="M32 0a32.021 32.021 0 0 0-10.1 62.4c1.6.3 2.2-.7 2.2-1.5v-6c-8.9 1.9-10.8-3.8-10.8-3.8-1.5-3.7-3.6-4.7-3.6-4.7-2.9-2 .2-1.9.2-1.9 3.2.2 4.9 3.3 4.9 3.3 2.9 4.9 7.5 3.5 9.3 2.7a6.93 6.93 0 0 1 2-4.3c-7.1-.8-14.6-3.6-14.6-15.8a12.27 12.27 0 0 1 3.3-8.6 11.965 11.965 0 0 1 .3-8.5s2.7-.9 8.8 3.3a30.873 30.873 0 0 1 8-1.1 30.292 30.292 0 0 1 8 1.1c6.1-4.1 8.8-3.3 8.8-3.3a11.965 11.965 0 0 1 .3 8.5 12.1 12.1 0 0 1 3.3 8.6c0 12.3-7.5 15-14.6 15.8a7.746 7.746 0 0 1 2.2 5.9v8.8c0 .9.6 1.8 2.2 1.5A32.021 32.021 0 0 0 32 0z"></path>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
