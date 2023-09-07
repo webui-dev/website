@@ -33,6 +33,17 @@
       .text-gray-800 .st3 {
         fill: #000000;
       }
+      #header.scrolled {
+        background: white;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      }
+      #header.scrolled #logo,
+      #header.scrolled #nav-toggle {
+        color: black;
+      }
+      #header.scrolled #nav-toggle {
+        margin-right: 0 !important;
+      }
 
       .github-icon svg {
         fill: #A486BC;
@@ -65,29 +76,29 @@
     <!--Nav-->
     <nav id="header" class="sticky w-full z-30 top-0 text-white">
       <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
-        <div class="pl-4 flex items-center">
-          <a class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="https://webui.me/">
+        <div id="logo" class="pl-4 flex items-center">
+          <a class="no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="https://webui.me/">
             WebUI
           </a>
         </div>
         <div class="block lg:hidden pr-4">
-          <button id="nav-toggle" class="flex items-center p-1 text-white-800 mr-12 sm:mr-10 lg:mr-0">
+          <button id="nav-toggle" onclick="toggleNav();" class="flex items-center p-1 text-white-800 mr-12 sm:mr-10 lg:mr-0">
             <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <title>Menu</title>
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
             </svg>
           </button>
         </div>
-        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 lg:bg-transparent text-black p-4 lg:p-0 z-20 bg-gray-100" id="nav-content">
-          <ul class="list-reset lg:flex justify-end flex-1 items-center my-4">
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 lg:bg-transparent p-4 lg:p-0 z-20 bg-gray-100" id="nav-content">
+          <ul class="text-black lg:flex justify-end flex-1 items-center my-4">
             <li class="mr-3">
-              <a class="inline-block py-2 px-4 text-black no-underline" href="https://webui.me/">Home</a>
+              <a class="inline-block py-2 px-4 no-underline" href="https://webui.me/">Home</a>
             </li>
             <li class="mr-3">
-              <a class="inline-block py-2 px-4 text-black no-underline" href="#features">Features</a>
+              <a class="inline-block py-2 px-4 no-underline" href="#features">Features</a>
             </li>
             <li class="mr-3">
-              <a class="inline-block py-2 px-4 text-black no-underline" href="/docs">Documentation</a>
+              <a class="inline-block py-2 px-4 no-underline" href="/docs">Documentation</a>
             </li>
           </ul>
           <a href="#download" id="navAction" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold mt-4 lg:mt-0 py-2 px-4 shadow opacity-75">Download</a>
@@ -271,47 +282,21 @@
       </div>
     </footer>
     <script>
+      const header = document.getElementById('header'),
+          navContent = document.getElementById('nav-content');
 
-      var s = document.getElementById("header"),
-        c = document.getElementById("nav-content"),
-        u = document.getElementById("navAction"),
-        l = (document.getElementById("brandname"), document.querySelectorAll(".toggleColour")),
-        h = function() {
-            s.classList.add("bg-white"), u.classList.remove("bg-white"), u.classList.add("gradient-button"), u.classList.remove("text-gray-800"), u.classList.add("text-white");
-            for (var e = 0; e < l.length; e++) l[e].classList.add("text-gray-800"), l[e].classList.remove("text-white");
-            s.classList.add("shadow"), c.classList.remove("bg-gray-100"), c.classList.add("bg-white"), v.classList.remove("text-white-800"), v.classList.add("text-gray-900")
-        },
-        f = function() {
-            window.scrollY >10 ? h() : function() {
-                s.classList.remove("bg-white"), u.classList.remove("gradient-button"), u.classList.add("bg-white"), u.classList.remove("text-white"), u.classList.add("text-gray-800");
-                for (var e = 0; e < l.length; e++) l[e].classList.add("text-white"), l[e].classList.remove("text-gray-800");
-                s.classList.remove("shadow"), c.classList.remove("bg-white"), c.classList.add("bg-gray-100"), v.classList.remove("text-gray-900"), v.classList.add("text-white-800")
-            }()
-        };
+      function handleScroll() {
+          window.scrollY >10 ? header.classList.add('scrolled') : header.classList.remove('scrolled')
+      };
 
-        window.addEventListener("load", (function() {
-            document.querySelector(".main-page-hero") ? (document.addEventListener("scroll", (function() {
-                f()
-            })), f()) : h()
-        }));
+      window.addEventListener('load', () => {
+        handleScroll();
+        document.addEventListener('scroll', handleScroll);
+      });
 
-        var d = document.getElementById("nav-content"),
-            v = document.getElementById("nav-toggle");
-          
-        function p(e, t) {
-            for (; e.parentNode; ) {
-                if (e == t) return !0;
-                e = e.parentNode;
-            }
-            return !1;
-        }
-
-        (document.onclick = function (e) {
-            var t = (e && e.target) || (event && event.srcElement);
-            p(t, d) || (p(t, v) && d.classList.contains("hidden") ? d.classList.remove("hidden") : d.classList.add("hidden"));
-        });
-    
+      function toggleNav() {
+          navContent.classList.contains('hidden') ? navContent.classList.remove('hidden') : navContent.classList.add('hidden')
+      }
     </script>
-
   </body>
 </html>
