@@ -110,3 +110,47 @@
   src: url(https://fonts.gstatic.com/s/sourcesanspro/v21/6xKydSBYKcSV-LCoeQqfX1RYOo3ig4vwlxdu.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
+.gradient {
+  background: linear-gradient(90deg, #4b2669ff 0%, #a486bcff 100%);
+}
+.gradient-button {
+  background: linear-gradient(90deg, #4b2669ff 0%, rgb(88, 47, 122) 100%);
+}
+#header.scrolled {
+  background: white;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+#header.scrolled #logo,
+#header.scrolled #nav-toggle,
+#header.scrolled #menu {
+  color: black;
+}
+#header.scrolled #nav-toggle {
+  margin-right: 0 !important;
+}
+.github-icon svg {
+  fill: #A486BC;
+}
+.github-corner:hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out;
+}
+@keyframes octocat-wave {
+  0%,100%{
+    transform: rotate(0);
+  }
+  20%,60% {
+    transform: rotate(-25deg);
+  }
+  40%,80% {
+    transform: rotate(10deg);
+  }
+}
+@media (max-width:500px) {
+  .github-corner:hover .octo-arm {
+    animation: none;
+  }
+  .github-corner .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+  }
+}
