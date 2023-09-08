@@ -1,5 +1,5 @@
 # website
 
-![preview](https://github.com/tobealive/website/assets/34311583/7679d78b-312a-491d-bb20-8f110cd9d942)
+[![Website](https://img.shields.io/website?label=webui.me&style=for-the-badge&url=https://google.com)](https://webui.me/) [![Docs](https://img.shields.io/website?label=documentation&style=for-the-badge&url=https://google.com)](https://webui.me/docs/2.4.0/)
 
-The WebUI Website and Documentation: https://webui.me/
+The WebUI Website and Documentation.
