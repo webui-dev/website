@@ -38,7 +38,8 @@
         box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
       }
       #header.scrolled #logo,
-      #header.scrolled #nav-toggle {
+      #header.scrolled #nav-toggle,
+      #header.scrolled #menu {
         color: black;
       }
       #header.scrolled #nav-toggle {
@@ -90,7 +91,7 @@
           </button>
         </div>
         <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 lg:bg-transparent p-4 lg:p-0 z-20 bg-gray-100" id="nav-content">
-          <ul class="text-black lg:flex justify-end flex-1 items-center my-4">
+          <ul id="menu" class="text-black lg:text-white lg:text-lg lg:flex justify-end flex-1 items-center my-4">
             <li class="mr-3">
               <a class="inline-block py-2 px-4 no-underline" href="https://webui.me/">Home</a>
             </li>
@@ -101,7 +102,7 @@
               <a class="inline-block py-2 px-4 no-underline" href="/docs">Documentation</a>
             </li>
           </ul>
-          <a href="#download" id="navAction" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold mt-4 lg:mt-0 py-2 px-4 shadow opacity-75">Download</a>
+          <a href="#download" id="navAction" class="mx-auto lg:text-lg lg:mx-0 hover:underline bg-white text-gray-800 font-bold mt-4 lg:mt-0 py-2 px-4 shadow opacity-75">Download</a>
         </div>
       </div>
     </nav>
