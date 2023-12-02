@@ -1860,8 +1860,15 @@ webui.call('my_cpp_function', 'Message from JS').then((response) => {
 #### **Python**
 <!-- ---------- -->
 ```python
+# webui.event
+#    window # Window (Object)
+#    event_type # Event Type (Number)
+#    element # Element name (String)
+#    event_num # Event Number (Number)
+#    bind_id # Bind ID (Number)
+
 def my_python_function(e : webui.event):
-	print("Data from JavaScript: " + e.data) # Message from JS
+	print("Data from JavaScript: " + e.window.get_str(e, 0)) # Message from JS
     return "Message from Python"
 
 MyWindow.bind("my_python_function", my_python_function)
