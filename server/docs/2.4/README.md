@@ -202,7 +202,7 @@ import "github.com/webui-dev/go-webui"
 
 func main() {
 	myWindow := webui.NewWindow()
-	myWindow.Show("<html><script src=\"webui.js\"></script> Hello World from Go! </html>")
+	myShow("<html><script src=\"webui.js\"></script> Hello World from Go! </html>")
 	webui.Wait()
 }
 ```
@@ -212,7 +212,7 @@ func main() {
 import webui
 
 let window = newWindow()
-window.show("<html><script src=\"webui.js\"></script> Hello World from Nim! </html>")
+myWindow.show("<html><script src=\"webui.js\"></script> Hello World from Nim! </html>")
 wait()
 ```
 [More Nim Examples](https://github.com/webui-dev/nim-webui/tree/main/examples).
@@ -549,7 +549,7 @@ if my_window.IsShown() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-if window.shown():
+if myWindow.shown():
   echo "A window is running..."
 else:
   echo "No window is running."
@@ -657,7 +657,19 @@ webui_set_icon(myWindow, myIcon, myIconType);
 #### **Nim**
 <!-- ---------- -->
 ```nim
+# SVG Icon
+let
+  myIcon = "<svg>...</svg>";
+  myIconType = "image/svg+xml"
 
+# PNG Icon
+# const char* myIcon = "data:image/...";
+# const char* myIconType = "image/png"
+
+# When the web browser ask for `favicon.ico`, WebUI will
+# send a redirection to `favicon.svg`, the body will be `myIcon`
+# and the mime-type will be `myIconType`
+myWindow.setIcon(myIcon, myIconType)
 ```
 <!-- ---------- -->
 #### **V**
@@ -785,7 +797,7 @@ webui.Bind(my_window, "MyID", my_function)
 #### **Nim**
 <!-- ---------- -->
 ```nim
-window.bind("MyID") do (e: Event):
+myWindow.bind("MyID") do (e: Event):
   # <button id="MyID">Hello</button> gets clicked!
   echo "Binding element ", e.element, "!"
 ```
@@ -797,13 +809,13 @@ bind it manually:
 proc exitApp(e: Event) =
   exit()
 
-window.bind(exitApp)
+myWindow.bind(exitApp)
 ```
 
 You can also have a return value on your function, it must be either a `string`, `int`, or `bool`. The return value will be automatically passed back to the Javascript code for you.
 
 ```nim
-window.bind("MyID") do (e: Event) -> int:
+myWindow.bind("MyID") do (e: Event) -> int:
   return 1 + 2  # 3
 ```
 <!-- ---------- -->
@@ -960,7 +972,7 @@ webui.Bind(my_window, "", events)
 <!-- ---------- -->
 ```nim
 # Empty ID means bind all events on all elements
-window.bind("") do (e: Event):
+myWindow.bind("") do (e: Event):
   echo "Hi!, You clicked on ", e.element, " element"
 ```
 <!-- ---------- -->
@@ -1097,7 +1109,36 @@ webui_set_file_handler(myWindow, my_files_handler);
 #### **Nim**
 <!-- ---------- -->
 ```nim
+var count: int
 
+myWindow.setFileHandler() do (filename: string) -> string:
+  echo "File: ", filename
+
+  case filename
+  of "/test.txt":
+    # Const static file example
+    # Note: The connection will drop if the content
+    # does not have `<script src="/webui.js"></script>`
+
+    return "This is a embedded file content example."
+  of "/dynamic.html":
+    # Dynamic file example
+    inc count
+
+    return fmt"""
+<html>
+  This is a dynamic file content example.
+  <br>
+  Count: {count} <a href="dynamic.html">[Refresh]</a>
+  <br>
+
+  <script src="/webui.js"></script>
+</html>
+"""
+
+  # By default, this function returns an empty string
+  # returning an empty string will make WebUI look for 
+  # the requested file locally
 ```
 <!-- ---------- -->
 #### **V**
@@ -1422,7 +1463,7 @@ webui.Close(my_window)
 #### **Nim**
 <!-- ---------- -->
 ```nim
-window.close()
+myWindow.close()
 ```
 <!-- ---------- -->
 #### **V**
@@ -1525,7 +1566,20 @@ webui_wait();
 #### **Nim**
 <!-- ---------- -->
 ```nim
+# Wait 10 seconds for the browser to start
+setTimeout(10);
 
+# Now, After 10 seconds, if the browser did
+# not get started, wait() will break
+wait();
+```
+
+```nim
+# Wait forever.
+setTimeout(0);
+
+# wait() will never end
+wait();
 ```
 <!-- ---------- -->
 #### **V**
@@ -1689,7 +1743,7 @@ webui.Run(e.Window, "alert('Fast!')")
 #### **Nim**
 <!-- ---------- -->
 ```nim
-window.bind("ExampleElement") do (e: Event):
+myWindow.bind("ExampleElement") do (e: Event):
   # Run JavaScript to get the result
   let res = e.window.script("return 2*2;")
 
@@ -1961,7 +2015,7 @@ webui.call('my_go_function', 'Message from JS').then((response) => {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-window.bind("my_nim_function") do (e: Event) -> string:
+myWindow.bind("my_nim_function") do (e: Event) -> string:
   echo "Data from JavaScript: ", e.data # Message from JS
 
   return "Message from Nim"
@@ -2136,12 +2190,12 @@ webui.Show(my_window, "my_file.js")
 <!-- ---------- -->
 ```nim
 # Deno
-window.runtime = Deno
-window.show("my_file.ts")
+myWindow.runtime = Deno
+myWindow.show("my_file.ts")
 
 # Nodejs
-window.runtime = NodeJS
-window.show("my_file.js")
+myWindow.runtime = NodeJS
+myWindow.show("my_file.js")
 ```
 <!-- ---------- -->
 #### **V**
