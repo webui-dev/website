@@ -1560,19 +1560,19 @@ webui_wait();
 <!-- ---------- -->
 ```python
 # Wait 10 seconds for the browser to start
-webui.set_timeout(10);
+webui.set_timeout(10)
 
 # Now, After 10 seconds, if the browser did
 # not get started, webui.wait() will break
-webui.wait();
+webui.wait()
 ```
 
 ```python
 # Wait forever.
-webui.set_timeout(0);
+webui.set_timeout(0)
 
 # webui_wait() will never end
-webui.wait();
+webui.wait()
 ```
 <!-- ---------- -->
 #### **Deno**
