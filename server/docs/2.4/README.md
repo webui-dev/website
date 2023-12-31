@@ -639,7 +639,18 @@ webui_set_icon(myWindow, myIcon, myIconType);
 #### **Python**
 <!-- ---------- -->
 ```python
+# SVG Icon
+myIcon = "<svg>...</svg>"
+myIconType = "image/svg+xml"
 
+# PNG Icon
+# myIcon = "data:image/..."
+# myIconType = "image/png"
+
+# When the web browser ask for `favicon.ico`, WebUI will
+# send a redirection to `favicon.svg`, the body will be `myIcon`
+# and the mime-type will be `myIconType`
+myWindow.set_icon(myIcon, myIconType)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -1548,7 +1559,20 @@ webui_wait();
 #### **Python**
 <!-- ---------- -->
 ```python
+# Wait 10 seconds for the browser to start
+webui.set_timeout(10);
 
+# Now, After 10 seconds, if the browser did
+# not get started, webui.wait() will break
+webui.wait();
+```
+
+```python
+# Wait forever.
+webui.set_timeout(0);
+
+# webui_wait() will never end
+webui.wait();
 ```
 <!-- ---------- -->
 #### **Deno**
