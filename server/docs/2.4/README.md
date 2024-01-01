@@ -109,6 +109,49 @@ git submodule add https://github.com/webui-dev/odin-webui.git webui
 webui/setup.sh
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+
+1. Add dependency
+
+For zig `nightly`, use this:
+
+```sh
+# for zig nightly 
+zig fetch --save https://github.com/webui-dev/zig-webui/archive/main.tar.gz
+```
+
+For zig `0.11.0`, add this to `build.zig.zon`:
+
+```zig
+.@"zig-webui" = .{
+        .url = "https://github.com/webui-dev/zig-webui/archive/main.tar.gz",
+        .hash = <hash value>,
+    },
+```
+
+This tells zig to fetch zig-webui from a tarball provided by GitHub. Make sure to replace the COMMIT part with an actual commit SHA in long form, like 219faa2a5cd5a268a865a1100e92805df4b84610. Every time you want to update zig-webui you'll have to update this commit.
+
+2. Config `build.zig`
+
+Add this to `build.zig`:
+
+```zig
+const zig_webui = b.dependency("zig-webui", .{
+    .target = target,
+    .optimize = optimize,
+    .enable_tls = false, // whether enable tls support
+    .is_static = true, // whether static link
+});
+
+// add module
+exe.addModule("webui", zig_webui.module("webui"));
+
+// link library
+exe.linkLibrary(zig_webui.artifact("webui"));
+```
+
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -130,12 +173,6 @@ webui/setup.sh
 ```
 <!-- ---------- -->
 **Basic**
-<!-- ---------- -->
-```sh
-// In development...
-```
-<!-- ---------- -->
-**Zig**
 <!-- ---------- -->
 ```sh
 // In development...
@@ -238,6 +275,16 @@ main :: proc() {
 }
 ```
 [More Odin Examples](https://github.com/webui-dev/odin-webui/tree/main/examples).
+#### **Zig**
+```zig
+const webui = @import("webui");
+
+pub fn main() !void {
+    var nwin = webui.newWindow();
+    _ = nwin.show("<html><head><script src=\"webui.js\"></script></head> Hello World ! </html>");
+    webui.wait();
+}
+```
 #### **Other...**
 **Rust**
 ```sh
@@ -252,10 +299,6 @@ main :: proc() {
 // In development...
 ```
 **Basic**
-```sh
-// In development...
-```
-**Zig**
 ```sh
 // In development...
 ```
@@ -317,6 +360,12 @@ mut myWindow := ui.new_window()
 myWindow := ui.new_window()
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+var new_window = webui.newWindow();
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -340,12 +389,6 @@ myWindow := ui.new_window()
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
@@ -458,6 +501,18 @@ ui.show(myWindow, "https://mydomain.com");
 ui.show_browser(myWindow, <html><script src=\"/webui.js\"> ... </html>", Chrome);
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+const successed = myWindow.show("<html><script src=\"webui.js\"> ... </html>");
+
+const successed = myWindow.show("file.html");
+
+const successed = myWindow.show("https://mydomain.com");
+
+const successed = myWindow.showBrowser("<html><script src=\"webui.js\"> ... </html>", .Chrome);
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -481,12 +536,6 @@ ui.show_browser(myWindow, <html><script src=\"/webui.js\"> ... </html>", Chrome)
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
@@ -571,6 +620,16 @@ if webui.is_shown(my_window) {
 // In development...
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+if (new_window.isShown()) {
+    std.debug.print("The window is still running", .{});
+} else {
+    std.debug.print("The window is closed.", .{});
+}
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -594,12 +653,6 @@ if webui.is_shown(my_window) {
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
@@ -684,6 +737,22 @@ myWindow.setIcon(myIcon, myIconType)
 // In development...
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+// SVG Icon
+const my_icon = "<svg>...</svg>";
+const my_icon_type = "image/svg+xml";
+// PNG Icon
+// const my_icon = "data:image/...";
+// const my_icon_type = "image/png";
+
+// When the web browser ask for `favicon.ico`, WebUI will
+// send a redirection to `favicon.svg`, the body will be `my_icon`
+// and the mime-type will be `my_icon_type`
+new_window.setIcon(my_icon, my_icon_type);
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -707,12 +776,6 @@ myWindow.setIcon(myIcon, myIconType)
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
@@ -837,6 +900,16 @@ my_window.bind("MyID", my_function)
 // In development...
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+fn myFunction(e: webui.Event) void {
+    // <button id="MyID">Hello</button> gets clicked!
+}
+
+my_window.bind("MyID", myFunction);
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -860,12 +933,6 @@ my_window.bind("MyID", my_function)
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
@@ -991,6 +1058,47 @@ fn my_function(e &webui.Event) {
 // In development...
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+// Event
+//    window_handle: usize,     // The window handler
+//    event_type: Events,       // Event type
+//    element: []u8,            // HTML element ID
+//    event_number: usize,      // Internal WebUI
+//    bind_id: usize,           // Bind ID
+
+fn myFunction(e: webui.Event) void {
+
+    std.debug.print("Hi!, You clicked on {s} element\n", e.element);
+
+    switch (e.event_type) {
+        .EVENT_CONNECTED => {
+            std.debug.print("Connected. \n", .{});
+        },
+        .EVENT_DISCONNECTED => {
+            std.debug.print("Disconnected. \n", .{});
+        },
+        .EVENT_MOUSE_CLICK => {
+            std.debug.print("Click. \n", .{});
+        },
+        .EVENT_NAVIGATION => {
+            const url = webui.getString(e);
+            std.debug.print("Starting navigation to: {s} \n", .{url});
+        },
+        else => {},
+    }
+
+    // Send back a response to JavaScript
+    webui.returnInt(e, 123); // As integer
+    webui.returnBool(e, true); // As boolean
+    webui.returnString(e, "My Response"); // As string
+}
+
+// Empty ID means all events on all elements
+my_window.bind("", myFunction);
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -1014,12 +1122,6 @@ fn my_function(e &webui.Event) {
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
@@ -1153,6 +1255,59 @@ myWindow.setFileHandler() do (filename: string) -> string:
 // In development...
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+var count: i32 = 0;
+
+fn my_files_handler(filename: []const u8) ?[]u8 {
+
+    std.debug.print("File: {s}\n", .{filename});
+
+    if (std.mem.eql(u8, filename, "/test.txt")) {
+
+        // Const static file example
+        // Note: The connection will drop if the content
+        // does not have `<script src="/webui.js"></script>`
+        return "This is a embedded file content example.";
+    } else if (std.mem.eql(u8, filename, "/dynamic.html")) {
+
+        // Dynamic file example
+
+        // Safely allocate memory
+        var dynamic_content = webui.malloc(1024);
+
+        for (0..dynamic_content.len) |i| {
+            dynamic_content[i] = 0;
+        }
+
+        count += 1;
+
+        // Generate a test content
+        const buf = std.fmt.bufPrint(dynamic_content,
+            \\  <html>
+            \\      This is a dynamic file content example. <br>
+            \\	    Count: {} <a href="dynamic.html">[Refresh]</a><br>
+            \\	    <script src="webui.js"></script> 
+            \\  </html>
+            // webui.js, to keep connection with WebUI
+        , .{count}) catch unreachable;
+
+        // By allocating resources using webui.malloc()
+        // WebUI will automaticaly free the resources
+        return buf;
+    }
+
+    // A NULL return will make WebUI
+    // looks for the file locally. if
+    // not, WebUI will generate `404`
+    return null;
+}
+
+// Set a custom files handler
+my_window.setFileHandler(my_files_handler);
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -1176,12 +1331,6 @@ myWindow.setFileHandler() do (filename: string) -> string:
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
@@ -1298,6 +1447,18 @@ fn main() {
 // In development...
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+// Create windows...
+// Bind HTML elements...
+// Show the windows...
+
+// Wait until all windows get closed
+// or when calling webui.exit()
+webui.wait();
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -1321,12 +1482,6 @@ fn main() {
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
@@ -1388,6 +1543,12 @@ webui.exit()
 // In development...
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+webui.exit();
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -1411,12 +1572,6 @@ webui.exit()
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
@@ -1478,6 +1633,12 @@ my_window.close()
 // In development...
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+my_window.close();
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -1501,12 +1662,6 @@ my_window.close()
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
@@ -1594,6 +1749,25 @@ wait();
 // In development...
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+// Wait 10 seconds for the browser to start
+webui.setTimeout(10);
+
+// Now, After 10 seconds, if the browser did
+// not get started, wait() will break
+webui.wait();
+```
+
+```zig
+// Wait forever.
+webui.setTimeout(0);
+
+// webui.wait() will never end
+webui.wait();
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -1617,12 +1791,6 @@ wait();
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
@@ -1778,6 +1946,33 @@ fn my_function(e &webui.Event) {
 // In development...
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+fn myFunction(e: webui.Event) void {
+    // Create a buffer to hold the response
+    var response: [64]u8 = std.mem.zeroes([64]u8);
+
+    var tmp_e = e;
+    var win = tmp_e.getWindow();
+
+    // Run JavaScript
+    if (!win.script("return 2*2;", // JavaScript to be executed
+        0, // Maximum waiting time in second
+        &response // Local buffer to hold the JavaScript response
+    )) {
+        std.debug.print("JavaScript Error: {s}\n", .{response});
+        return;
+    }
+
+    // Print the result
+    std.debug.print("JavaScript Response: {s}\n", .{response}); // 4
+
+    // Run JavaScript quickly with no waiting for the response
+    win.run("alert('Fast!');");
+}
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -1801,12 +1996,6 @@ fn my_function(e &webui.Event) {
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
@@ -2090,6 +2279,55 @@ webui.call('my_v_function', 'Message from JS').then((response) => {
 // In development...
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+fn myCFunction(e: webui.Event) void {
+
+    // Reading the first argument from JavaScript
+    const str = webui.getStringAt(e, 0);
+
+    // get string length
+    const str_len = webui.str_len(str);
+
+    // Print the received data
+    std.debug.print("Data from JavaScript: {s}\n", .{str[0..str_len]}); // Message from JS
+    
+    // Return back a response to JavaScript
+    webui.returnString(e, "Message from C");
+
+    // Other functions:
+    //
+    // var number = webui.getIntAt(e, 0);
+    // var status = webui.getBoolAt(e, 0);
+    //
+    // webui.returnInt(e, number);
+    // webui.returnBool(e, true);
+}
+
+my_window.bind("my_c_function", myCFunction);
+```
+
+JavsScript:
+
+```js
+my_v_function('Message from JS').then((response) => {
+    console.log(response); // "Message from C
+});
+
+// Or
+
+webui.my_v_function('Message from JS').then((response) => {
+    console.log(response); // "Message from C
+});
+
+// Or
+
+webui.call('my_v_function', 'Message from JS').then((response) => {
+    console.log(response); // "Message from C
+});
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -2113,12 +2351,6 @@ webui.call('my_v_function', 'Message from JS').then((response) => {
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
@@ -2216,6 +2448,18 @@ my_window.show("my_file.js")
 // In development...
 ```
 <!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+// Deno
+my_window.setRuntime(.Deno);
+my_window.show("my_file.ts");
+
+// Nodejs
+my_window.setRuntime(.Nodejs);
+my_window.show("my_file.js");
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Rust**
@@ -2239,12 +2483,6 @@ my_window.show("my_file.js")
 **Basic**
 <!-- ---------- -->
 ```basic
-// In development...
-```
-<!-- ---------- -->
-**Zig**
-<!-- ---------- -->
-```zig
 // In development...
 ```
 <!-- ---------- -->
