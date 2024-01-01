@@ -2282,7 +2282,7 @@ webui.call('my_v_function', 'Message from JS').then((response) => {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-fn myCFunction(e: webui.Event) void {
+fn my_zig_function(e: webui.Event) void {
 
     // Reading the first argument from JavaScript
     const str = webui.getStringAt(e, 0);
@@ -2294,7 +2294,7 @@ fn myCFunction(e: webui.Event) void {
     std.debug.print("Data from JavaScript: {s}\n", .{str[0..str_len]}); // Message from JS
     
     // Return back a response to JavaScript
-    webui.returnString(e, "Message from C");
+    webui.returnString(e, "Message from Zig");
 
     // Other functions:
     //
@@ -2305,26 +2305,26 @@ fn myCFunction(e: webui.Event) void {
     // webui.returnBool(e, true);
 }
 
-my_window.bind("my_c_function", myCFunction);
+my_window.bind("my_zig_function", my_zig_function);
 ```
 
 JavsScript:
 
 ```js
-my_v_function('Message from JS').then((response) => {
-    console.log(response); // "Message from C
+my_zig_function('Message from JS').then((response) => {
+    console.log(response); // "Message from Zig
 });
 
 // Or
 
-webui.my_v_function('Message from JS').then((response) => {
-    console.log(response); // "Message from C
+webui.my_zig_function('Message from JS').then((response) => {
+    console.log(response); // "Message from Zig
 });
 
 // Or
 
-webui.call('my_v_function', 'Message from JS').then((response) => {
-    console.log(response); // "Message from C
+webui.call('my_zig_function', 'Message from JS').then((response) => {
+    console.log(response); // "Message from Zig
 });
 ```
 <!-- ---------- -->
