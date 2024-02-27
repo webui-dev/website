@@ -117,7 +117,7 @@ webui/setup.sh
 For zig `nightly`, use this:
 
 ```sh
-# for zig nightly 
+# for zig nightly
 zig fetch --save https://github.com/webui-dev/zig-webui/archive/main.tar.gz
 ```
 
@@ -399,7 +399,7 @@ var new_window = webui.newWindow();
 ---
 ### Show Window
 
-You can show the WebUI window, which is a web browser window. If the window is already shown, the UI will get refreshed by the new content in the same window.
+You can show the WebUI window, which is a web browser window. If the window is already shown, the UI will be refreshed.
 
 <!-- tabs:start -->
 <!-- ---------- -->
@@ -545,7 +545,7 @@ const successed = myWindow.showBrowser("<html><script src=\"webui.js\"> ... </ht
 ---
 ### Window Status
 
-To know if a specific window is running.
+To know if a specific window is still shown.
 
 <!-- tabs:start -->
 <!-- ---------- -->
@@ -662,7 +662,7 @@ if (new_window.isShown()) {
 ---
 ### Embedded Icon
 
-To embed an icon (_String format_) whtin the application.
+To embed an icon within the application as a string.
 
 <!-- tabs:start -->
 <!-- ---------- -->
@@ -940,7 +940,7 @@ my_window.bind("MyID", myFunction);
 
 ### Events
 
-Every event comes with the `e` object that contains the event information, like click, function call, connect, disconnect...
+Every event comes with the `webui_event_t` object that contains information about the event, like click, function call, connect, disconnect...
 
 <!-- tabs:start -->
 <!-- ---------- -->
@@ -965,7 +965,7 @@ void my_function(webui_event_t* e){
     else if(e->event_type == WEBUI_EVENT_MOUSE_CLICK)
         printf("Click. \n");
     else if(e->event_type == WEBUI_EVENT_NAVIGATION)
-        printf("Starting navigation to: %s \n", e->data);    
+        printf("Starting navigation to: %s \n", e->data);
 
     // Send back a response to JavaScript
     webui_return_int(e, 123); // As integer
@@ -1129,7 +1129,7 @@ my_window.bind("", myFunction);
 
 ### Files Handler
 
-You can generate files dynamicaly, his become handy when you would like to create a REST APIs for your UI.
+You can generate files dynamically, this is handy when you would like to create a REST APIs for your UI.
 
 <!-- tabs:start -->
 <!-- ---------- -->
@@ -1239,7 +1239,7 @@ myWindow.setFileHandler() do (filename: string) -> string:
 """
 
   # By default, this function returns an empty string
-  # returning an empty string will make WebUI look for 
+  # returning an empty string will make WebUI look for
   # the requested file locally
 ```
 <!-- ---------- -->
@@ -1288,7 +1288,7 @@ fn my_files_handler(filename: []const u8) ?[]u8 {
             \\  <html>
             \\      This is a dynamic file content example. <br>
             \\	    Count: {} <a href="dynamic.html">[Refresh]</a><br>
-            \\	    <script src="webui.js"></script> 
+            \\	    <script src="webui.js"></script>
             \\  </html>
             // webui.js, to keep connection with WebUI
         , .{count}) catch unreachable;
@@ -1340,7 +1340,7 @@ my_window.setFileHandler(my_files_handler);
 ---
 ### Wait
 
-It is essential to call the `wait` function at the end of your primary function after you create/show all your windows. This will make your application run until the user closes all visible windows or when calling *[exit()](/?id=exit)*. You can show again the same windows, create a new one, or call the `wait` function again.
+It is essential to call the `wait` function at the end of your main function after you create/show all your windows. This will make your application run until the user closes all visible windows or when calling *[exit()](/?id=exit)*. You can show the same windows again, create a new one, or call the `wait` function again.
 
 <!-- tabs:start -->
 <!-- ---------- -->
@@ -1491,7 +1491,7 @@ webui.wait();
 ---
 ### Exit
 
-You can call `exit` at any moment, which tries to close all opened windows and make *[wait](/?id=wait)* break. All WebUI memory resources will be freed, which makes WebUI unusable.
+You can call `exit` at any moment, which tries to close all opened windows and make *[wait](/?id=wait)* return. All WebUI memory resources will be freed, which makes WebUI unusable.
 
 <!-- tabs:start -->
 <!-- ---------- -->
@@ -1581,7 +1581,7 @@ webui.exit();
 ---
 ### Close
 
-You can call `close` to close a specific window, if there is no running window left *[wait](/?id=wait)* will break.
+You can call `close` to close a specific window, if there is no running window left *[wait](/?id=wait)* will return.
 
 <!-- tabs:start -->
 <!-- ---------- -->
@@ -1800,7 +1800,7 @@ webui.wait();
 ---
 ### Run JavaScript From Backend
 
-You can run JavaScript on any window to read values, update the view, or anything else. In addition, you can check if the script execution has errors, as well as reading the received data.
+You can run JavaScript on any window to read values, update the view, or anything else. Additionally, you can check if the script execution has errors, as well as reading the received data.
 
 <!-- tabs:start -->
 <!-- ---------- -->
@@ -2006,7 +2006,7 @@ fn myFunction(e: webui.Event) void {
 ### Call a Backend Function From JavaScript
 
 To call a backend function from JavaScript and get the result back, please use `myBackendFunction(arguments... ).then((response) => { ... });`.<br>
-The backend function is also availbale at `webui.myBackendFunction(arguments... ).then((response) => { ... });`.
+The backend function is also available at `webui.myBackendFunction(arguments... ).then((response) => { ... });`.
 
 <!-- tabs:start -->
 <!-- ---------- -->
@@ -2063,7 +2063,7 @@ void my_cpp_function(webui::event* e) {
 
     // Get data from JavaScript
     std::string str = e->data;
-    // Or 
+    // Or
     // std::string str = e->window.get_string(e);
     // long long number = e->window.get_int(e);
     // bool status = e->window.get_bool(e);
@@ -2170,7 +2170,7 @@ webui.call('my_deno_function', 'Message from JS').then((response) => {
 <!-- ---------- -->
 ```go
 func my_go_function(e webui.Event) string {
-	
+
     // Get data from JavaScript
     fmt.Printf("Data from JavaScript: %s\n", e.Data) // Message from JS
 
@@ -2292,7 +2292,7 @@ fn my_zig_function(e: webui.Event) void {
 
     // Print the received data
     std.debug.print("Data from JavaScript: {s}\n", .{str[0..str_len]}); // Message from JS
-    
+
     // Return back a response to JavaScript
     webui.returnString(e, "Message from Zig");
 
