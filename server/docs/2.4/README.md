@@ -239,7 +239,7 @@ import "github.com/webui-dev/go-webui"
 
 func main() {
 	myWindow := webui.NewWindow()
-	myShow("<html><script src=\"webui.js\"></script> Hello World from Go! </html>")
+	myWindow.Show("<html><script src=\"webui.js\"></script> Hello World from Go! </html>")
 	webui.Wait()
 }
 ```
