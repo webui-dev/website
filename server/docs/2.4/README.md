@@ -180,8 +180,8 @@ int main() {
 ```python
 from webui import webui
 
-myWindow = webui.window()
-myWindow.show('<html><script src="webui.js"></script> Hello World from Python! </html>')
+my_window = webui.window()
+my_window.show('<html><script src="webui.js"></script> Hello World from Python! </html>')
 webui.wait()
 ```
 [More Python Examples](https://github.com/webui-dev/python-webui/tree/main/examples).
@@ -284,7 +284,7 @@ webui::window myWindow;
 #### **Python**
 <!-- ---------- -->
 ```python
-myWindow = webui.window()
+my_window = webui.window()
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -389,13 +389,13 @@ myWindow.show_browser("<html><script src=\"/webui.js\"> ... </html>", Chrome);
 #### **Python**
 <!-- ---------- -->
 ```python
-myWindow.show('<html><script src="/webui.js"> ... </html>')
+my_window.show('<html><script src="/webui.js"> ... </html>')
 
-myWindow.show('file.html')
+my_window.show('file.html')
 
-myWindow.show('https://mydomain.com')
+my_window.show('https://mydomain.com')
 
-myWindow.show('<html><script src="/webui.js"> ... </html>', webui.browser.chrome)
+my_window.show('<html><script src="/webui.js"> ... </html>', webui.browser.chrome)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -521,7 +521,7 @@ else
 #### **Python**
 <!-- ---------- -->
 ```python
-if MyWindow.is_shown():
+if my_window.is_shown():
 	print("The window is still running")
 else
 	print("The window is closed.")
@@ -640,17 +640,17 @@ webui_set_icon(myWindow, myIcon, myIconType);
 <!-- ---------- -->
 ```python
 # SVG Icon
-myIcon = "<svg>...</svg>"
-myIconType = "image/svg+xml"
+my_icon = "<svg>...</svg>"
+my_icon_type = "image/svg+xml"
 
 # PNG Icon
-# myIcon = "data:image/..."
-# myIconType = "image/png"
+# my_icon = "data:image/..."
+# my_icon_type = "image/png"
 
 # When the web browser ask for `favicon.ico`, WebUI will
 # send a redirection to `favicon.svg`, the body will be `myIcon`
 # and the mime-type will be `myIconType`
-myWindow.set_icon(myIcon, myIconType)
+my_window.set_icon(myIcon, myIconType)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -779,7 +779,7 @@ my_window.bind("MyID", my_function_wrapper);
 #### **Python**
 <!-- ---------- -->
 ```python
-def my_function(e : webui.event):
+def my_function(e: webui.event):
 	# <button id="MyID">Hello</button> gets clicked!
 
 MyWindow.bind("MyID", my_function)
@@ -950,11 +950,11 @@ my_window.bind("", my_function);
 #### **Python**
 <!-- ---------- -->
 ```python
-def events(e : webui.event):
+def events(e: webui.event):
 	print('Hi!, You clicked on ' + e.element + ' element')
 
 # Empty ID means all events on all elements
-MyWindow.bind("", events)
+my_window.bind("", events)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -1248,7 +1248,7 @@ int main() {
 # Show the windows...
 
 # Wait until all windows get closed
-# or when calling MyWindow.exit()
+# or when calling my_window.exit()
 webui.wait()
 ```
 <!-- ---------- -->
@@ -1456,7 +1456,7 @@ my_window.close();
 #### **Python**
 <!-- ---------- -->
 ```python
-MyWindow.close()
+my_window.close()
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -1946,10 +1946,10 @@ webui.call('my_cpp_function', 'Message from JS').then((response) => {
 #    bind_id # Bind ID (Number)
 
 def my_python_function(e : webui.event):
-	print("Data from JavaScript: " + e.window.get_str(e, 0)) # Message from JS
+    print("Data from JavaScript: " + e.window.get_str(e, 0)) # Message from JS
     return "Message from Python"
 
-MyWindow.bind("my_python_function", my_python_function)
+my_window.bind("my_python_function", my_python_function)
 ```
 
 JavsScript:
@@ -2184,12 +2184,12 @@ my_window.show("my_file.js");
 <!-- ---------- -->
 ```python
 # Deno
-MyWindow.set_runtime(webui.runtime.deno)
-MyWindow.show("my_file.ts")
+my_window.set_runtime(webui.runtime.deno)
+my_window.show("my_file.ts")
 
 # Nodejs
-MyWindow.set_runtime(webui.runtime.nodejs)
-MyWindow.show("my_file.js")
+my_window.set_runtime(webui.runtime.nodejs)
+my_window.show("my_file.js")
 ```
 <!-- ---------- -->
 #### **Deno**
