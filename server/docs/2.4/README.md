@@ -522,9 +522,9 @@ else
 <!-- ---------- -->
 ```python
 if my_window.is_shown():
-	print("The window is still running")
+    print("The window is still running")
 else
-	print("The window is closed.")
+    print("The window is closed.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -780,7 +780,7 @@ my_window.bind("MyID", my_function_wrapper);
 <!-- ---------- -->
 ```python
 def my_function(e: webui.event):
-	# <button id="MyID">Hello</button> gets clicked!
+    # <button id="MyID">Hello</button> gets clicked!
 
 MyWindow.bind("MyID", my_function)
 ```
@@ -951,7 +951,7 @@ my_window.bind("", my_function);
 <!-- ---------- -->
 ```python
 def events(e: webui.event):
-	print('Hi!, You clicked on ' + e.element + ' element')
+    print('Hi!, You clicked on ' + e.element + ' element')
 
 # Empty ID means all events on all elements
 my_window.bind("", events)
@@ -1728,9 +1728,9 @@ res = e.window.script("return 2*2;")
 
 # Check for any error
 if res.error is True:
-	print("JavaScript Error: " + res.data)
+    print("JavaScript Error: " + res.data)
 else:
-	print("JavaScript Response: " + res.data) # 4
+    print("JavaScript Response: " + res.data) # 4
 
 # Run JavaScript quickly with no waiting for the response
 e.window.run("alert('Fast!')")
