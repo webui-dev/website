@@ -653,13 +653,17 @@ if (new_window.isShown()) {
 }
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+if win.is_shown() {
+    println!("The window is still running");
+} else {
+    println!("The window is closed.");
+}
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
