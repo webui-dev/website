@@ -1503,13 +1503,18 @@ fn main() {
 webui.wait();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+use webui_rs::webui;
+
+fn main() {
+  // ...
+  webui::wait();
+}
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1593,13 +1598,13 @@ webui.exit()
 webui.exit();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+webui::exit();
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1683,13 +1688,13 @@ my_window.close()
 my_window.close();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+win.close();
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1812,13 +1817,13 @@ webui.setTimeout(0);
 webui.wait();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
 // In development...
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -2017,13 +2022,20 @@ fn myFunction(e: webui.Event) void {
 }
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+fn main() {
+  // ...
+  win.run_js("console.log('Hello from the backend!')");
+}
+
+fn event_handler(e: webui::Event) {
+  e.get_window().run_js("console.log('Hello from the event handler!')");
+}
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -2372,13 +2384,13 @@ webui.call('my_zig_function', 'Message from JS').then((response) => {
 });
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
 // In development...
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -2504,13 +2516,13 @@ my_window.setRuntime(.Nodejs);
 my_window.show("my_file.js");
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+// In development
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
