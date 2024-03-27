@@ -1138,13 +1138,18 @@ fn myFunction(e: webui.Event) void {
 my_window.bind("", myFunction);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+fn event_handler(e: webui::Event) {
+  println!("Hi!, You clicked on {} element", e.element);
+}
+
+// Empty ID means all events on all elements
+win.bind("", event_handler);
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1347,13 +1352,13 @@ fn my_files_handler(filename: []const u8) ?[]u8 {
 my_window.setFileHandler(my_files_handler);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
 // In development...
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
