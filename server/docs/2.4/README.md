@@ -780,13 +780,13 @@ const my_icon_type = "image/svg+xml";
 new_window.setIcon(my_icon, my_icon_type);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
 // In development...
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -937,13 +937,25 @@ fn myFunction(e: webui.Event) void {
 my_window.bind("MyID", myFunction);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+// With external function
+fn my_function(e: webui::Event) -> String {
+    // <button id="MyID">Hello</button> gets clicked!
+    "".to_string()
+}
+
+win.bind("MyID", my_function);
+
+// With closure
+win.bind("MyID2", |_: webui::Event| -> String {
+    // <button id="MyID2">Hello</button> gets clicked!
+    "".to_string()
+});
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
