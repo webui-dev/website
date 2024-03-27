@@ -296,11 +296,18 @@ pub fn main() !void {
     webui.wait();
 }
 ```
-#### **Other...**
-**Rust**
-```sh
-// In development...
+#### **Rust**
+```rust
+use webui_rs::webui;
+
+pub fn main() {
+  let win = webui::Window::new();
+  win.show("<html><body><h1>Hello, World!</h1></body></html>");
+  webui::wait();
+}
 ```
+[More Rust Examples](https://github.com/webui-dev/rust-webui/tree/main/examples).
+#### **Other...**
 **Pascal**
 ```sh
 // In development...
@@ -377,13 +384,13 @@ myWindow := ui.new_window()
 var new_window = webui.newWindow();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+let win = webui::Window::new();
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
