@@ -531,13 +531,18 @@ const successed = myWindow.show("https://mydomain.com");
 const successed = myWindow.showBrowser("<html><script src=\"webui.js\"> ... </html>", .Chrome);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
-<!-- ---------- -->
+#### **Rust**
 ```rust
-// In development...
+win.show("<html><script src=\"/webui.js\"> ... </html>");
+
+win.show("file.html");
+
+win.show("https://mydomain.com");
+
+win.show_browser("<html><script src=\"/webui.js\"> ... </html>", webui::WebUIBrowser::Chrome);
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
