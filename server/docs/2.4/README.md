@@ -152,13 +152,24 @@ exe.linkLibrary(zig_webui.artifact("webui"));
 ```
 
 <!-- ---------- -->
+#### **Rust**
+<!-- ---------- -->
+1. Add `webui` to your Cargo dependencies:
+  
+  ```sh
+  webui = { git = "https://github.com/webui-dev/rust-webui/", branch = "main" }
+
+  # Or by git tag
+  webui = { git = "https://github.com/webui-dev/rust-webui/", tag = "v2.4.2" }
+
+  # Or by git commit
+  webui = { git = "https://github.com/webui-dev/rust-webui/", rev = "a1b2c3d4" }
+  ```
+
+2. Bring in the static [WebUI static release](https://github.com/webui-dev/webui/releases) or [build action](https://github.com/webui-dev/webui/actions?query=branch%3Amain) file for your platform and place it in your project's root directory.
+
+<!-- ---------- -->
 #### **Other...**
-<!-- ---------- -->
-**Rust**
-<!-- ---------- -->
-```sh
-// In development...
-```
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -285,11 +296,18 @@ pub fn main() !void {
     webui.wait();
 }
 ```
-#### **Other...**
-**Rust**
-```sh
-// In development...
+#### **Rust**
+```rust
+use webui_rs::webui;
+
+pub fn main() {
+  let win = webui::Window::new();
+  win.show("<html><body><h1>Hello, World!</h1></body></html>");
+  webui::wait();
+}
 ```
+[More Rust Examples](https://github.com/webui-dev/rust-webui/tree/main/examples).
+#### **Other...**
 **Pascal**
 ```sh
 // In development...
@@ -366,13 +384,13 @@ myWindow := ui.new_window()
 var new_window = webui.newWindow();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+let win = webui::Window::new();
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -513,13 +531,18 @@ const successed = myWindow.show("https://mydomain.com");
 const successed = myWindow.showBrowser("<html><script src=\"webui.js\"> ... </html>", .Chrome);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
-<!-- ---------- -->
+#### **Rust**
 ```rust
-// In development...
+win.show("<html><script src=\"/webui.js\"> ... </html>");
+
+win.show("file.html");
+
+win.show("https://mydomain.com");
+
+win.show_browser("<html><script src=\"/webui.js\"> ... </html>", webui::WebUIBrowser::Chrome);
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -630,13 +653,17 @@ if (new_window.isShown()) {
 }
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+if win.is_shown() {
+    println!("The window is still running");
+} else {
+    println!("The window is closed.");
+}
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -753,13 +780,13 @@ const my_icon_type = "image/svg+xml";
 new_window.setIcon(my_icon, my_icon_type);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
 // In development...
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -910,13 +937,25 @@ fn myFunction(e: webui.Event) void {
 my_window.bind("MyID", myFunction);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+// With external function
+fn my_function(e: webui::Event) -> String {
+    // <button id="MyID">Hello</button> gets clicked!
+    "".to_string()
+}
+
+win.bind("MyID", my_function);
+
+// With closure
+win.bind("MyID2", |_: webui::Event| -> String {
+    // <button id="MyID2">Hello</button> gets clicked!
+    "".to_string()
+});
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1099,13 +1138,18 @@ fn myFunction(e: webui.Event) void {
 my_window.bind("", myFunction);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+fn event_handler(e: webui::Event) {
+  println!("Hi!, You clicked on {} element", e.element);
+}
+
+// Empty ID means all events on all elements
+win.bind("", event_handler);
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1308,13 +1352,13 @@ fn my_files_handler(filename: []const u8) ?[]u8 {
 my_window.setFileHandler(my_files_handler);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
 // In development...
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1459,13 +1503,18 @@ fn main() {
 webui.wait();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+use webui_rs::webui;
+
+fn main() {
+  // ...
+  webui::wait();
+}
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1549,13 +1598,13 @@ webui.exit()
 webui.exit();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+webui::exit();
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1639,13 +1688,13 @@ my_window.close()
 my_window.close();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+win.close();
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1768,13 +1817,13 @@ webui.setTimeout(0);
 webui.wait();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
 // In development...
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1973,13 +2022,20 @@ fn myFunction(e: webui.Event) void {
 }
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+fn main() {
+  // ...
+  win.run_js("console.log('Hello from the backend!')");
+}
+
+fn event_handler(e: webui::Event) {
+  e.get_window().run_js("console.log('Hello from the event handler!')");
+}
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -2328,13 +2384,13 @@ webui.call('my_zig_function', 'Message from JS').then((response) => {
 });
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
 // In development...
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -2460,13 +2516,13 @@ my_window.setRuntime(.Nodejs);
 my_window.show("my_file.js");
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+// In development
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
