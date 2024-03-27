@@ -152,13 +152,24 @@ exe.linkLibrary(zig_webui.artifact("webui"));
 ```
 
 <!-- ---------- -->
+#### **Rust**
+<!-- ---------- -->
+1. Add `webui` to your Cargo dependencies:
+  
+  ```sh
+  webui = { git = "https://github.com/webui-dev/rust-webui/", branch = "main" }
+
+  # Or by git tag
+  webui = { git = "https://github.com/webui-dev/rust-webui/", tag = "v2.4.2" }
+
+  # Or by git commit
+  webui = { git = "https://github.com/webui-dev/rust-webui/", rev = "a1b2c3d4" }
+  ```
+
+2. Bring in the static [WebUI static release](https://github.com/webui-dev/webui/releases) or [build action](https://github.com/webui-dev/webui/actions?query=branch%3Amain) file for your platform and place it in your project's root directory.
+
+<!-- ---------- -->
 #### **Other...**
-<!-- ---------- -->
-**Rust**
-<!-- ---------- -->
-```sh
-// In development...
-```
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
