@@ -783,7 +783,18 @@ new_window.setIcon(my_icon, my_icon_type);
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+// SVG Icon
+let my_icon = "<svg>...</svg>";
+let my_icon_type = "image/svg+xml";
+
+// PNG Icon
+// let my_icon = "data:image/...";
+// let my_icon_type = "image/png";
+
+// When the web browser ask for `favicon.ico`, WebUI will
+// send a redirection to `favicon.svg`, the body will be `my_icon`
+// and the mime-type will be `my_icon_type`
+win.set_icon(my_icon, my_icon_type);
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -1355,7 +1366,39 @@ my_window.setFileHandler(my_files_handler);
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+static mut COUNT: i32 = 0;
+
+fn my_file_handler(filename: *const i8, len: *mut i32) -> *const std::os::raw::c_void {
+    let filename = unsafe { std::ffi::CStr::from_ptr(filename).to_str().unwrap() };
+
+    println!("File: {}", filename);
+
+    if filename == "/test.txt" {
+        // Const static file example
+        // Note: The connection will drop if the content
+        // does not have `<script src="/webui.js"></script>`
+        let content = "This is a embedded file content example.";
+        unsafe { *len = content.len() as i32 };
+        return content.as_ptr() as *const std::os::raw::c_void;
+    } else if filename == "/dynamic.html" {
+        // Dynamic file example
+        unsafe { COUNT += 1 };
+        let content = format!(
+            "<html>This is a dynamic file content example.<br>Count: {} <a href=\"dynamic.html\">[Refresh]</a><br><script src=\"/webui.js\"></script></html>",
+            unsafe { COUNT }
+        );
+        unsafe { *len = content.len() as i32 };
+        return content.as_ptr() as *const std::os::raw::c_void;
+    }
+
+    // A NULL return will make WebUI
+    // looks for the file locally. if
+    // not, WebUI will generate `404`
+    std::ptr::null()
+}
+
+// Set a custom files handler
+win.set_file_handler(my_file_handler);
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -1820,7 +1863,12 @@ webui.wait();
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+// Set timeout for 10 seconds
+webui::set_timeout(10);
+
+// Now, After 10 seconds, if the browser did
+// not get started, wait() will break
+webui::wait();
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -2387,7 +2435,25 @@ webui.call('my_zig_function', 'Message from JS').then((response) => {
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+fn my_rust_function(e: webui::Event) -> String {
+    // Get data from JavaScript
+    let str = e.data;
+    // Print the received data
+    println!("Data from JavaScript: {}", str); // Message from JS
+
+    // Return back a response to JavaScript
+    "Message from Rust".to_string()
+}
+
+win.bind("my_rust_function", my_rust_function);
+```
+
+JavsScript:
+
+```js
+my_rust_function('Message from JS').then((response) => {
+    console.log(response); // "Message from Rust
+});
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -2519,7 +2585,13 @@ my_window.show("my_file.js");
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development
+// Deno
+win.set_runtime(webui::WebUIRuntime::Deno);
+win.show("my_file.ts");
+
+// Nodejs
+win.set_runtime(webui::WebUIRuntime::Nodejs);
+win.show("my_file.js");
 ```
 <!-- ---------- -->
 #### **Other...**
