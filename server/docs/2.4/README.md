@@ -152,13 +152,24 @@ exe.linkLibrary(zig_webui.artifact("webui"));
 ```
 
 <!-- ---------- -->
+#### **Rust**
+<!-- ---------- -->
+1. Add `webui` to your Cargo dependencies:
+  
+  ```sh
+  webui = { git = "https://github.com/webui-dev/rust-webui/", branch = "main" }
+
+  # Or by git tag
+  webui = { git = "https://github.com/webui-dev/rust-webui/", tag = "v2.4.2" }
+
+  # Or by git commit
+  webui = { git = "https://github.com/webui-dev/rust-webui/", rev = "a1b2c3d4" }
+  ```
+
+2. Bring in the static [WebUI static release](https://github.com/webui-dev/webui/releases) or [build action](https://github.com/webui-dev/webui/actions?query=branch%3Amain) file for your platform and place it in your project's root directory.
+
+<!-- ---------- -->
 #### **Other...**
-<!-- ---------- -->
-**Rust**
-<!-- ---------- -->
-```sh
-// In development...
-```
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -285,11 +296,18 @@ pub fn main() !void {
     webui.wait();
 }
 ```
-#### **Other...**
-**Rust**
-```sh
-// In development...
+#### **Rust**
+```rust
+use webui_rs::webui;
+
+pub fn main() {
+  let win = webui::Window::new();
+  win.show("<html><body><h1>Hello, World!</h1></body></html>");
+  webui::wait();
+}
 ```
+[More Rust Examples](https://github.com/webui-dev/rust-webui/tree/main/examples).
+#### **Other...**
 **Pascal**
 ```sh
 // In development...
@@ -366,13 +384,13 @@ myWindow := ui.new_window()
 var new_window = webui.newWindow();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+let win = webui::Window::new();
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -513,13 +531,18 @@ const successed = myWindow.show("https://mydomain.com");
 const successed = myWindow.showBrowser("<html><script src=\"webui.js\"> ... </html>", .Chrome);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
-<!-- ---------- -->
+#### **Rust**
 ```rust
-// In development...
+win.show("<html><script src=\"/webui.js\"> ... </html>");
+
+win.show("file.html");
+
+win.show("https://mydomain.com");
+
+win.show_browser("<html><script src=\"/webui.js\"> ... </html>", webui::WebUIBrowser::Chrome);
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -630,13 +653,17 @@ if (new_window.isShown()) {
 }
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+if win.is_shown() {
+    println!("The window is still running");
+} else {
+    println!("The window is closed.");
+}
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -753,13 +780,24 @@ const my_icon_type = "image/svg+xml";
 new_window.setIcon(my_icon, my_icon_type);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+// SVG Icon
+let my_icon = "<svg>...</svg>";
+let my_icon_type = "image/svg+xml";
+
+// PNG Icon
+// let my_icon = "data:image/...";
+// let my_icon_type = "image/png";
+
+// When the web browser ask for `favicon.ico`, WebUI will
+// send a redirection to `favicon.svg`, the body will be `my_icon`
+// and the mime-type will be `my_icon_type`
+win.set_icon(my_icon, my_icon_type);
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -910,13 +948,25 @@ fn myFunction(e: webui.Event) void {
 my_window.bind("MyID", myFunction);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+// With external function
+fn my_function(e: webui::Event) -> String {
+    // <button id="MyID">Hello</button> gets clicked!
+    "".to_string()
+}
+
+win.bind("MyID", my_function);
+
+// With closure
+win.bind("MyID2", |_: webui::Event| -> String {
+    // <button id="MyID2">Hello</button> gets clicked!
+    "".to_string()
+});
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1099,13 +1149,18 @@ fn myFunction(e: webui.Event) void {
 my_window.bind("", myFunction);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+fn event_handler(e: webui::Event) {
+  println!("Hi!, You clicked on {} element", e.element);
+}
+
+// Empty ID means all events on all elements
+win.bind("", event_handler);
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1308,13 +1363,45 @@ fn my_files_handler(filename: []const u8) ?[]u8 {
 my_window.setFileHandler(my_files_handler);
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+static mut COUNT: i32 = 0;
+
+fn my_file_handler(filename: *const i8, len: *mut i32) -> *const std::os::raw::c_void {
+    let filename = unsafe { std::ffi::CStr::from_ptr(filename).to_str().unwrap() };
+
+    println!("File: {}", filename);
+
+    if filename == "/test.txt" {
+        // Const static file example
+        // Note: The connection will drop if the content
+        // does not have `<script src="/webui.js"></script>`
+        let content = "This is a embedded file content example.";
+        unsafe { *len = content.len() as i32 };
+        return content.as_ptr() as *const std::os::raw::c_void;
+    } else if filename == "/dynamic.html" {
+        // Dynamic file example
+        unsafe { COUNT += 1 };
+        let content = format!(
+            "<html>This is a dynamic file content example.<br>Count: {} <a href=\"dynamic.html\">[Refresh]</a><br><script src=\"/webui.js\"></script></html>",
+            unsafe { COUNT }
+        );
+        unsafe { *len = content.len() as i32 };
+        return content.as_ptr() as *const std::os::raw::c_void;
+    }
+
+    // A NULL return will make WebUI
+    // looks for the file locally. if
+    // not, WebUI will generate `404`
+    std::ptr::null()
+}
+
+// Set a custom files handler
+win.set_file_handler(my_file_handler);
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1459,13 +1546,18 @@ fn main() {
 webui.wait();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+use webui_rs::webui;
+
+fn main() {
+  // ...
+  webui::wait();
+}
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1549,13 +1641,13 @@ webui.exit()
 webui.exit();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+webui::exit();
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1639,13 +1731,13 @@ my_window.close()
 my_window.close();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+win.close();
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1768,13 +1860,18 @@ webui.setTimeout(0);
 webui.wait();
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+// Set timeout for 10 seconds
+webui::set_timeout(10);
+
+// Now, After 10 seconds, if the browser did
+// not get started, wait() will break
+webui::wait();
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -1973,13 +2070,20 @@ fn myFunction(e: webui.Event) void {
 }
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+fn main() {
+  // ...
+  win.run_js("console.log('Hello from the backend!')");
+}
+
+fn event_handler(e: webui::Event) {
+  e.get_window().run_js("console.log('Hello from the event handler!')");
+}
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -2328,13 +2432,31 @@ webui.call('my_zig_function', 'Message from JS').then((response) => {
 });
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+fn my_rust_function(e: webui::Event) -> String {
+    // Get data from JavaScript
+    let str = e.data;
+    // Print the received data
+    println!("Data from JavaScript: {}", str); // Message from JS
+
+    // Return back a response to JavaScript
+    "Message from Rust".to_string()
+}
+
+win.bind("my_rust_function", my_rust_function);
 ```
+
+JavsScript:
+
+```js
+my_rust_function('Message from JS').then((response) => {
+    console.log(response); // "Message from Rust
+});
+```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
@@ -2460,13 +2582,19 @@ my_window.setRuntime(.Nodejs);
 my_window.show("my_file.js");
 ```
 <!-- ---------- -->
-#### **Other...**
-<!-- ---------- -->
-**Rust**
+#### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+// Deno
+win.set_runtime(webui::WebUIRuntime::Deno);
+win.show("my_file.ts");
+
+// Nodejs
+win.set_runtime(webui::WebUIRuntime::Nodejs);
+win.show("my_file.js");
 ```
+<!-- ---------- -->
+#### **Other...**
 <!-- ---------- -->
 **Pascal**
 <!-- ---------- -->
