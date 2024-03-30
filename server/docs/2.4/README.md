@@ -112,29 +112,23 @@ webui/setup.sh
 #### **Zig**
 <!-- ---------- -->
 
-1. Add dependency
+**Zig `0.11`**
 
-For zig `nightly`, use this:
-
-```sh
-# for zig nightly
-zig fetch --save https://github.com/webui-dev/zig-webui/archive/main.tar.gz
-```
-
-For zig `0.11.0`, add this to `build.zig.zon`:
+1. Add this to `build.zig.zon`
 
 ```zig
 .@"zig-webui" = .{
+        // It is recommended to replace the following branch with commit id
         .url = "https://github.com/webui-dev/zig-webui/archive/main.tar.gz",
         .hash = <hash value>,
     },
 ```
 
-This tells zig to fetch zig-webui from a tarball provided by GitHub. Make sure to replace the COMMIT part with an actual commit SHA in long form, like 219faa2a5cd5a268a865a1100e92805df4b84610. Every time you want to update zig-webui you'll have to update this commit.
+This tells zig to fetch zig-webui from a tarball provided by GitHub. Make sure to replace the COMMIT part with an actual commit SHA in long form, like `219faa2a5cd5a268a865a1100e92805df4b84610`. Every time you want to update zig-webui you'll have to update this commit.
 
 2. Config `build.zig`
 
-Add this to `build.zig`:
+Add this:
 
 ```zig
 const zig_webui = b.dependency("zig-webui", .{
@@ -150,6 +144,41 @@ exe.addModule("webui", zig_webui.module("webui"));
 // link library
 exe.linkLibrary(zig_webui.artifact("webui"));
 ```
+
+**Zig `nightly`**
+
+> To be honest, I don’t recommend using the nightly version because the API of the build system is not yet stable, which means that there may be problems with not being able to build after nightly is updated.
+
+1. Add to `build.zig.zon`
+
+```sh
+# It is recommended to replace the following branch with commit id
+zig fetch --save https://github.com/webui-dev/zig-webui/archive/main.tar.gz
+```
+
+2. Config `build.zig`
+
+Add this:
+
+```zig
+const zig_webui = b.dependency("zig-webui", .{
+    .target = target,
+    .optimize = optimize,
+    .enable_tls = false, // whether enable tls support
+    .is_static = true, // whether static link
+});
+
+// add module
+exe.root_module.addImport("webui", zig_webui.module("webui"));
+// note: see this issue for the API changes above,
+// https://github.com/ziglang/zig/pull/18160
+
+// link library
+exe.linkLibrary(zig_webui.artifact("webui"));
+```
+
+> It is not recommended to dynamically link libraries under Windows, which may cause some symbol duplication problems.
+> see this issue: https://github.com/ziglang/zig/issues/15107
 
 <!-- ---------- -->
 #### **Rust**
