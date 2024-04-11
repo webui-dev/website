@@ -768,12 +768,13 @@ webui_set_icon(myWindow, myIcon, myIconType);
 ```nim
 # SVG Icon
 let
-  myIcon = "<svg>...</svg>";
+  myIcon = "<svg>...</svg>"
   myIconType = "image/svg+xml"
 
 # PNG Icon
-# const char* myIcon = "data:image/...";
-# const char* myIconType = "image/png"
+# let
+#   myIcon = "data:image/..."
+#   myIconType = "image/png"
 
 # When the web browser ask for `favicon.ico`, WebUI will
 # send a redirection to `favicon.svg`, the body will be `myIcon`
