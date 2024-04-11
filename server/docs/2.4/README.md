@@ -772,8 +772,8 @@ let
   myIconType = "image/svg+xml"
 
 # PNG Icon
-# const char* myIcon = "data:image/...";
-# const char* myIconType = "image/png"
+# const myIcon = "data:image/..."
+# const myIconType = "image/png"
 
 # When the web browser ask for `favicon.ico`, WebUI will
 # send a redirection to `favicon.svg`, the body will be `myIcon`
