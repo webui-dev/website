@@ -2194,7 +2194,7 @@ void my_c_function(webui_event_t* e) {
 webui_bind(myWindow, "my_c_function", my_c_function);
 ```
 
-JavsScript:
+JavaScript:
 
 ```js
 my_c_function('Message from JS').then((response) => {
@@ -2238,7 +2238,7 @@ void my_cpp_function(webui::event* e) {
 my_window.bind("my_cpp_function", my_cpp_function);
 ```
 
-JavsScript:
+JavaScript:
 
 ```js
 my_cpp_function('Message from JS').then((response) => {
@@ -2275,7 +2275,7 @@ def my_python_function(e : webui.event):
 my_window.bind("my_python_function", my_python_function)
 ```
 
-JavsScript:
+JavaScript:
 
 ```js
 my_python_function('Message from JS').then((response) => {
@@ -2304,7 +2304,7 @@ myWindow.bind("my_deno_function", ({ data }) => {
 });
 ```
 
-JavsScript:
+JavaScript:
 
 ```js
 my_deno_function('Message from JS').then((response) => {
@@ -2339,7 +2339,7 @@ func my_go_function(e webui.Event) string {
 webui.Bind(my_window, "my_go_function", my_go_function)
 ```
 
-JavsScript:
+JavaScript:
 
 ```js
 my_go_function('Message from JS').then((response) => {
@@ -2411,7 +2411,7 @@ fn my_v_function(e &webui.Event) webui.Response {
 my_window.bind('my_v_function', my_v_function)
 ```
 
-JavsScript:
+JavaScript:
 
 ```js
 my_v_function('Message from JS').then((response) => {
@@ -2466,7 +2466,7 @@ fn my_zig_function(e: webui.Event) void {
 my_window.bind("my_zig_function", my_zig_function);
 ```
 
-JavsScript:
+JavaScript:
 
 ```js
 my_zig_function('Message from JS').then((response) => {
@@ -2502,7 +2502,7 @@ fn my_rust_function(e: webui::Event) -> String {
 win.bind("my_rust_function", my_rust_function);
 ```
 
-JavsScript:
+JavaScript:
 
 ```js
 my_rust_function('Message from JS').then((response) => {
