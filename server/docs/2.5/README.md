@@ -1148,13 +1148,13 @@ int main() {
 
 Show a **WebView** window using embedded HTML, or a file. If the window is already open, it will be refreshed.
 
-> WebUI main focus is using the web browsers as GUI, but in case you need to use WebView instead of a web browser, then you can use this API which is added to WebUI starting from v2.5.
+> WebUI's primary focus is using web browsers as GUI, but if you need to use WebView instead of a web browser, then you can use this API, which was added to WebUI starting from v2.5.
 
-> Windows dependencies: WebView2, and `WebView2Loader.dll`.
-
-> Linux dependencies: WebKit GTK v3.
-
-> macOS dependencies: WebKit (_WKWebView_).
+> Windows Dependencies: WebView2, and `WebView2Loader.dll`.
+>
+> Linux Dependencies: WebKit GTK v3.
+>
+> macOS Dependencies: WebKit (_WKWebView_).
 
 <!-- tabs:start -->
 <!-- ---------- -->
