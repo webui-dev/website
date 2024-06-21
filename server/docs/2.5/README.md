@@ -490,7 +490,16 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    size_t id = 1;
+    webui::window win(id);
+    
+    // Later
+    win.show("index.html");
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -590,7 +599,16 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    size_t id = webui::get_new_window_id();
+
+    // Later
+    webui::window win(id);
+    win.show("index.html");
+}
 ```
 <!-- ---------- -->
 #### **Python**
