@@ -5702,8 +5702,8 @@ void callback(webui::window::event* e) {
 	// JavaScript:
 	// callback(12345, 6789);
 
-    long long int n1 = e->get_int_at(0);
-    long long int n2 = e->get_int_at(1);
+    long long int n1 = e->get_int(0);
+    long long int n2 = e->get_int(1);
 }
 ```
 <!-- ---------- -->
@@ -5914,8 +5914,8 @@ void callback(webui::window::event* e) {
 	// JavaScript:
 	// callback(12.34, 56.789);
 
-    double f1 = e->get_float_at(0);
-    double f2 = e->get_float_at(1);
+    double f1 = e->get_float(0);
+    double f2 = e->get_float(1);
 }
 ```
 <!-- ---------- -->
@@ -6128,8 +6128,8 @@ void callback(webui::window::event* e) {
 	// JavaScript:
 	// callback("Foo", "Bar");
 
-    const char* foo = e->get_string_at(0);
-    const char* bar = e->get_string_at(1);
+    const char* foo = e->get_string(0);
+    const char* bar = e->get_string(1);
 }
 ```
 <!-- ---------- -->
@@ -6340,8 +6340,8 @@ void callback(webui::window::event* e) {
 	// JavaScript:
 	// callback(true, false);
 
-    bool status1 = e->get_bool_at(0);
-    bool status2 = e->get_bool_at(1);
+    bool status1 = e->get_bool(0);
+    bool status2 = e->get_bool(1);
 }
 ```
 <!-- ---------- -->
@@ -6552,8 +6552,8 @@ void callback(webui::window::event* e) {
 	// JavaScript:
 	// callback("Foo", "Bar");
 
-    size_t fooLen = e->get_size_at(0);
-    size_t barLen = e->get_size_at(1);
+    size_t fooLen = e->get_size(0);
+    size_t barLen = e->get_size(1);
 }
 ```
 <!-- ---------- -->
