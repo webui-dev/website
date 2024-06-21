@@ -376,7 +376,15 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    webui::window win;
+
+    // Later
+    win.show("index.html");
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -693,7 +701,26 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+void events(webui::window::event* e) {
+    //
+}
+
+void callback(webui::window::event* e) {
+    //
+}
+
+int main() {
+
+    /*
+    * @param element The HTML ID
+    * @param func The callback function
+    */
+    
+    win.bind("", events);
+    win.bind("callback", callback);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -811,7 +838,30 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+        enum {
+            NoBrowser = 0,  // 0. No web browser
+            AnyBrowser = 1, // 1. Default recommended web browser
+            Chrome,         // 2. Google Chrome
+            Firefox,        // 3. Mozilla Firefox
+            Edge,           // 4. Microsoft Edge
+            Safari,         // 5. Apple Safari
+            Chromium,       // 6. The Chromium Project
+            Opera,          // 7. Opera Browser
+            Brave,          // 8. The Brave Browser
+            Vivaldi,        // 9. The Vivaldi Browser
+            Epic,           // 10. The Epic Browser
+            Yandex,         // 11. The Yandex Browser
+            ChromiumBased,  // 12. Any Chromium based browser
+        }
+    */
+
+    size_t browserID = win.get_best_browser();
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -944,7 +994,16 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param content The HTML, URL, Or a local file
+    */
+    
+    win.show("index.html");
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -1068,7 +1127,35 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+        enum {
+            NoBrowser = 0,  // 0. No web browser
+            AnyBrowser = 1, // 1. Default recommended web browser
+            Chrome,         // 2. Google Chrome
+            Firefox,        // 3. Mozilla Firefox
+            Edge,           // 4. Microsoft Edge
+            Safari,         // 5. Apple Safari
+            Chromium,       // 6. The Chromium Project
+            Opera,          // 7. Opera Browser
+            Brave,          // 8. The Brave Browser
+            Vivaldi,        // 9. The Vivaldi Browser
+            Epic,           // 10. The Epic Browser
+            Yandex,         // 11. The Yandex Browser
+            ChromiumBased,  // 12. Any Chromium based browser
+        }
+    */
+
+    /*
+    * @param content The HTML, Or a local file
+    * @param browser The web browser to be used
+    */
+    
+    win.show_browser("index.html", Chrome);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -1177,7 +1264,16 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param content The HTML, URL, Or a local file
+    */
+    
+    win.show_wv("index.html");
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -1278,7 +1374,16 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param status True or False
+    */
+    
+    win.set_kiosk(true);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -1371,13 +1476,20 @@ int main() {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/minimal
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/minimal
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    webui::wait();
+}
 ```
+
+Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/minimal
 <!-- ---------- -->
 #### **Python**
 <!-- ---------- -->
@@ -1478,7 +1590,12 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    win.close();
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -1580,7 +1697,12 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    win.destroy();
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -1676,7 +1798,12 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    webui::exit();
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -1779,7 +1906,16 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param path The local folder full path
+    */
+    
+    win.set_root_folder("/home/Foo/Bar/");
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -1881,7 +2017,16 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param path The local folder full path
+    */
+    
+    webui::set_default_root_folder("/home/Foo/Bar/");
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -1983,13 +2128,28 @@ int main() {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/serve_a_folder
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/serve_a_folder
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+void filesHandler(const char* filename, int* length) {
+    //
+}
+
+int main() {
+
+    /*
+    * @param handler The handler function
+    */
+    
+    win.set_file_handler(filesHandler);
+}
 ```
+
+Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/serve_a_folder
 <!-- ---------- -->
 #### **Python**
 <!-- ---------- -->
@@ -2093,7 +2253,17 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    if (win.is_shown()) {
+        // Window is shown
+    }
+    else {
+        // Window is closed
+    }
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -2196,7 +2366,19 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param second The timeout in seconds
+    */
+    
+    webui::set_timeout(30);
+
+    win.show("index.html");
+    webui::wait();
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -2298,7 +2480,17 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param icon The icon as string: `<svg>...</svg>`
+    * @param icon_type The icon type: `image/svg+xml`
+    */
+    
+    win.set_icon("<svg>...</svg>", "image/svg+xml");
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -2401,7 +2593,19 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param str The string to encode (Should be null terminated)
+    */
+    
+    char* base64 = webui::encode("Foo Bar");
+
+    // Later
+    webui::free(base64);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -2508,7 +2712,23 @@ void callback(webui_event_t* e) {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+void callback(webui::window::event* e) {
+
+    // JavaScript:
+    // callback(Base64);
+    const char* base64 = e->get_string();
+
+    /*
+    * @param str The string to decode (Should be null terminated)
+    */
+
+    const char* str = webui::decode(base64);
+
+    // Later
+    webui::free(str);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -2609,7 +2829,17 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+    char* buffer = (char*) webui::malloc(1024);
+
+    /*
+    * @param ptr The buffer to be freed
+    */
+    
+    webui::free(buffer);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -2712,7 +2942,19 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param size The size of memory in bytes
+    */
+    
+    char* buffer = (char*) webui::malloc(1024);
+
+    // Later
+    webui::free(buffer);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -2822,7 +3064,25 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param function The JavaScript function to receive raw data
+    * @param raw The raw data buffer
+    * @param size The raw data size in bytes
+    */
+    
+    unsigned char buffer[3] = { 0x01, 0x02, 0x03 }; // Any data type
+    win.send_raw("myJavaScriptFunc", buffer, 3);
+
+    // JavaScript
+    //
+    // function myJavaScriptFunc(rawData) {
+    //    `rawData` is Uint8Array type
+    // }
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -2918,14 +3178,23 @@ int main() {
     * @param status The status: True or False
     */
     
-    webui_set_hide(win, True);
+    webui_set_hide(win, true);
 }
 ```
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param status The status: True or False
+    */
+    
+    win.set_hide(true);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -3027,7 +3296,17 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param width The window width
+    * @param height The window height
+    */
+    
+    win.set_size(800, 600);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -3129,7 +3408,17 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param x The window X
+    * @param y The window Y
+    */
+    
+    win.set_position(100, 100);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -3233,7 +3522,17 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param name The web browser profile name
+    * @param path The web browser profile full path
+    */
+    
+    win.set_profile("Bar", "/Home/Foo/Bar");
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -3326,6 +3625,7 @@ int main() {
 
     /*
     * @param window The window number
+    * @param proxy_server The web browser proxy_server
     */
     
     webui_set_proxy(win, "http://127.0.0.1:8888"); 
@@ -3335,7 +3635,16 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param proxy_server The web browser proxy_server
+    */
+    
+    win.set_proxy("http://127.0.0.1:8888"); 
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -3415,6 +3724,8 @@ int main() {
 
 Get current URL of a running window.
 
+> By default WebUI allow access to the URL of a window only from localhost.
+
 <!-- tabs:start -->
 <!-- ---------- -->
 #### **C**
@@ -3429,16 +3740,18 @@ int main() {
     */
     
     const char* url = webui_get_url(win);
-
-    // Note: By default WebUI allow access to 
-    // the URL of a window only from localhost.
 }
 ```
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    const char* url = win.get_url();
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -3539,12 +3852,24 @@ int main() {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/public_network_access
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/public_network_access
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param status True or False
+    */
+    
+    win.set_public(true);
+
+    // Now, the URL of the window is accessible
+    // from any device/mobile in the network.
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -3644,7 +3969,7 @@ int main() {
     //
     // If `bar.html` does not include `webui.js` then
     // WebUI will try to close the window and `wait()`
-    // will break. It this important to include `webui.js`
+    // will break. It's important to include `webui.js`
     // in every HTML.
 }
 ```
@@ -3652,7 +3977,23 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param url Full HTTP URL
+    */
+
+    win.navigate("/foo/bar.html");
+
+    // [!] Note:
+    //
+    // If `bar.html` does not include `webui.js` then
+    // WebUI will try to close the window and `wait()`
+    // will break. It's important to include `webui.js`
+    // in every HTML.
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -3740,7 +4081,6 @@ Free all memory resources. Should be called only at the end.
 #include "webui.h"
 
 int main() {
-    webui_wait();
 
     webui_clean();
     return 0;
@@ -3750,7 +4090,13 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    webui::clean();
+    return 0;
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -3842,7 +4188,6 @@ Delete a specific window web-browser local folder profile.
 #include "webui.h"
 
 int main() {
-    webui_wait();
 
     webui_delete_all_profiles();
     return 0;
@@ -3852,7 +4197,13 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    webui::delete_all_profiles();
+    return 0;
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -3944,7 +4295,6 @@ Delete a specific window web-browser local folder profile.
 #include "webui.h"
 
 int main() {
-    webui_wait();    
 
     /*
     * @param window The window number
@@ -3958,7 +4308,13 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    win.delete_profile();
+    return 0;
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -4058,7 +4414,12 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    size_t parent_pid = win.get_parent_process_id();
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -4158,7 +4519,12 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    size_t child_pid = win.get_child_process_id();
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -4264,12 +4630,29 @@ int main() {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/custom_web_server
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/custom_web_server
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param port The web-server network port WebUI should use
+    */
+
+    bool ret = win.set_port(8080);
+
+    if (!ret) {
+        printf("The port is busy and not usable.\n");
+    }
+
+    // The port `8080` will not be used by WebUI
+    // until we show the window. The window URL
+    // then will be: http://localhost:8080/
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -4393,7 +4776,38 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+/*
+    enum {
+        // Control if `webui_show()`, `webui_show_browser()` and
+        // `webui_show_wv()` should wait for the window to connect
+        // before return or not.
+        //
+        // Default: True
+        show_wait_connection = 0,
+
+        // Control if WebUI should block and process the UI events
+        // one a time in a single thread `True`, or process every
+        // event in a new non-blocking thread `False`. This updates
+        // all windows. You can use `webui_set_event_blocking()` for
+        // a specific single window update.
+        //
+        // Default: False
+        ui_event_blocking,
+    };
+*/
+
+int main() {
+
+    /*
+    * @param option The desired option from `webui_config` enum
+    * @param status The status of the option, `true` or `false`
+    */
+
+    webui::config(show_wait_connection, true);
+    webui::config(ui_event_blocking, false);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -4514,7 +4928,34 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+void foo(webui::window::event* e) {
+    //
+}
+
+void bar(webui::window::event* e) {
+    //
+}
+
+int main() {
+    win.bind("foo", foo);
+    win.bind("bar", bar);
+
+    /*
+    * @param status The blocking status `true` or `false`
+    */
+
+    win.set_event_blocking(true);
+
+    // Now, every UI event will be processed
+    // in one single thread, other UI events
+    // will be blocked until first event end
+
+	// JavaScript:
+    // foo();
+    // bar();
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -4628,7 +5069,28 @@ int main() {
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param certificate_pem The SSL/TLS certificate content in PEM format
+    * @param private_key_pem The private key content in PEM format
+    */
+
+    bool ret = webui::set_tls_certificate(
+        "-----BEGIN CERTIFICATE-----"
+        "...",
+        "-----BEGIN PRIVATE KEY-----"
+        "..."
+    );
+
+    if (!ret) {
+        printf("Invalid TLS certificate.\n");
+    }
+
+    // Now, all windows will use `HTTPS` instead of `HTTP`.
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -4726,13 +5188,24 @@ int main() {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_js_from_c
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_js_from_c
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param script The JavaScript to be run
+    */
+
+    win.run("alert('Foo Bar');");
+}
 ```
+
+Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/call_js_from_cpp
 <!-- ---------- -->
 #### **Python**
 <!-- ---------- -->
@@ -4838,13 +5311,33 @@ int main() {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_js_from_c
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_js_from_c
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param script The JavaScript to be run
+    * @param timeout The execution timeout
+    * @param buffer The local buffer to hold the response
+    * @param buffer_length The local buffer size
+    */
+
+    char response[64];
+    if (!win.script("return 4 + 6;", 0, response, 64)) {
+        std::cout << "JavaScript Error: " << response << std::endl;
+    }
+    else {
+        std::cout << "JavaScript Response: " << response << std::endl; // 10
+    }
+}
 ```
+
+Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/call_js_from_cpp
 <!-- ---------- -->
 #### **Python**
 <!-- ---------- -->
@@ -4952,13 +5445,35 @@ int main() {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/serve_a_folder
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/serve_a_folder
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+#include "webui.hpp"
+
+int main() {
+
+    /*
+    * @param runtime Deno | Nodejs | None
+    */
+
+    win.set_runtime(Deno);
+
+    // Now, any HTTP request to any `.js` or `.ts` file
+    // will be interpreted by Deno.
+    //
+    // JavaScript:
+    //
+    // var xmlHttp = new XMLHttpRequest();
+    // xmlHttp.open('GET', 'test.ts?foo=123&bar=456', false);
+    // xmlHttp.send(null);
+    //
+    // console.log(xmlHttp.responseText);
+}
 ```
+
+Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/serve_a_folder
 <!-- ---------- -->
 #### **Python**
 <!-- ---------- -->
@@ -5051,13 +5566,21 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// callback("Foo", "Bar", 123, true);
+
+    size_t count = e->get_count(); // 4
+}
 ```
+
+Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call_cpp_from_js
 <!-- ---------- -->
 #### **Python**
 <!-- ---------- -->
@@ -5151,12 +5674,19 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// callback(12345, 6789);
+
+    long long int n1 = e->get_int_at(0);
+    long long int n2 = e->get_int_at(1);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -5250,12 +5780,18 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// callback(123456);
+
+    long long int num = e->get_int();
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -5350,12 +5886,19 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// callback(12.34, 56.789);
+
+    double f1 = e->get_float_at(0);
+    double f2 = e->get_float_at(1);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -5449,13 +5992,21 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// callback(123.456);
+
+    double f = e->get_float();
+}
 ```
+
+Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call_cpp_from_js
 <!-- ---------- -->
 #### **Python**
 <!-- ---------- -->
@@ -5549,12 +6100,19 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// callback("Foo", "Bar");
+
+    const char* foo = e->get_string_at(0);
+    const char* bar = e->get_string_at(1);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -5648,12 +6206,18 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// callback("Foo Bar");
+
+    const char* name = e->get_string();
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -5748,12 +6312,19 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// callback(true, false);
+
+    bool status1 = e->get_bool_at(0);
+    bool status2 = e->get_bool_at(1);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -5847,12 +6418,18 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// callback(true);
+
+    bool status = e->get_bool();
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -5947,12 +6524,19 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// callback("Foo", "Bar");
+
+    size_t fooLen = e->get_size_at(0);
+    size_t barLen = e->get_size_at(1);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -6042,16 +6626,22 @@ void callback(webui_event_t* e) {
 	// JavaScript:
 	// callback("Foo");
 
-    size_t argLen = webui_get_size(e);
+    size_t fooLen = webui_get_size(e);
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// callback("Foo");
+
+    size_t fooLen = e->get_size();
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -6146,12 +6736,19 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// var num = callback();
+
+    // Return
+	e->return_int(123456);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -6246,12 +6843,19 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// var f = callback();
+
+    // Return
+	e->return_float(123.456);
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -6346,12 +6950,19 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// var name = callback();
+
+    // Return
+	e->return_string("Foo Bar");
+}
 ```
 <!-- ---------- -->
 #### **Python**
@@ -6446,12 +7057,19 @@ void callback(webui_event_t* e) {
 }
 ```
 
-Full example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
+Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_from_js
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
 ```cpp
-// In development...
+void callback(webui::window::event* e) {
+
+	// JavaScript:
+	// var status = callback();
+
+    // Return
+	e->return_bool(true);
+}
 ```
 <!-- ---------- -->
 #### **Python**
