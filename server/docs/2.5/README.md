@@ -145,7 +145,7 @@ exe.addModule("webui", zig_webui.module("webui"));
 exe.linkLibrary(zig_webui.artifact("webui"));
 ```
 
-**Zig `nightly`**
+**Zig `0.12` \ `0.13.0` \ `nightly`**
 
 > To be honest, I don’t recommend using the nightly version because the API of the build system is not yet stable, which means that there may be problems with not being able to build after nightly is updated.
 
@@ -154,6 +154,7 @@ exe.linkLibrary(zig_webui.artifact("webui"));
 ```sh
 # It is recommended to replace the following branch with commit id
 zig fetch --save https://github.com/webui-dev/zig-webui/archive/main.tar.gz
+# Of course, you can also use git+https to fetch this package!
 ```
 
 2. Config `build.zig`
@@ -161,6 +162,8 @@ zig fetch --save https://github.com/webui-dev/zig-webui/archive/main.tar.gz
 Add this:
 
 ```zig
+// To standardize development, maybe you should use `lazyDependency()` instead of `dependency()`
+// more info to see: https://ziglang.org/download/0.12.0/release-notes.html#toc-Lazy-Dependencies
 const zig_webui = b.dependency("zig-webui", .{
     .target = target,
     .optimize = optimize,
@@ -170,11 +173,6 @@ const zig_webui = b.dependency("zig-webui", .{
 
 // add module
 exe.root_module.addImport("webui", zig_webui.module("webui"));
-// note: see this issue for the API changes above,
-// https://github.com/ziglang/zig/pull/18160
-
-// link library
-exe.linkLibrary(zig_webui.artifact("webui"));
 ```
 
 > It is not recommended to dynamically link libraries under Windows, which may cause some symbol duplication problems.
@@ -321,7 +319,9 @@ const webui = @import("webui");
 
 pub fn main() !void {
     var win = webui.newWindow();
+
     _ = win.show("<html><script src=\"webui.js\"></script> Hello World from Zig! </html>");
+
     webui.wait();
 }
 ```
@@ -418,7 +418,16 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    // Later
+    _ = win.show("index.html");
+
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -524,7 +533,17 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    const id: usize = 1;
+
+    var win = webui.newWindowWithId(id);
+
+    _ = win.show("index.html");
+
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -624,7 +643,17 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    const win_id = webui.getNewWindowId();
+
+    var win = webui.newWindowWithId(win_id);
+
+    _ = win.show("index.html");
+
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -735,7 +764,22 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+fn events(_: webui.Event) void {}
+
+fn callback(_: webui.Event) void {}
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    _ = win.bind("", events);
+    _ = win.bind("callback", callback);
+
+    // Later
+    _ = win.show("index.html");
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -853,7 +897,49 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    ///// Browsers for webui
+    //pub const Browsers = enum(u8) {
+    //    /// 0. No web browser
+    //    NoBrowser = 0,
+    //    /// 1. Default recommended web browser
+    //    AnyBrowser,
+    //    /// 2. Google Chrome
+    //    Chrome,
+    //    /// 3. Mozilla Firefox
+    //    Firefox,
+    //    /// 4. Microsoft Edge
+    //    Edge,
+    //    /// 5. Apple Safari
+    //    Safari,
+    //    /// 6. The Chromium Project
+    //    Chromium,
+    //    /// 7. Opera Browser
+    //    Opera,
+    //    /// 8. The Brave Browser
+    //    Brave,
+    //    /// 9. The Vivaldi Browser
+    //    Vivaldi,
+    //    /// 10. The Epic Browser
+    //    Epic,
+    //    /// 11. The Yandex Browser
+    //    Yandex,
+    //    /// 12. Any Chromium based browser
+    //    ChromiumBased,
+    //};
+
+    var win = webui.newWindow();
+
+    const browser = win.getBestBrowser();
+
+    // this is the best browser
+    _ = browser;
+
+    _ = win.show("index.html");
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -986,7 +1072,14 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    _ = win.show("index.html");
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -1110,7 +1203,14 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    _ = win.showBrowser("index.html",.Chrome);
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -1219,7 +1319,14 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    _ = win.showWv("index.html");
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -1320,7 +1427,17 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    win.setKiosk(true);
+
+    // ...
+    _ = win.showWv("index.html");
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -1418,7 +1535,16 @@ Full example: https://github.com/webui-dev/webui/tree/main/examples/C/minimal
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    // ...
+    _ = win.showWv("index.html");
+
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -1520,7 +1646,17 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    _ = win.showWv("index.html");
+
+    win.close();
+
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -1622,7 +1758,18 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    _ = win.showWv("index.html");
+
+    win.destory();
+
+    webui.wait();
+
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -1718,7 +1865,13 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    webui.exit();
+
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -1821,7 +1974,15 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    _ = win.setRootFolder("/home/Foo/Bar/");
+
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -1923,7 +2084,15 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    _ = win.setDefaultRootFolder("/home/Foo/Bar/");
+
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -2030,7 +2199,19 @@ Full example: https://github.com/webui-dev/webui/tree/main/examples/C/serve_a_fo
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+fn handle(_: []const u8) ?[]const u8 {
+    return "hello";
+}
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    win.setFileHandler(handle);
+
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -2135,7 +2316,16 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    const is_showed = win.isShown();
+    _ = is_showed;
+
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -2238,7 +2428,16 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    webui.setTimeout(30);
+
+    _ = win.show("index.html");
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -2340,7 +2539,16 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    var win = webui.newWindow();
+
+    win.setIcon("<svg>...</svg>", "image/svg+xml");
+
+    _ = win.show("index.html");
+    webui.wait();
+}
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -2443,7 +2651,14 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const webui = @import("webui");
+
+pub fn main() !void {
+    const res = webui.encode("Foo Bar");
+    if (res) |str| {
+        webui.free(str);
+    }
+}
 ```
 <!-- ---------- -->
 #### **Rust**
