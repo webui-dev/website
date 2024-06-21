@@ -3053,7 +3053,7 @@ int main() {
     unsigned char buffer[3] = { 0x01, 0x02, 0x03 }; // Any data type
     webui_send_raw(win, "myJavaScriptFunc", buffer, 3);
 
-    // JavaScript
+    // JavaScript:
     //
     // function myJavaScriptFunc(rawData) {
     //    `rawData` is Uint8Array type
@@ -3077,7 +3077,7 @@ int main() {
     unsigned char buffer[3] = { 0x01, 0x02, 0x03 }; // Any data type
     win.send_raw("myJavaScriptFunc", buffer, 3);
 
-    // JavaScript
+    // JavaScript:
     //
     // function myJavaScriptFunc(rawData) {
     //    `rawData` is Uint8Array type
@@ -6729,7 +6729,7 @@ Return the response to JavaScript as integer.
 void callback(webui_event_t* e) {
 
 	// JavaScript:
-	// var num = callback();
+	// var num = await callback();
 
     // Return
 	webui_return_int(e, 123456);
@@ -6744,7 +6744,7 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 void callback(webui::window::event* e) {
 
 	// JavaScript:
-	// var num = callback();
+	// var num = await callback();
 
     // Return
 	e->return_int(123456);
@@ -6836,7 +6836,7 @@ Return the response to JavaScript as float.
 void callback(webui_event_t* e) {
 
 	// JavaScript:
-	// var f = callback();
+	// var f = await callback();
 
     // Return
 	webui_return_float(e, 123.456);
@@ -6851,7 +6851,7 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 void callback(webui::window::event* e) {
 
 	// JavaScript:
-	// var f = callback();
+	// var f = await callback();
 
     // Return
 	e->return_float(123.456);
@@ -6943,7 +6943,7 @@ Return the response to JavaScript as string.
 void callback(webui_event_t* e) {
 
 	// JavaScript:
-	// var name = callback();
+	// var name = await callback();
 
     // Return
 	webui_return_string(e, "Foo Bar");
@@ -6958,7 +6958,7 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 void callback(webui::window::event* e) {
 
 	// JavaScript:
-	// var name = callback();
+	// var name = await callback();
 
     // Return
 	e->return_string("Foo Bar");
@@ -7050,7 +7050,7 @@ Return the response to JavaScript as boolean.
 void callback(webui_event_t* e) {
 
 	// JavaScript:
-	// var status = callback();
+	// var status = await callback();
 
     // Return
 	webui_return_bool(e, true);
@@ -7065,7 +7065,7 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 void callback(webui::window::event* e) {
 
 	// JavaScript:
-	// var status = callback();
+	// var status = await callback();
 
     // Return
 	e->return_bool(true);
@@ -7165,6 +7165,9 @@ myBackendFunction(foo, bar).then((response) => {
 
 // async
 const response = await myBackendFunction(foo, bar);
+
+// Without response
+myBackendFunction(foo, bar);
 ```
 
 **2. Using the property of webui object `webui.backend(...)`**
@@ -7180,6 +7183,9 @@ webui.myBackendFunction(foo, bar).then((response) => {
 
 // async
 const await webui.myBackendFunction(foo, bar);
+
+// Without response
+webui.myBackendFunction(foo, bar);
 ```
 
 **3. Using the method `call` of webui object `webui.call('backend', ...)`**
@@ -7195,6 +7201,9 @@ webui.call('myBackendFunction', foo, bar).then((response) => {
 
 // async
 const response = await webui.call('myBackendFunction', foo, bar);
+
+// Without response
+webui.call('myBackendFunction', foo, bar);
 ```
 
 How to safely call a backend function when the HTML is loaded? 
