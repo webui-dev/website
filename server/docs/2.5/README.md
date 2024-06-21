@@ -7168,6 +7168,8 @@ void callback(webui::window::event* e) {
 
 > You need to include the virtual file `webui.js` in your HTML
 
+> **Supported arguments types**: `string`, `number`, `boolean`, `Uint8Array`.
+
 There are three different ways to call a backend function from JavaScript:
 
 **1. Using the global section `backend(...)`**
