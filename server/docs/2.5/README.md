@@ -410,7 +410,7 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-my_window = webui.window()
+win = webui.window()
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -836,7 +836,7 @@ func my_function(e webui.Event) string {
 	return ""
 }
 
-webui.Bind(my_window, "MyID", my_function)
+webui.Bind(win, "MyID", my_function)
 ```
 <!-- ---------- -->
 #### **Nim**
@@ -856,7 +856,7 @@ fn my_function_string(e &webui.Event) {
 	// <button id="MyID">Hello</button> gets clicked!
 }
 
-my_window.bind("MyID", my_function)
+win.bind("MyID", my_function)
 ```
 <!-- ---------- -->
 #### **Odin**
@@ -872,7 +872,7 @@ fn myFunction(e: webui.Event) void {
     // <button id="MyID">Hello</button> gets clicked!
 }
 
-my_window.bind("MyID", myFunction);
+win.bind("MyID", myFunction);
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -1016,7 +1016,7 @@ def events(e: webui.event):
     print('Hi!, You clicked on ' + e.element + ' element')
 
 # Empty ID means all events on all elements
-my_window.bind("", events)
+win.bind("", events)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -1038,7 +1038,7 @@ func my_function(e webui.Event) string {
 }
 
 // Empty ID means all events on all elements
-webui.Bind(my_window, "", events)
+webui.Bind(win, "", events)
 ```
 <!-- ---------- -->
 #### **Nim**
@@ -1102,7 +1102,7 @@ fn myFunction(e: webui.Event) void {
 }
 
 // Empty ID means all events on all elements
-my_window.bind("", myFunction);
+win.bind("", myFunction);
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -1378,9 +1378,9 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-my_window.show('<html><script src="/webui.js"> ... </html>')
-my_window.show('file.html')
-my_window.show('https://mydomain.com')
+win.show('<html><script src="/webui.js"> ... </html>')
+win.show('file.html')
+win.show('https://mydomain.com')
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -1558,7 +1558,7 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-my_window.show('<html><script src="/webui.js"> ... </html>', webui.browser.chrome)
+win.show('<html><script src="/webui.js"> ... </html>', webui.browser.chrome)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -1932,7 +1932,7 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 # Show the windows...
 
 # Wait until all windows get closed
-# or when calling my_window.exit()
+# or when calling win.exit()
 webui.wait()
 ```
 <!-- ---------- -->
@@ -1983,7 +1983,7 @@ fn main() {
 
 	// Wait until all windows get closed
 	// or when calling webui.exit()
-	my_window.wait()
+	win.wait()
 }
 ```
 <!-- ---------- -->
@@ -2090,7 +2090,7 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-my_window.close()
+win.close()
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -2102,7 +2102,7 @@ myWindow.close();
 #### **Go**
 <!-- ---------- -->
 ```go
-webui.Close(my_window)
+webui.Close(win)
 ```
 <!-- ---------- -->
 #### **Nim**
@@ -2114,7 +2114,7 @@ myWindow.close()
 #### **V**
 <!-- ---------- -->
 ```v
-my_window.close()
+win.close()
 ```
 <!-- ---------- -->
 #### **Odin**
@@ -2126,7 +2126,7 @@ my_window.close()
 #### **Zig**
 <!-- ---------- -->
 ```zig
-my_window.close();
+win.close();
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -2815,7 +2815,7 @@ fn my_files_handler(filename: []const u8) ?[]u8 {
 }
 
 // Set a custom files handler
-my_window.setFileHandler(my_files_handler);
+win.setFileHandler(my_files_handler);
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -2938,7 +2938,7 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-if my_window.is_shown():
+if win.is_shown():
     print("The window is still running")
 else
     print("The window is closed.")
@@ -2956,7 +2956,7 @@ else
 #### **Go**
 <!-- ---------- -->
 ```go
-if my_window.IsShown() {
+if win.IsShown() {
     fmt.Printf("The window is still running")
 } else {
     fmt.Printf("The window is closed.")
@@ -2975,7 +2975,7 @@ else:
 #### **V**
 <!-- ---------- -->
 ```v
-if webui.is_shown(my_window) {
+if webui.is_shown(win) {
 	println('The window is still running')
 } else {
 	println('The window is closed.')
@@ -3235,7 +3235,7 @@ my_icon_type = "image/svg+xml"
 # When the web browser ask for `favicon.ico`, WebUI will
 # send a redirection to `favicon.svg`, the body will be `myIcon`
 # and the mime-type will be `myIconType`
-my_window.set_icon(myIcon, myIconType)
+win.set_icon(myIcon, myIconType)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -6626,12 +6626,12 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/serv
 <!-- ---------- -->
 ```python
 # Deno
-my_window.set_runtime(webui.runtime.deno)
-my_window.show("my_file.ts")
+win.set_runtime(webui.runtime.deno)
+win.show("my_file.ts")
 
 # Nodejs
-my_window.set_runtime(webui.runtime.nodejs)
-my_window.show("my_file.js")
+win.set_runtime(webui.runtime.nodejs)
+win.show("my_file.js")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -6644,12 +6644,12 @@ my_window.show("my_file.js")
 <!-- ---------- -->
 ```go
 // Deno
-webui.SetRuntime(my_window, webui.Deno)
-webui.Show(my_window, "my_file.ts")
+webui.SetRuntime(win, webui.Deno)
+webui.Show(win, "my_file.ts")
 
 // Nodejs
-webui.SetRuntime(my_window, webui.Nodejs)
-webui.Show(my_window, "my_file.js")
+webui.SetRuntime(win, webui.Nodejs)
+webui.Show(win, "my_file.js")
 ```
 <!-- ---------- -->
 #### **Nim**
@@ -6668,12 +6668,12 @@ myWindow.show("my_file.js")
 <!-- ---------- -->
 ```v
 // Deno
-my_window.set_runtime(.runtime_deno)
-my_window.show("my_file.ts")
+win.set_runtime(.runtime_deno)
+win.show("my_file.ts")
 
 // Nodejs
-my_window.set_runtime(.runtime_nodejs)
-my_window.show("my_file.js")
+win.set_runtime(.runtime_nodejs)
+win.show("my_file.js")
 ```
 <!-- ---------- -->
 #### **Odin**
@@ -6686,12 +6686,12 @@ my_window.show("my_file.js")
 <!-- ---------- -->
 ```zig
 // Deno
-my_window.setRuntime(.Deno);
-my_window.show("my_file.ts");
+win.setRuntime(.Deno);
+win.show("my_file.ts");
 
 // Nodejs
-my_window.setRuntime(.Nodejs);
-my_window.show("my_file.js");
+win.setRuntime(.Nodejs);
+win.show("my_file.js");
 ```
 <!-- ---------- -->
 #### **Rust**
