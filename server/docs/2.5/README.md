@@ -390,49 +390,49 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+my_window = webui.window()
 ```
 <!-- ---------- -->
 #### **Deno**
 <!-- ---------- -->
 ```ts
-// In development...
+const myWindow = new WebUI();
 ```
 <!-- ---------- -->
 #### **Go**
 <!-- ---------- -->
 ```go
-// In development...
+myWindow := webui.NewWindow()
 ```
 <!-- ---------- -->
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+let myWindow = newWindow()
 ```
 <!-- ---------- -->
 #### **V**
 <!-- ---------- -->
 ```v
-// In development...
+mut myWindow := ui.new_window()
 ```
 <!-- ---------- -->
 #### **Odin**
 <!-- ---------- -->
 ```odin
-// In development...
+myWindow := ui.new_window()
 ```
 <!-- ---------- -->
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+var new_window = webui.newWindow();
 ```
 <!-- ---------- -->
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+let win = webui::Window::new();
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -721,6 +721,18 @@ int main() {
 ```cpp
 #include "webui.hpp"
 
+class myClass {
+    public: void class_callback(webui::event* e) {
+        // 
+    }
+};
+
+// Because WebUI is written in C, therefor it can not
+// access `myClass` directly. That's why we should add
+// a simple wrapper for our C++ class.
+myClass obj;
+void class_callback_wrapper(webui::event* e) { obj.class_callback(e); }
+
 void events(webui::window::event* e) {
     //
 }
@@ -738,37 +750,57 @@ int main() {
     
     win.bind("", events);
     win.bind("callback", callback);
+    win.bind("class_callback", class_callback_wrapper);
 }
 ```
 <!-- ---------- -->
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+def my_function(e: webui.event):
+    # <button id="MyID">Hello</button> gets clicked!
+
+MyWindow.bind("MyID", my_function)
 ```
 <!-- ---------- -->
 #### **Deno**
 <!-- ---------- -->
 ```ts
-// In development...
+webui.bind("MyID", ({ data }) => {
+  console.log(`ui send "${data}"`);
+  return "backend response";
+});
 ```
 <!-- ---------- -->
 #### **Go**
 <!-- ---------- -->
 ```go
-// In development...
+func my_function(e webui.Event) string {
+	// <button id="MyID">Hello</button> gets clicked!
+	return ""
+}
+
+webui.Bind(my_window, "MyID", my_function)
 ```
 <!-- ---------- -->
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+myWindow.bind("MyID") do (e: Event):
+  # <button id="MyID">Hello</button> gets clicked!
+  echo "Binding element ", e.element, "!"
 ```
 <!-- ---------- -->
 #### **V**
 <!-- ---------- -->
 ```v
-// In development...
+import vwebui as webui
+
+fn my_function_string(e &webui.Event) {
+	// <button id="MyID">Hello</button> gets clicked!
+}
+
+my_window.bind("MyID", my_function)
 ```
 <!-- ---------- -->
 #### **Odin**
@@ -780,13 +812,240 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+fn myFunction(e: webui.Event) void {
+    // <button id="MyID">Hello</button> gets clicked!
+}
+
+my_window.bind("MyID", myFunction);
 ```
 <!-- ---------- -->
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// With external function
+fn my_function(e: webui::Event) -> String {
+    // <button id="MyID">Hello</button> gets clicked!
+    "".to_string()
+}
+
+win.bind("MyID", my_function);
+
+// With closure
+win.bind("MyID2", |_: webui::Event| -> String {
+    // <button id="MyID2">Hello</button> gets clicked!
+    "".to_string()
+});
+```
+<!-- ---------- -->
+#### **Other...**
+<!-- ---------- -->
+**Pascal**
+<!-- ---------- -->
+```pascal
 // In development...
+```
+<!-- ---------- -->
+**Bun**
+<!-- ---------- -->
+```ts
+// In development...
+```
+<!-- ---------- -->
+**Basic**
+<!-- ---------- -->
+```basic
+// In development...
+```
+<!-- ---------- -->
+<!-- tabs:end -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### Backend - event
+
+Every event comes with information about the current event, like id, name, type (_click, connect, disconnect..._) and more.
+
+<!-- tabs:start -->
+<!-- ---------- -->
+#### **C**
+<!-- ---------- -->
+```c
+#include "webui.h"
+
+/*
+    webui_event_t {
+        size_t window;       // The window object number
+        size_t event_type;   // Event type
+        char* element;       // HTML element ID
+        size_t event_number; // Internal
+        size_t bind_id;      // Bind ID
+    };
+
+    enum {
+        WEBUI_EVENT_DISCONNECTED = 0, // 0. Window disconnection event
+        WEBUI_EVENT_CONNECTED,        // 1. Window connection event
+        WEBUI_EVENT_MOUSE_CLICK,      // 2. Mouse click event
+        WEBUI_EVENT_NAVIGATION,       // 3. Window navigation event
+        WEBUI_EVENT_CALLBACK,         // 4. Function call event
+    };
+*/
+
+void events(webui_event_t* e) {
+    if(e->event_type == WEBUI_EVENT_CONNECTED)
+        printf("Connected. \n");
+    else if(e->event_type == WEBUI_EVENT_DISCONNECTED)
+        printf("Disconnected. \n");
+    else if(e->event_type == WEBUI_EVENT_MOUSE_CLICK)
+        printf("Click. \n");
+    else if(e->event_type == WEBUI_EVENT_NAVIGATION)
+        printf("Starting navigation to: %s \n", e->data);
+}
+
+int main() {
+
+    /*
+    * @param window The window number
+    * @param element The HTML ID
+    * @param func The callback function
+    */
+    
+    webui_bind(win, "", events);
+}
+```
+<!-- ---------- -->
+#### **C++**
+<!-- ---------- -->
+```cpp
+#include "webui.hpp"
+
+void events(webui::window::event* e) {
+    if(e->event_type == WEBUI_EVENT_CONNECTED)
+        std::cout << "Connected." << std::endl;
+    else if(e->event_type == WEBUI_EVENT_DISCONNECTED)
+        std::cout << "Disconnected." << std::endl;
+    else if(e->event_type == WEBUI_EVENT_MOUSE_CLICK)
+        std::cout << "Click." << std::endl;
+    else if(e->event_type == WEBUI_EVENT_NAVIGATION)
+        std::cout << "Starting navigation to: " << e->data << std::endl;
+}
+
+int main() {
+
+    /*
+    * @param element The HTML ID
+    * @param func The callback function
+    */
+    
+    win.bind("", events);
+}
+```
+<!-- ---------- -->
+#### **Python**
+<!-- ---------- -->
+```python
+def events(e: webui.event):
+    print('Hi!, You clicked on ' + e.element + ' element')
+
+# Empty ID means all events on all elements
+my_window.bind("", events)
+```
+<!-- ---------- -->
+#### **Deno**
+<!-- ---------- -->
+```ts
+function handleEvent(event: WebUI.Event) {
+  console.log(`new ui event was fired (${event.element})`);
+}
+
+webui.bind("", handleEvent);
+```
+<!-- ---------- -->
+#### **Go**
+<!-- ---------- -->
+```go
+func my_function(e webui.Event) string {
+	fmt.Printf("Hi!, You clicked on element: %s\n", e.Element)
+	return ""
+}
+
+// Empty ID means all events on all elements
+webui.Bind(my_window, "", events)
+```
+<!-- ---------- -->
+#### **Nim**
+<!-- ---------- -->
+```nim
+# Empty ID means bind all events on all elements
+myWindow.bind("") do (e: Event):
+  echo "Hi!, You clicked on ", e.element, " element"
+```
+<!-- ---------- -->
+#### **V**
+<!-- ---------- -->
+```v
+fn my_function(e &webui.Event) {
+	// Get target element
+	target_element := e.element
+}
+```
+<!-- ---------- -->
+#### **Odin**
+<!-- ---------- -->
+```odin
+// In development...
+```
+<!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+// Event
+//    window_handle: usize,     // The window handler
+//    event_type: Events,       // Event type
+//    element: []u8,            // HTML element ID
+//    event_number: usize,      // Internal WebUI
+//    bind_id: usize,           // Bind ID
+
+fn myFunction(e: webui.Event) void {
+
+    std.debug.print("Hi!, You clicked on {s} element\n", e.element);
+
+    switch (e.event_type) {
+        .EVENT_CONNECTED => {
+            std.debug.print("Connected. \n", .{});
+        },
+        .EVENT_DISCONNECTED => {
+            std.debug.print("Disconnected. \n", .{});
+        },
+        .EVENT_MOUSE_CLICK => {
+            std.debug.print("Click. \n", .{});
+        },
+        .EVENT_NAVIGATION => {
+            const url = webui.getString(e);
+            std.debug.print("Starting navigation to: {s} \n", .{url});
+        },
+        else => {},
+    }
+
+    // Send back a response to JavaScript
+    webui.returnInt(e, 123); // As integer
+    webui.returnBool(e, true); // As boolean
+    webui.returnString(e, "My Response"); // As string
+}
+
+// Empty ID means all events on all elements
+my_window.bind("", myFunction);
+```
+<!-- ---------- -->
+#### **Rust**
+<!-- ---------- -->
+```rust
+fn event_handler(e: webui::Event) {
+  println!("Hi!, You clicked on {} element", e.element);
+}
+
+// Empty ID means all events on all elements
+win.bind("", event_handler);
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -1027,49 +1286,65 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+my_window.show('<html><script src="/webui.js"> ... </html>')
+my_window.show('file.html')
+my_window.show('https://mydomain.com')
 ```
 <!-- ---------- -->
 #### **Deno**
 <!-- ---------- -->
 ```ts
-// In development...
+myWindow.show('<html><script src="/webui.js"> ... </html>')
+myWindow.show('file.html')
+myWindow.show('https://mydomain.com')
 ```
 <!-- ---------- -->
 #### **Go**
 <!-- ---------- -->
 ```go
-// In development...
+myWindow.Show("<html><script src=\"/webui.js\"> ... </html>")
+myWindow.Show("file.html")
+myWindow.Show("https://mydomain.com")
 ```
 <!-- ---------- -->
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+myWindow.show("<html><script src=\"/webui.js\"> ... </html>")
+myWindow.show("file.html")
+myWindow.show("https://mydomain.com")
 ```
 <!-- ---------- -->
 #### **V**
 <!-- ---------- -->
 ```v
-// In development...
+myWindow.show('<html><script src="/webui.js"> ... </html>')
+myWindow.show('file.html')
+myWindow.show('https://mydomain.com')
 ```
 <!-- ---------- -->
 #### **Odin**
 <!-- ---------- -->
 ```odin
-// In development...
+ui.show(myWindow, "<html><script src=\"/webui.js\"> ... </html>");
+ui.show(myWindow, "file.html");
+ui.show(myWindow, "https://mydomain.com");
 ```
 <!-- ---------- -->
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const successed = myWindow.show("<html><script src=\"webui.js\"> ... </html>");
+const successed = myWindow.show("file.html");
+const successed = myWindow.show("https://mydomain.com");
 ```
 <!-- ---------- -->
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+win.show("<html><script src=\"/webui.js\"> ... </html>");
+win.show("file.html");
+win.show("https://mydomain.com");
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -1179,49 +1454,49 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+my_window.show('<html><script src="/webui.js"> ... </html>', webui.browser.chrome)
 ```
 <!-- ---------- -->
 #### **Deno**
 <!-- ---------- -->
 ```ts
-// In development...
+myWindow.showBrowser('<html><script src="/webui.js"> ... </html>', WebUI.Browser.Chrome)
 ```
 <!-- ---------- -->
 #### **Go**
 <!-- ---------- -->
 ```go
-// In development...
+myWindow.ShowBrowser("<html><script src=\"/webui.js\"> ... </html>", webui.Chrome)
 ```
 <!-- ---------- -->
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+myWindow.show("<html><script src=\"/webui.js\"> ... </html>", Browsers.Chrome)
 ```
 <!-- ---------- -->
 #### **V**
 <!-- ---------- -->
 ```v
-// In development...
+myWindow.show_browser('<html><script src="/webui.js"> ... </html>', .chrome)
 ```
 <!-- ---------- -->
 #### **Odin**
 <!-- ---------- -->
 ```odin
-// In development...
+ui.show_browser(myWindow, <html><script src=\"/webui.js\"> ... </html>", Chrome);
 ```
 <!-- ---------- -->
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+const successed = myWindow.showBrowser("<html><script src=\"webui.js\"> ... </html>", .Chrome);
 ```
 <!-- ---------- -->
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+win.show_browser("<html><script src=\"/webui.js\"> ... </html>", webui::WebUIBrowser::Chrome);
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -1512,31 +1787,64 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+# Create windows...
+# Bind HTML elements...
+# Show the windows...
+
+# Wait until all windows get closed
+# or when calling my_window.exit()
+webui.wait()
 ```
 <!-- ---------- -->
 #### **Deno**
 <!-- ---------- -->
 ```ts
-// In development...
+// Create windows...
+// Bind HTML elements...
+// Show the windows...
+
+// Wait until all windows get closed
+// or when calling WebUI.exit()
+await WebUI.wait();
 ```
 <!-- ---------- -->
 #### **Go**
 <!-- ---------- -->
 ```go
-// In development...
+// Create windows...
+// Bind HTML elements...
+// Show the windows...
+
+// Wait until all windows get closed
+// or when calling webui.Exit()
+webui.Wait()
 ```
 <!-- ---------- -->
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+# Create windows...
+# Bind HTML elements...
+# Show the windows...
+
+# Wait until all windows get closed
+# or when calling exit()
+wait()
 ```
 <!-- ---------- -->
 #### **V**
 <!-- ---------- -->
 ```v
-// In development...
+fn main() {
+	// Create windows...
+	// Bind HTML elements...
+	// Show the windows...
+	// Show a window using the embedded HTML
+
+	// Wait until all windows get closed
+	// or when calling webui.exit()
+	my_window.wait()
+}
 ```
 <!-- ---------- -->
 #### **Odin**
@@ -1548,13 +1856,24 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+// Create windows...
+// Bind HTML elements...
+// Show the windows...
+
+// Wait until all windows get closed
+// or when calling webui.exit()
+webui.wait();
 ```
 <!-- ---------- -->
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+use webui_rs::webui;
+
+fn main() {
+  // ...
+  webui::wait();
+}
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -1619,31 +1938,31 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+my_window.close()
 ```
 <!-- ---------- -->
 #### **Deno**
 <!-- ---------- -->
 ```ts
-// In development...
+myWindow.close();
 ```
 <!-- ---------- -->
 #### **Go**
 <!-- ---------- -->
 ```go
-// In development...
+webui.Close(my_window)
 ```
 <!-- ---------- -->
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+myWindow.close()
 ```
 <!-- ---------- -->
 #### **V**
 <!-- ---------- -->
 ```v
-// In development...
+my_window.close()
 ```
 <!-- ---------- -->
 #### **Odin**
@@ -1655,13 +1974,13 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+my_window.close();
 ```
 <!-- ---------- -->
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+win.close();
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -1827,31 +2146,31 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+webui.exit()
 ```
 <!-- ---------- -->
 #### **Deno**
 <!-- ---------- -->
 ```ts
-// In development...
+WebUI.exit();
 ```
 <!-- ---------- -->
 #### **Go**
 <!-- ---------- -->
 ```go
-// In development...
+webui.Exit()
 ```
 <!-- ---------- -->
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+exit()
 ```
 <!-- ---------- -->
 #### **V**
 <!-- ---------- -->
 ```v
-// In development...
+webui.exit()
 ```
 <!-- ---------- -->
 #### **Odin**
@@ -1863,13 +2182,13 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+webui.exit();
 ```
 <!-- ---------- -->
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+webui::exit();
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -2190,7 +2509,36 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+var count: int
+
+myWindow.setFileHandler() do (filename: string) -> string:
+  echo "File: ", filename
+
+  case filename
+  of "/test.txt":
+    # Const static file example
+    # Note: The connection will drop if the content
+    # does not have `<script src="/webui.js"></script>`
+
+    return "This is a embedded file content example."
+  of "/dynamic.html":
+    # Dynamic file example
+    inc count
+
+    return fmt"""
+<html>
+  This is a dynamic file content example.
+  <br>
+  Count: {count} <a href="dynamic.html">[Refresh]</a>
+  <br>
+
+  <script src="/webui.js"></script>
+</html>
+"""
+
+  # By default, this function returns an empty string
+  # returning an empty string will make WebUI look for
+  # the requested file locally
 ```
 <!-- ---------- -->
 #### **V**
@@ -2208,13 +2556,92 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+var count: i32 = 0;
+
+fn my_files_handler(filename: []const u8) ?[]u8 {
+
+    std.debug.print("File: {s}\n", .{filename});
+
+    if (std.mem.eql(u8, filename, "/test.txt")) {
+
+        // Const static file example
+        // Note: The connection will drop if the content
+        // does not have `<script src="/webui.js"></script>`
+        return "This is a embedded file content example.";
+    } else if (std.mem.eql(u8, filename, "/dynamic.html")) {
+
+        // Dynamic file example
+
+        // Safely allocate memory
+        var dynamic_content = webui.malloc(1024);
+
+        for (0..dynamic_content.len) |i| {
+            dynamic_content[i] = 0;
+        }
+
+        count += 1;
+
+        // Generate a test content
+        const buf = std.fmt.bufPrint(dynamic_content,
+            \\  <html>
+            \\      This is a dynamic file content example. <br>
+            \\	    Count: {} <a href="dynamic.html">[Refresh]</a><br>
+            \\	    <script src="webui.js"></script>
+            \\  </html>
+            // webui.js, to keep connection with WebUI
+        , .{count}) catch unreachable;
+
+        // By allocating resources using webui.malloc()
+        // WebUI will automaticaly free the resources
+        return buf;
+    }
+
+    // A NULL return will make WebUI
+    // looks for the file locally. if
+    // not, WebUI will generate `404`
+    return null;
+}
+
+// Set a custom files handler
+my_window.setFileHandler(my_files_handler);
 ```
 <!-- ---------- -->
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+static mut COUNT: i32 = 0;
+
+fn my_file_handler(filename: *const i8, len: *mut i32) -> *const std::os::raw::c_void {
+    let filename = unsafe { std::ffi::CStr::from_ptr(filename).to_str().unwrap() };
+
+    println!("File: {}", filename);
+
+    if filename == "/test.txt" {
+        // Const static file example
+        // Note: The connection will drop if the content
+        // does not have `<script src="/webui.js"></script>`
+        let content = "This is a embedded file content example.";
+        unsafe { *len = content.len() as i32 };
+        return content.as_ptr() as *const std::os::raw::c_void;
+    } else if filename == "/dynamic.html" {
+        // Dynamic file example
+        unsafe { COUNT += 1 };
+        let content = format!(
+            "<html>This is a dynamic file content example.<br>Count: {} <a href=\"dynamic.html\">[Refresh]</a><br><script src=\"/webui.js\"></script></html>",
+            unsafe { COUNT }
+        );
+        unsafe { *len = content.len() as i32 };
+        return content.as_ptr() as *const std::os::raw::c_void;
+    }
+
+    // A NULL return will make WebUI
+    // looks for the file locally. if
+    // not, WebUI will generate `404`
+    std::ptr::null()
+}
+
+// Set a custom files handler
+win.set_file_handler(my_file_handler);
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -2287,31 +2714,48 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+if my_window.is_shown():
+    print("The window is still running")
+else
+    print("The window is closed.")
 ```
 <!-- ---------- -->
 #### **Deno**
 <!-- ---------- -->
 ```ts
-// In development...
+if (MyWindow.isShown)
+	console.log("The window is still running")
+else
+	console.log("The window is closed.")
 ```
 <!-- ---------- -->
 #### **Go**
 <!-- ---------- -->
 ```go
-// In development...
+if my_window.IsShown() {
+    fmt.Printf("The window is still running")
+} else {
+    fmt.Printf("The window is closed.")
+}
 ```
 <!-- ---------- -->
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+if myWindow.shown():
+  echo "A window is running..."
+else:
+  echo "No window is running."
 ```
 <!-- ---------- -->
 #### **V**
 <!-- ---------- -->
 ```v
-// In development...
+if webui.is_shown(my_window) {
+	println('The window is still running')
+} else {
+	println('The window is closed.')
+}
 ```
 <!-- ---------- -->
 #### **Odin**
@@ -2323,13 +2767,21 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+if (new_window.isShown()) {
+    std.debug.print("The window is still running", .{});
+} else {
+    std.debug.print("The window is closed.", .{});
+}
 ```
 <!-- ---------- -->
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+if win.is_shown() {
+    println!("The window is still running");
+} else {
+    println!("The window is closed.");
+}
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -2402,7 +2854,7 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+webui_set_timeout(10);
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -2420,7 +2872,7 @@ int main() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+setTimeout(10);
 ```
 <!-- ---------- -->
 #### **V**
@@ -2438,13 +2890,23 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+// Wait 10 seconds for the browser to start
+webui.setTimeout(10);
+
+// Now, After 10 seconds, if the browser did
+// not get started, wait() will break
+webui.wait();
 ```
 <!-- ---------- -->
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+// Set timeout for 10 seconds
+webui::set_timeout(10);
+
+// Now, After 10 seconds, if the browser did
+// not get started, wait() will break
+webui::wait();
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -2514,7 +2976,18 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+# SVG Icon
+my_icon = "<svg>...</svg>"
+my_icon_type = "image/svg+xml"
+
+# PNG Icon
+# my_icon = "data:image/..."
+# my_icon_type = "image/png"
+
+# When the web browser ask for `favicon.ico`, WebUI will
+# send a redirection to `favicon.svg`, the body will be `myIcon`
+# and the mime-type will be `myIconType`
+my_window.set_icon(myIcon, myIconType)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -2532,7 +3005,20 @@ int main() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+# SVG Icon
+let
+  myIcon = "<svg>...</svg>"
+  myIconType = "image/svg+xml"
+
+# PNG Icon
+# let
+#   myIcon = "data:image/..."
+#   myIconType = "image/png"
+
+# When the web browser ask for `favicon.ico`, WebUI will
+# send a redirection to `favicon.svg`, the body will be `myIcon`
+# and the mime-type will be `myIconType`
+myWindow.setIcon(myIcon, myIconType)
 ```
 <!-- ---------- -->
 #### **V**
@@ -2550,13 +3036,34 @@ int main() {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+// SVG Icon
+const my_icon = "<svg>...</svg>";
+const my_icon_type = "image/svg+xml";
+// PNG Icon
+// const my_icon = "data:image/...";
+// const my_icon_type = "image/png";
+
+// When the web browser ask for `favicon.ico`, WebUI will
+// send a redirection to `favicon.svg`, the body will be `my_icon`
+// and the mime-type will be `my_icon_type`
+new_window.setIcon(my_icon, my_icon_type);
 ```
 <!-- ---------- -->
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+// SVG Icon
+let my_icon = "<svg>...</svg>";
+let my_icon_type = "image/svg+xml";
+
+// PNG Icon
+// let my_icon = "data:image/...";
+// let my_icon_type = "image/png";
+
+// When the web browser ask for `favicon.ico`, WebUI will
+// send a redirection to `favicon.svg`, the body will be `my_icon`
+// and the mime-type will be `my_icon_type`
+win.set_icon(my_icon, my_icon_type);
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -5360,31 +5867,77 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+# Run JavaScript to get the password
+res = e.window.script("return 2*2;")
+
+# Check for any error
+if res.error is True:
+    print("JavaScript Error: " + res.data)
+else:
+    print("JavaScript Response: " + res.data) # 4
+
+# Run JavaScript quickly with no waiting for the response
+e.window.run("alert('Fast!')")
 ```
 <!-- ---------- -->
 #### **Deno**
 <!-- ---------- -->
 ```ts
-// In development...
+const response = await webui.script('return 2*2;').catch(
+  console.error,
+);
+// response == "4"
 ```
 <!-- ---------- -->
 #### **Go**
 <!-- ---------- -->
 ```go
-// In development...
+// Create new JavaScript object
+js := webui.NewJavaScript()
+
+// Run the script
+if !webui.Script(e.Window, &js, "return 2*2;") {
+    // Error
+    fmt.Printf("JavaScript Error: %s\n", js.Response)
+}
+
+// Print the Response
+fmt.Printf("JavaScript Response: %s\n", js.Response)
+
+// Run JavaScript quickly with no waiting for the response
+webui.Run(e.Window, "alert('Fast!')")
 ```
 <!-- ---------- -->
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+myWindow.bind("ExampleElement") do (e: Event):
+  # Run JavaScript to get the result
+  let res = e.window.script("return 2*2;")
+
+  # Check for any error
+  if res.error:
+    echo "JavaScript Error: ", res.data
+  else:
+    echo "JavaScript Response: ", res.data # 4
+
+  # Run JavaScript quickly with no waiting for the response
+  e.window.run("alert('Fast!')")
 ```
 <!-- ---------- -->
 #### **V**
 <!-- ---------- -->
 ```v
-// In development...
+fn my_function(e &webui.Event) {
+	// Run JavaScript
+	response := e.window.script('return 2*2;', 0, 64)
+
+	// Print the result
+	println('JavaScript Response: ${response.int()}') // 4
+
+	// Run JavaScript quickly with no waiting for the response
+	e.window.run("alert('Fast!');")
+}
 ```
 <!-- ---------- -->
 #### **Odin**
@@ -5396,13 +5949,41 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+fn myFunction(e: webui.Event) void {
+    // Create a buffer to hold the response
+    var response: [64]u8 = std.mem.zeroes([64]u8);
+
+    var tmp_e = e;
+    var win = tmp_e.getWindow();
+
+    // Run JavaScript
+    if (!win.script("return 2*2;", // JavaScript to be executed
+        0, // Maximum waiting time in second
+        &response // Local buffer to hold the JavaScript response
+    )) {
+        std.debug.print("JavaScript Error: {s}\n", .{response});
+        return;
+    }
+
+    // Print the result
+    std.debug.print("JavaScript Response: {s}\n", .{response}); // 4
+
+    // Run JavaScript quickly with no waiting for the response
+    win.run("alert('Fast!');");
+}
 ```
 <!-- ---------- -->
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+fn main() {
+  // ...
+  win.run_js("console.log('Hello from the backend!')");
+}
+
+fn event_handler(e: webui::Event) {
+  e.get_window().run_js("console.log('Hello from the event handler!')");
+}
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -5496,7 +6077,13 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/serv
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+# Deno
+my_window.set_runtime(webui.runtime.deno)
+my_window.show("my_file.ts")
+
+# Nodejs
+my_window.set_runtime(webui.runtime.nodejs)
+my_window.show("my_file.js")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -5508,19 +6095,37 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/serv
 #### **Go**
 <!-- ---------- -->
 ```go
-// In development...
+// Deno
+webui.SetRuntime(my_window, webui.Deno)
+webui.Show(my_window, "my_file.ts")
+
+// Nodejs
+webui.SetRuntime(my_window, webui.Nodejs)
+webui.Show(my_window, "my_file.js")
 ```
 <!-- ---------- -->
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+# Deno
+myWindow.runtime = Deno
+myWindow.show("my_file.ts")
+
+# Nodejs
+myWindow.runtime = NodeJS
+myWindow.show("my_file.js")
 ```
 <!-- ---------- -->
 #### **V**
 <!-- ---------- -->
 ```v
-// In development...
+// Deno
+my_window.set_runtime(.runtime_deno)
+my_window.show("my_file.ts")
+
+// Nodejs
+my_window.set_runtime(.runtime_nodejs)
+my_window.show("my_file.js")
 ```
 <!-- ---------- -->
 #### **Odin**
@@ -5532,13 +6137,25 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/serv
 #### **Zig**
 <!-- ---------- -->
 ```zig
-// In development...
+// Deno
+my_window.setRuntime(.Deno);
+my_window.show("my_file.ts");
+
+// Nodejs
+my_window.setRuntime(.Nodejs);
+my_window.show("my_file.js");
 ```
 <!-- ---------- -->
 #### **Rust**
 <!-- ---------- -->
 ```rust
-// In development...
+// Deno
+win.set_runtime(webui::WebUIRuntime::Deno);
+win.show("my_file.ts");
+
+// Nodejs
+win.set_runtime(webui::WebUIRuntime::Nodejs);
+win.show("my_file.js");
 ```
 <!-- ---------- -->
 #### **Other...**
