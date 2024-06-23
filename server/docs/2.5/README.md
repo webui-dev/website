@@ -449,6 +449,18 @@ let win = webui::Window::new();
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -564,6 +576,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -670,6 +694,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -848,6 +884,18 @@ win.bind("MyID2", |_: webui::Event| -> String {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -1062,6 +1110,18 @@ win.bind("", event_handler);
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -1200,6 +1260,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -1361,6 +1433,18 @@ win.show("https://mydomain.com");
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -1513,6 +1597,18 @@ win.show_browser("<html><script src=\"/webui.js\"> ... </html>", webui::WebUIBro
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -1631,6 +1727,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -1738,6 +1846,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -1890,6 +2010,18 @@ fn main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -1994,6 +2126,18 @@ win.close();
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -2104,6 +2248,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -2202,6 +2358,18 @@ webui::exit();
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -2317,6 +2485,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -2425,6 +2605,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -2658,6 +2850,18 @@ win.set_file_handler(my_file_handler);
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -2798,6 +3002,18 @@ if win.is_shown() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -2920,6 +3136,18 @@ webui::wait();
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -3080,6 +3308,18 @@ win.set_icon(my_icon, my_icon_type);
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -3192,6 +3432,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -3318,6 +3570,18 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -3426,6 +3690,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -3541,6 +3817,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -3672,6 +3960,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -3781,6 +4081,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -3896,6 +4208,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -4005,6 +4329,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -4122,6 +4458,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -4234,6 +4582,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -4338,6 +4698,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -4456,6 +4828,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -4583,6 +4967,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -4683,6 +5079,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -4790,6 +5198,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -4904,6 +5324,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -5009,6 +5441,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -5111,6 +5555,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -5239,6 +5695,18 @@ int main() {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -5397,6 +5865,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -5545,6 +6025,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -5680,6 +6172,18 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -5791,6 +6295,18 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -6000,6 +6516,18 @@ fn event_handler(e: webui::Event) {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -6172,6 +6700,18 @@ win.show("my_file.js");
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -6276,6 +6816,30 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -6386,6 +6950,18 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -6488,6 +7064,18 @@ void callback(webui::window::event* e) {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -6598,6 +7186,18 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -6702,6 +7302,18 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -6812,6 +7424,18 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -6914,6 +7538,18 @@ void callback(webui::window::event* e) {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -7024,6 +7660,18 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -7126,6 +7774,18 @@ void callback(webui::window::event* e) {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -7236,6 +7896,18 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -7338,6 +8010,18 @@ void callback(webui::window::event* e) {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -7448,6 +8132,18 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -7552,6 +8248,18 @@ void callback(webui::window::event* e) {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
@@ -7662,6 +8370,18 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```basic
@@ -7766,6 +8486,18 @@ void callback(webui::window::event* e) {
 **Bun**
 <!-- ---------- -->
 ```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C#**
+<!-- ---------- -->
+```csharp
 // In development...
 ```
 <!-- ---------- -->
