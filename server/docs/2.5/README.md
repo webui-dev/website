@@ -455,7 +455,7 @@ let win = webui::Window::new();
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -582,7 +582,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -703,7 +703,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -893,7 +893,7 @@ win.bind("MyID2", |_: webui::Event| -> String {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -1116,7 +1116,7 @@ win.bind("", event_handler);
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -1269,7 +1269,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -1439,7 +1439,7 @@ win.show("https://mydomain.com");
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -1603,7 +1603,7 @@ win.show_browser("<html><script src=\"/webui.js\"> ... </html>", webui::WebUIBro
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -1733,7 +1733,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -1855,7 +1855,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -2016,7 +2016,7 @@ fn main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -2135,7 +2135,7 @@ win.close();
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -2254,7 +2254,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -2367,7 +2367,7 @@ webui::exit();
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -2491,7 +2491,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -2614,7 +2614,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -2856,7 +2856,7 @@ win.set_file_handler(my_file_handler);
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -3008,7 +3008,7 @@ if win.is_shown() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -3145,7 +3145,7 @@ webui::wait();
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -3314,7 +3314,7 @@ win.set_icon(my_icon, my_icon_type);
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -3441,7 +3441,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -3576,7 +3576,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -3699,7 +3699,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -3826,7 +3826,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -3966,7 +3966,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -4090,7 +4090,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -4214,7 +4214,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -4338,7 +4338,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -4464,7 +4464,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -4588,7 +4588,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -4707,7 +4707,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -4837,7 +4837,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -4973,7 +4973,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -5088,7 +5088,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -5207,7 +5207,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -5330,7 +5330,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -5447,7 +5447,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -5564,7 +5564,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -5704,7 +5704,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -5871,7 +5871,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -6031,7 +6031,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -6178,7 +6178,7 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -6304,7 +6304,7 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -6522,7 +6522,7 @@ fn event_handler(e: webui::Event) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -6706,7 +6706,7 @@ win.show("my_file.js");
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -6825,7 +6825,7 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -6837,7 +6837,7 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -6956,7 +6956,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -7073,7 +7073,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -7192,7 +7192,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -7311,7 +7311,7 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -7430,7 +7430,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -7547,7 +7547,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -7666,7 +7666,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -7783,7 +7783,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -7902,7 +7902,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -8019,7 +8019,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -8138,7 +8138,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -8257,7 +8257,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -8376,7 +8376,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
@@ -8495,7 +8495,7 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-**C#**
+**C-Sharp**
 <!-- ---------- -->
 ```csharp
 // In development...
