@@ -212,6 +212,18 @@ exe.linkLibrary(zig_webui.artifact("webui"));
 // In development...
 ```
 <!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```sh
+// In development...
+```
+<!-- ---------- -->
+**C-Sharp**
+<!-- ---------- -->
+```sh
+// In development...
+```
+<!-- ---------- -->
 **Basic**
 <!-- ---------- -->
 ```sh
@@ -342,6 +354,14 @@ pub fn main() {
 // In development...
 ```
 **Bun**
+```sh
+// In development...
+```
+**Swift**
+```sh
+// In development...
+```
+**C-Sharp**
 ```sh
 // In development...
 ```
