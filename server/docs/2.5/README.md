@@ -5771,6 +5771,12 @@ Control and change the WebUI global settings.
         //
         // Default: False
         ui_event_blocking,
+
+        // Automatically refresh the window UI when any file in the
+        // root folder gets changed.
+        //
+        // Default: False
+        folder_monitor,
     };
 */
 
@@ -5781,8 +5787,9 @@ int main() {
     * @param status The status of the option, `true` or `false`
     */
 
-    webui_config(show_wait_connection, true);
-    webui_config(ui_event_blocking, false);
+    webui_set_config(show_wait_connection, true);
+    webui_set_config(ui_event_blocking, false);
+    webui_set_config(folder_monitor, true);
 }
 ```
 <!-- ---------- -->
@@ -5808,6 +5815,12 @@ int main() {
         //
         // Default: False
         ui_event_blocking,
+
+        // Automatically refresh the window UI when any file in the
+        // root folder gets changed.
+        //
+        // Default: False
+        folder_monitor,
     };
 */
 
@@ -5818,8 +5831,9 @@ int main() {
     * @param status The status of the option, `true` or `false`
     */
 
-    webui::config(show_wait_connection, true);
-    webui::config(ui_event_blocking, false);
+    webui::set_config(show_wait_connection, true);
+    webui::set_config(ui_event_blocking, false);
+    webui::set_config(folder_monitor, true);
 }
 ```
 <!-- ---------- -->
@@ -8678,6 +8692,14 @@ Decode base64 string into text.
 
 ```js
 const str = webui.encode(base64);
+```
+
+### JavaScript - isHighContrast
+
+Get OS high contrast preference.
+
+```js
+const hc = webui.isHighContrast();
 ```
 
 ### JavaScript - setLogging
