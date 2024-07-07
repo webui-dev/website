@@ -1,12 +1,13 @@
 <div align="center">
 
-![ScreenShot](data/webui_240_shadow.png)
+![Logo](data/webui_120.svg)
 
 # WebUI v2.5 Documentation
+***[ ! ] Beta 2 - Not Complete Yet***
 
-> Use any web browser or WebView as GUI, with your preferred language in the backend and HTML5 in the frontend, all in a lightweight portable library.
+> Use any web browser or WebView as GUI, with your preferred language in the backend and modern web technologies in the frontend, all in a lightweight portable library.
 
-![ScreenShot](data/screenshot.png)
+![Screenshot](data/screenshot.png)
 
 </div>
 
@@ -27,8 +28,8 @@ You can [download](https://github.com/webui-dev/webui/releases) the latest pre-r
 git clone https://github.com/webui-dev/webui.git
 cd webui
 
-# Windows - Microsoft Visual Studio
-nmake -f Makefile.nmake
+# Windows - MSVC
+nmake
 
 # Windows - MinGW
 mingw32-make
@@ -54,8 +55,8 @@ You can [download](https://github.com/webui-dev/webui/releases) the latest pre-r
 git clone https://github.com/webui-dev/webui.git
 cd webui
 
-# Windows - Microsoft Visual Studio
-nmake -f Makefile.nmake
+# Windows - MSVC
+nmake
 
 # Windows - MinGW
 mingw32-make
@@ -373,7 +374,7 @@ pub fn main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - new_window
+### new_window
 
 Create a new window object.
 
@@ -495,7 +496,7 @@ let win = webui::Window::new();
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - new_window_id
+### new_window_id
 
 Create a new window object using a specified ID.
 
@@ -627,7 +628,7 @@ window.show("index.html")
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_new_window_id
+### get_new_window_id
 
 Get a free window ID that can be used later with `new_window_id` to create a new window object.
 
@@ -753,7 +754,7 @@ window.show("index.html")
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - bind
+### bind
 
 Bind an HTML element event with a function. Empty element means all events.
 
@@ -959,7 +960,7 @@ win.bind("MyID2", |_: webui::Event| -> String {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - event
+### event
 
 Every event comes with information about the current event, like id, name, type (_click, connect, disconnect..._) and more.
 
@@ -972,11 +973,14 @@ Every event comes with information about the current event, like id, name, type 
 
 /*
     webui_event_t {
-        size_t window;       // The window object number
-        size_t event_type;   // Event type
-        char* element;       // HTML element ID
-        size_t event_number; // Internal
-        size_t bind_id;      // Bind ID
+        size_t window;        // The window object number
+        size_t event_type;    // Event type
+        char* element;        // HTML element ID
+        size_t event_number;  // Internal
+        size_t bind_id;       // Bind ID
+        size_t client_id;     // Client's unique ID
+        size_t connection_id; // Client's connection ID
+        char* cookies;        // Client's full cookies
     };
 
     enum {
@@ -1206,7 +1210,7 @@ win.bind("", event_handler);
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_best_browser
+### get_best_browser
 
 Get the recommended web browser ID to use. If you are already using one, this function will return the same ID.
 
@@ -1234,6 +1238,7 @@ int main() {
             Epic,           // 10. The Epic Browser
             Yandex,         // 11. The Yandex Browser
             ChromiumBased,  // 12. Any Chromium based browser
+            WebView,        // 13. WebView (Non-web-browser)
         }
     */
 
@@ -1267,6 +1272,7 @@ int main() {
             Epic,           // 10. The Epic Browser
             Yandex,         // 11. The Yandex Browser
             ChromiumBased,  // 12. Any Chromium based browser
+            WebView,        // 13. WebView (Non-web-browser)
         }
     */
 
@@ -1381,7 +1387,7 @@ let bestBrowser = window.getBestBrowser()
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - show
+### show
 
 Show a window using embedded HTML, or a file. If the window is already open, it will be refreshed.
 
@@ -1556,7 +1562,7 @@ win.show("https://mydomain.com");
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - show_browser
+### show_browser
 
 Show a window using a specific web browser.
 
@@ -1588,6 +1594,7 @@ int main() {
             Epic,           // 10. The Epic Browser
             Yandex,         // 11. The Yandex Browser
             ChromiumBased,  // 12. Any Chromium based browser
+            WebView,        // 13. WebView (Non-web-browser)
         }
     */
 
@@ -1623,6 +1630,7 @@ int main() {
             Epic,           // 10. The Epic Browser
             Yandex,         // 11. The Yandex Browser
             ChromiumBased,  // 12. Any Chromium based browser
+            WebView,        // 13. WebView (Non-web-browser)
         }
     */
 
@@ -1724,7 +1732,7 @@ win.show_browser("<html><script src=\"/webui.js\"> ... </html>", webui::WebUIBro
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - show_wv
+### show_wv
 
 Show a **WebView** window using embedded HTML, or a file. If the window is already open, it will be refreshed.
 
@@ -1854,7 +1862,7 @@ window.showWv("index.html")
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_kiosk
+### set_kiosk
 
 Set the window in Kiosk mode (_Full screen_).
 
@@ -1976,7 +1984,7 @@ window.kiosk = true
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - wait
+### wait
 
 Wait until all opened windows get closed.
 
@@ -2139,7 +2147,7 @@ fn main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - close
+### close
 
 Close a specific window.
 
@@ -2151,6 +2159,15 @@ Close a specific window.
 <!-- ---------- -->
 ```c
 #include "webui.h"
+
+void callback(webui_event_t* e) {
+
+    /*
+    * @param e The event struct
+    */
+
+    webui_close_client(e);
+}
 
 int main() {
 
@@ -2166,6 +2183,15 @@ int main() {
 <!-- ---------- -->
 ```cpp
 #include "webui.hpp"
+
+void callback(webui::window::event* e) {
+
+    /*
+    * @param e The event struct
+    */
+
+    webui_close_client(e);
+}
 
 int main() {
 
@@ -2258,7 +2284,7 @@ win.close();
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - destroy
+### destroy
 
 Close a specific window and free all related memory resources.
 
@@ -2377,7 +2403,7 @@ window.destroy()
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - exit
+### exit
 
 Close all open windows. This will make `wait()` return (_Break_).
 
@@ -2490,7 +2516,7 @@ webui::exit();
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_root_folder
+### set_root_folder
 
 Set the web-server root folder path for a specific window.
 
@@ -2614,7 +2640,7 @@ window.rootFolder = "/home/Foo/Bar/"
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_default_root_folder
+### set_default_root_folder
 
 Set the web-server root folder path for all windows.
 
@@ -2737,7 +2763,7 @@ setDefaultRootFolder("/home/Foo/Bar/")
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_file_handler
+### set_file_handler
 
 Set a custom handler to serve files.
 
@@ -2981,7 +3007,7 @@ win.set_file_handler(my_file_handler);
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - is_shown
+### is_shown
 
 Check if the specified window is still running.
 
@@ -3133,7 +3159,7 @@ if win.is_shown() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_timeout
+### set_timeout
 
 Set the maximum time in seconds to wait for the window to connect. This effect `show()` and `wait()`.
 
@@ -3143,6 +3169,11 @@ Set the maximum time in seconds to wait for the window to connect. This effect `
 <!-- ---------- -->
 ```c
 #include "webui.h"
+
+void callback(webui_event_t* e) {
+
+    webui_show_client(e, "<html>...</html>");
+}
 
 int main() {
 
@@ -3161,6 +3192,11 @@ int main() {
 <!-- ---------- -->
 ```cpp
 #include "webui.hpp"
+
+void callback(webui::window::event* e) {
+
+    win.show_client(e, "<html>...</html>");
+}
 
 int main() {
 
@@ -3277,7 +3313,7 @@ webui::wait();
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_icon
+### set_icon
 
 Set the default embedded HTML favicon.
 
@@ -3448,7 +3484,7 @@ win.set_icon(my_icon, my_icon_type);
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - encode
+### encode
 
 Encode text to Base64.
 
@@ -3579,7 +3615,7 @@ let base64 = encode("Foo Bar")
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - decode
+### decode
 
 Decode a Base64 encoded text.
 
@@ -3714,7 +3750,7 @@ void callback(webui::window::event* e) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - free
+### free
 
 Safely free a buffer allocated by WebUI.
 
@@ -3844,7 +3880,7 @@ bindings.free(buffer)
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - malloc
+### malloc
 
 Safely allocate memory using the WebUI memory management system. It can be safely freed using WebUI's _free_ API at any time later.
 
@@ -3977,7 +4013,7 @@ bindings.free(buffer)
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - send_raw
+### send_raw
 
 Send raw data (_binary_) to the UI.
 
@@ -3987,6 +4023,11 @@ Send raw data (_binary_) to the UI.
 <!-- ---------- -->
 ```c
 #include "webui.h"
+
+void callback(webui::window::event* e) {
+
+    webui_send_raw_client(e, "myJavaScriptFunc", buffer, 3);
+}
 
 int main() {
 
@@ -4012,6 +4053,11 @@ int main() {
 <!-- ---------- -->
 ```cpp
 #include "webui.hpp"
+
+void callback(webui::window::event* e) {
+
+    win.send_raw_client(e, buffer, 3);
+}
 
 int main() {
 
@@ -4117,7 +4163,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_hide
+### set_hide
 
 Set a window in hidden mode.
 
@@ -4241,7 +4287,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_size
+### set_size
 
 Set the window size.
 
@@ -4365,7 +4411,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_position
+### set_position
 
 Set the window position.
 
@@ -4489,7 +4535,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_profile
+### set_profile
 
 Set the web browser profile to use. An empty `name` and `path` means the default user profile. 
 
@@ -4615,7 +4661,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_proxy
+### set_proxy
 
 Set the web browser proxy server to use.
 
@@ -4739,7 +4785,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_url
+### get_url
 
 Get current URL of a running window.
 
@@ -4858,7 +4904,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_public
+### set_public
 
 Allow a specific window address (_URL_) to be accessible from any public network. By default WebUI allow access to the URL of a window only from localhost.
 
@@ -4988,7 +5034,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - navigate
+### navigate
 
 Navigate to a specific URL.
 
@@ -5124,7 +5170,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - clean
+### clean
 
 Free all memory resources. Should be called only at the end.
 
@@ -5239,7 +5285,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - delete_all_profiles
+### delete_all_profiles
 
 Delete a specific window web-browser local folder profile.
 
@@ -5358,7 +5404,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - delete_profile
+### delete_profile
 
 Delete a specific window web-browser local folder profile.
 
@@ -5481,7 +5527,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_parent_process_id
+### get_parent_process_id
 
 Get the ID of the parent process (_The web browser may re-create another new process_).
 
@@ -5598,7 +5644,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_child_process_id
+### get_child_process_id
 
 Get the ID of the last child process (_The web browser may re-create other child process_).
 
@@ -5715,7 +5761,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_port
+### set_port
 
 Set a custom web-server network port to be used by WebUI. This can be useful to determine the HTTP link of `webui.js` in case you are trying to use WebUI with an external web-server like NGNIX.
 
@@ -5855,7 +5901,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_config
+### set_config
 
 Control and change the WebUI global settings.
 
@@ -5872,11 +5918,10 @@ Control and change the WebUI global settings.
     enum {
         // Control if `webui_show()`, `webui_show_browser()` and
         // `webui_show_wv()` should wait for the window to connect
-        // before return or not.
+        // before returns or not.
         //
         // Default: True
         show_wait_connection = 0,
-
         // Control if WebUI should block and process the UI events
         // one a time in a single thread `True`, or process every
         // event in a new non-blocking thread `False`. This updates
@@ -5885,12 +5930,23 @@ Control and change the WebUI global settings.
         //
         // Default: False
         ui_event_blocking,
-
         // Automatically refresh the window UI when any file in the
         // root folder gets changed.
         //
         // Default: False
         folder_monitor,
+        // Allow multiple clients to connect to the same window,
+        // This is helpful for web apps (non-desktop software),
+        // Please see the documentation for more details.
+        //
+        // Default: False
+        multi_client,
+        // Allow multiple clients to connect to the same window,
+        // This is helpful for web apps (non-desktop software),
+        // Please see the documentation for more details.
+        //
+        // Default: False
+        use_cookies,
     };
 */
 
@@ -5916,11 +5972,10 @@ int main() {
     enum {
         // Control if `webui_show()`, `webui_show_browser()` and
         // `webui_show_wv()` should wait for the window to connect
-        // before return or not.
+        // before returns or not.
         //
         // Default: True
         show_wait_connection = 0,
-
         // Control if WebUI should block and process the UI events
         // one a time in a single thread `True`, or process every
         // event in a new non-blocking thread `False`. This updates
@@ -5929,12 +5984,23 @@ int main() {
         //
         // Default: False
         ui_event_blocking,
-
         // Automatically refresh the window UI when any file in the
         // root folder gets changed.
         //
         // Default: False
         folder_monitor,
+        // Allow multiple clients to connect to the same window,
+        // This is helpful for web apps (non-desktop software),
+        // Please see the documentation for more details.
+        //
+        // Default: False
+        multi_client,
+        // Allow multiple clients to connect to the same window,
+        // This is helpful for web apps (non-desktop software),
+        // Please see the documentation for more details.
+        //
+        // Default: False
+        use_cookies,
     };
 */
 
@@ -6036,7 +6102,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_event_blocking
+### set_event_blocking
 
 Control if UI events comming from this window should be processed one a time in a single blocking thread `True`, or process every event in a new non-blocking thread `False`. This update single window. You can use `set_config()` to update all windows.
 
@@ -6196,7 +6262,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_tls_certificate
+### set_tls_certificate
 
 Set the SSL/TLS certificate and the private key content in PEM format. If set empty WebUI will generate a self-signed certificate.
 
@@ -6343,7 +6409,7 @@ int main() {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - run
+### run
 
 Run JavaScript without waiting for the response.
 
@@ -6354,12 +6420,26 @@ Run JavaScript without waiting for the response.
 ```c
 #include "webui.h"
 
+void callback(webui_event_t* e) {
+
+    /*
+    * @param e The event struct
+    * @param script The JavaScript to be run
+    */
+
+    // Run javascript for one specific client
+
+    webui_run_client(e, "alert('Foo Bar');");
+}
+
 int main() {
 
     /*
     * @param window The window number
     * @param script The JavaScript to be run
     */
+
+    // Run javascript for all connected clients in a window
 
     webui_run(win, "alert('Foo Bar');");
 }
@@ -6372,11 +6452,25 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_js_
 ```cpp
 #include "webui.hpp"
 
+void callback(webui::window::event* e) {
+
+    /*
+    * @param e The event struct
+    * @param script The JavaScript to be run
+    */
+
+    // Run javascript for one specific client
+
+    win.run_client(e, "alert('Foo Bar');");
+}
+
 int main() {
 
     /*
     * @param script The JavaScript to be run
     */
+
+    // Run javascript for all connected clients in a window
 
     win.run("alert('Foo Bar');");
 }
@@ -6469,7 +6563,7 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - script
+### script
 
 Run JavaScript and get the response back.
 
@@ -6480,6 +6574,27 @@ Run JavaScript and get the response back.
 ```c
 #include "webui.h"
 
+void callback(webui_event_t* e) {
+
+    /*
+    * @param e The event struct
+    * @param script The JavaScript to be run
+    * @param timeout The execution timeout
+    * @param buffer The local buffer to hold the response
+    * @param buffer_length The local buffer size
+    */
+
+    // Run javascript for one specific client
+
+    char response[64];
+    if (!webui_script_client(e, "return 4 + 6;", 0, response, 64)) {
+        printf("JavaScript Error: %s\n", response);
+    }
+    else {
+        printf("JavaScript Response: %s\n", response); // 10
+    }
+}
+
 int main() {
 
     /*
@@ -6489,6 +6604,8 @@ int main() {
     * @param buffer The local buffer to hold the response
     * @param buffer_length The local buffer size
     */
+
+    // Run javascript
 
     char response[64];
     if (!webui_script(win, "return 4 + 6;", 0, response, 64)) {
@@ -6687,7 +6804,7 @@ fn event_handler(e: webui::Event) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - set_runtime
+### set_runtime
 
 Chose between Deno and Nodejs as runtime for `.js` and `.ts` files.
 
@@ -6871,7 +6988,7 @@ win.show("my_file.js");
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_count
+### get_count
 
 Get how many arguments there are in an event.
 
@@ -7002,7 +7119,7 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_int_at
+### get_int_at
 
 Get an argument as integer at a specific index.
 
@@ -7121,7 +7238,7 @@ void callback(webui::window::event* e) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_int
+### get_int
 
 Get the first argument as integer.
 
@@ -7238,7 +7355,7 @@ void callback(webui::window::event* e) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_float_at
+### get_float_at
 
 Get an argument as float at a specific index.
 
@@ -7357,7 +7474,7 @@ void callback(webui::window::event* e) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_float
+### get_float
 
 Get the first argument as float.
 
@@ -7476,7 +7593,7 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_string_at
+### get_string_at
 
 Get an argument as string at a specific index.
 
@@ -7595,7 +7712,7 @@ void callback(webui::window::event* e) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_string
+### get_string
 
 Get the first argument as string.
 
@@ -7712,7 +7829,7 @@ void callback(webui::window::event* e) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_bool_at
+### get_bool_at
 
 Get an argument as boolean at a specific index.
 
@@ -7831,7 +7948,7 @@ void callback(webui::window::event* e) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_bool
+### get_bool
 
 Get the first argument as boolean.
 
@@ -7948,7 +8065,7 @@ void callback(webui::window::event* e) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_size_at
+### get_size_at
 
 Get the size in bytes of an argument at a specific index.
 
@@ -8067,7 +8184,7 @@ void callback(webui::window::event* e) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - get_size
+### get_size
 
 Get size in bytes of the first argument.
 
@@ -8184,7 +8301,7 @@ void callback(webui::window::event* e) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - return_int
+### return_int
 
 Return the response to JavaScript as integer.
 
@@ -8303,7 +8420,7 @@ void callback(webui::window::event* e) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - return_float
+### return_float
 
 Return the response to JavaScript as float.
 
@@ -8422,7 +8539,7 @@ void callback(webui::window::event* e) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - return_string
+### return_string
 
 Return the response to JavaScript as string.
 
@@ -8541,7 +8658,7 @@ void callback(webui::window::event* e) {
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
-### Backend - return_bool
+### return_bool
 
 Return the response to JavaScript as boolean.
 
@@ -8573,6 +8690,212 @@ void callback(webui::window::event* e) {
     // Return
 	e->return_bool(true);
 }
+```
+<!-- ---------- -->
+#### **Python**
+<!-- ---------- -->
+```python
+# In development...
+```
+<!-- ---------- -->
+#### **Deno**
+<!-- ---------- -->
+```ts
+// In development...
+```
+<!-- ---------- -->
+#### **Go**
+<!-- ---------- -->
+```go
+// In development...
+```
+<!-- ---------- -->
+#### **Nim**
+<!-- ---------- -->
+```nim
+// In development...
+```
+<!-- ---------- -->
+#### **V**
+<!-- ---------- -->
+```v
+// In development...
+```
+<!-- ---------- -->
+#### **Odin**
+<!-- ---------- -->
+```odin
+// In development...
+```
+<!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+// In development...
+```
+<!-- ---------- -->
+#### **Rust**
+<!-- ---------- -->
+```rust
+// In development...
+```
+<!-- ---------- -->
+#### **Other...**
+<!-- ---------- -->
+**Pascal**
+<!-- ---------- -->
+```pascal
+// In development...
+```
+<!-- ---------- -->
+**Bun**
+<!-- ---------- -->
+```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C-Sharp**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
+**Basic**
+<!-- ---------- -->
+```basic
+// In development...
+```
+<!-- ---------- -->
+<!-- tabs:end -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### open_url
+
+Open an URL in the native default web browser.
+
+<!-- tabs:start -->
+<!-- ---------- -->
+#### **C**
+<!-- ---------- -->
+```c
+webui_open_url("https://webui.me");
+```
+<!-- ---------- -->
+#### **C++**
+<!-- ---------- -->
+```cpp
+webui::open_url("https://webui.me");
+```
+<!-- ---------- -->
+#### **Python**
+<!-- ---------- -->
+```python
+# In development...
+```
+<!-- ---------- -->
+#### **Deno**
+<!-- ---------- -->
+```ts
+// In development...
+```
+<!-- ---------- -->
+#### **Go**
+<!-- ---------- -->
+```go
+// In development...
+```
+<!-- ---------- -->
+#### **Nim**
+<!-- ---------- -->
+```nim
+// In development...
+```
+<!-- ---------- -->
+#### **V**
+<!-- ---------- -->
+```v
+// In development...
+```
+<!-- ---------- -->
+#### **Odin**
+<!-- ---------- -->
+```odin
+// In development...
+```
+<!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+// In development...
+```
+<!-- ---------- -->
+#### **Rust**
+<!-- ---------- -->
+```rust
+// In development...
+```
+<!-- ---------- -->
+#### **Other...**
+<!-- ---------- -->
+**Pascal**
+<!-- ---------- -->
+```pascal
+// In development...
+```
+<!-- ---------- -->
+**Bun**
+<!-- ---------- -->
+```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C-Sharp**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
+**Basic**
+<!-- ---------- -->
+```basic
+// In development...
+```
+<!-- ---------- -->
+<!-- tabs:end -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### start_server
+
+Start only the web server and return the URL. This is useful for web app. No window will be shown.
+
+<!-- tabs:start -->
+<!-- ---------- -->
+#### **C**
+<!-- ---------- -->
+```c
+const char* url = webui_start_server(myWindow, "/full/root/path");
+```
+<!-- ---------- -->
+#### **C++**
+<!-- ---------- -->
+```cpp
+std::string url = myWindow.start_server("/full/root/path");
 ```
 <!-- ---------- -->
 #### **Python**
