@@ -300,8 +300,8 @@ func main() {
 ```nim
 import webui
 
-let win = newWindow()
-win.show("<html><script src=\"webui.js\"></script> Hello World from Nim! </html>")
+let window = newWindow()
+window.show("""<html><script src="/webui.js"></script> Hello World from Nim! </html>""")
 wait()
 ```
 [More Nim Examples](https://github.com/webui-dev/nim-webui/tree/main/examples).
@@ -428,7 +428,10 @@ myWindow := webui.NewWindow()
 #### **Nim**
 <!-- ---------- -->
 ```nim
-let myWindow = newWindow()
+let window = newWindow()
+
+# later...
+window.show("index.html")
 ```
 <!-- ---------- -->
 #### **V**
@@ -555,7 +558,12 @@ int main() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+let
+  windowId = 1
+  window = newWindow(windowId)
+
+# later...
+window.show("index.html")
 ```
 <!-- ---------- -->
 #### **V**
@@ -676,7 +684,12 @@ int main() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+let
+  windowId = getNewWindowId()
+  window = newWindow(windowId)
+
+# later...
+window.show("index.html")
 ```
 <!-- ---------- -->
 #### **V**
@@ -842,9 +855,25 @@ webui.Bind(win, "MyID", my_function)
 #### **Nim**
 <!-- ---------- -->
 ```nim
-myWindow.bind("MyID") do (e: Event):
-  # <button id="MyID">Hello</button> gets clicked!
-  echo "Binding element ", e.element, "!"
+# `bind` accepts three arguments:
+# * window - The window to bind the function onto
+# * element - The HTML element / JavaScript object to bind the function `func` onto
+# * `func` - The callback proc -- the function to bind to `element`. 
+
+# there are two ways to use `bind` -- you may either pass a proc into it or use `do` notation
+
+# --- do notation. binds anon func to `callback`
+window.bind("callback") do (e: Event):
+  # do stuff here
+  echo "called!"
+
+# --- create proc and pass it to `bind`
+proc events(e: Event) =
+  # do stuff here
+  echo "caught event ", e.eventType
+
+# bind proc to all events
+window.bind("", events)
 ```
 <!-- ---------- -->
 #### **V**
@@ -1044,9 +1073,33 @@ webui.Bind(win, "", events)
 #### **Nim**
 <!-- ---------- -->
 ```nim
-# Empty ID means bind all events on all elements
-myWindow.bind("") do (e: Event):
-  echo "Hi!, You clicked on ", e.element, " element"
+#[
+This is the `WebuiEvent` enum:
+
+  WebuiEvent* = enum
+    weDisconnected       ## 0. Window disconnection event
+    weConnected          ## 1. Window connection event
+    weMultiConnection    ## 2. New window connection event
+    weUnwantedConnection ## 3. New unwanted window connection event
+    weMouseClick         ## 4. Mouse click event
+    weNavigation         ## 5. Window navigation event
+    weCallback           ## 6. Function call event
+
+It is held in the `eventType` property of the `Event` object, and describes the
+type of the event
+]#
+
+# empty `element` means bind all events on all elements
+window.bind("") do (e: Event):
+  case e.eventType
+  of weConnected:
+    echo "Connected."
+  of weDisconnected:
+    echo "Disconnected."
+  of weMouseClick:
+    echo "Click."
+  of weEventNavigation:
+    echo "Starting navigation to: ", e.data
 ```
 <!-- ---------- -->
 #### **V**
@@ -1242,7 +1295,29 @@ int main() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+#[
+This is the `WebuiBrowser` enum:
+
+  type
+    WebuiBrowser* = enum
+      wbNoBrowser     ## 0. No web browser
+      wbAny           ## 1. Default recommended web browser
+      wbChrome        ## 2. Google Chrome
+      wbFirefox       ## 3. Mozilla Firefox
+      wbEdge          ## 4. Microsoft Edge
+      wbSafari        ## 5. Apple Safari
+      wbChromium      ## 6. The Chromium Project
+      wbOpera         ## 7. Opera Browser
+      wbBrave         ## 8. The Brave Browser
+      wbVivaldi       ## 9. The Vivaldi Browser
+      wbEpic          ## 10. The Epic Browser
+      wbYandex        ## 11. The Yandex Browser
+      wbChromiumBased ## 12. Any Chromium based browser
+      wbWebview       ## 13. Webview (not a web browser)
+]#
+
+# `getBestBrowser` will return an item from the `WebuiBrowser` enum
+let bestBrowser = window.getBestBrowser()
 ```
 <!-- ---------- -->
 #### **V**
@@ -1402,9 +1477,14 @@ myWindow.Show("https://mydomain.com")
 #### **Nim**
 <!-- ---------- -->
 ```nim
-myWindow.show("<html><script src=\"/webui.js\"> ... </html>")
-myWindow.show("file.html")
-myWindow.show("https://mydomain.com")
+# `show` accepts 2 (or 3) parameters:
+# * window - The window to show content in
+# * content - The content to show in `window`, may be a file or some HTML code
+# * browser - The browser to open the window in (OPTIONAL)
+
+window.show("<html><script src=\"/webui.js\"> ... </html>")
+window.show("file.html")
+window.show("https://mydomain.com")
 ```
 <!-- ---------- -->
 #### **V**
@@ -1576,7 +1656,11 @@ myWindow.ShowBrowser("<html><script src=\"/webui.js\"> ... </html>", webui.Chrom
 #### **Nim**
 <!-- ---------- -->
 ```nim
-myWindow.show("<html><script src=\"/webui.js\"> ... </html>", Browsers.Chrome)
+# pass a single web browser that you wish to used
+window.show("index.html", wbChrome)
+
+# you may also pass a set or openArray if you want to use a specific set of web browsers
+window.show("index.html", {wbWebview, wbChrome, wbEdge})
 ```
 <!-- ---------- -->
 #### **V**
@@ -1706,7 +1790,7 @@ int main() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+window.showWv("index.html")
 ```
 <!-- ---------- -->
 #### **V**
@@ -1828,7 +1912,7 @@ int main() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+window.kiosk = true
 ```
 <!-- ---------- -->
 #### **V**
@@ -1968,9 +2052,11 @@ webui.Wait()
 # Show the windows...
 
 # Wait until all windows get closed
-# or when calling exit()
+# or when calling `exit()`
 wait()
 ```
+
+Full Nim example: <https://github.com/webui-dev/nim-webui/tree/main/examples/minimal.nim>
 <!-- ---------- -->
 #### **V**
 <!-- ---------- -->
@@ -2108,7 +2194,7 @@ webui.Close(win)
 #### **Nim**
 <!-- ---------- -->
 ```nim
-myWindow.close()
+window.close()
 ```
 <!-- ---------- -->
 #### **V**
@@ -2227,7 +2313,7 @@ int main() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+window.destroy()
 ```
 <!-- ---------- -->
 #### **V**
@@ -2464,7 +2550,7 @@ int main() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+window.rootFolder = "/home/Foo/Bar/"
 ```
 <!-- ---------- -->
 #### **V**
@@ -2587,7 +2673,7 @@ int main() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+setDefaultRootFolder("/home/Foo/Bar/")
 ```
 <!-- ---------- -->
 #### **V**
@@ -2723,7 +2809,7 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 ```nim
 var count: int
 
-myWindow.setFileHandler() do (filename: string) -> string:
+window.setFileHandler() do (filename: string) -> string:
   echo "File: ", filename
 
   case filename
@@ -2748,10 +2834,12 @@ myWindow.setFileHandler() do (filename: string) -> string:
 </html>
 """
 
-  # By default, this function returns an empty string
-  # returning an empty string will make WebUI look for
+  # By default, this function returns an empty string.
+  # Returning an empty string will make WebUI look for
   # the requested file locally
 ```
+
+Full Nim example: <https://github.com/webui-dev/nim-webui/tree/main/examples/serve_folder/serve_folder.nim>
 <!-- ---------- -->
 #### **V**
 <!-- ---------- -->
@@ -2966,7 +3054,7 @@ if win.IsShown() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-if myWindow.shown():
+if window.shown:
   echo "A window is running..."
 else:
   echo "No window is running."
@@ -3108,7 +3196,14 @@ webui_set_timeout(10);
 #### **Nim**
 <!-- ---------- -->
 ```nim
-setTimeout(10);
+# `setTimeout` accepts a single parameter:
+# * timeout - The maximum time in seconds to wait for browser to start.
+#             Set to 0 to wait forever.
+
+setTimeout(30)
+
+window.show("index.html")
+wait()
 ```
 <!-- ---------- -->
 #### **V**
@@ -3255,18 +3350,20 @@ win.set_icon(myIcon, myIconType)
 ```nim
 # SVG Icon
 let
-  myIcon = "<svg>...</svg>"
-  myIconType = "image/svg+xml"
+  icon = "<svg>...</svg>"
+  mimeType = "image/svg+xml"
 
-# PNG Icon
+# --- PNG Icon
 # let
-#   myIcon = "data:image/..."
-#   myIconType = "image/png"
+#   mimeType = "data:image/..."
+#   mimeType = "image/png"
 
-# When the web browser ask for `favicon.ico`, WebUI will
-# send a redirection to `favicon.svg`, the body will be `myIcon`
-# and the mime-type will be `myIconType`
-myWindow.setIcon(myIcon, myIconType)
+# `setIcon` accepts 3 arguments:
+# * window - The window to set the icon for
+# * icon - The icon as a string
+# * mime - The MIME type of the icon
+
+window.setIcon(icon, mimeType)
 ```
 <!-- ---------- -->
 #### **V**
@@ -3414,7 +3511,11 @@ int main() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+# `encode` accepts a single argument:
+# * str - The string to encode into Base64.
+#         Note: the string is nil-terminated
+
+let base64 = encode("Foo Bar")
 ```
 <!-- ---------- -->
 #### **V**
@@ -3672,7 +3773,14 @@ int main() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+from webui/bindings import nil
+
+let buffer = bindings.malloc(csize_t 1024)
+
+# `free` accepts a single argument:
+# * `ptr` - The buffer to be freed
+
+bindings.free(buffer)
 ```
 <!-- ---------- -->
 #### **V**
@@ -3799,7 +3907,13 @@ int main() {
 #### **Nim**
 <!-- ---------- -->
 ```nim
-// In development...
+from webui/bindings import nil
+
+# `malloc` accepts a single argument:
+# * size - The size of the memory in bytes
+
+let buffer = bindings.malloc(csize_t 1024)
+bindings.free(buffer)
 ```
 <!-- ---------- -->
 #### **V**
