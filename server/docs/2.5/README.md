@@ -6806,7 +6806,7 @@ fn event_handler(e: webui::Event) {
 ---
 ### set_runtime
 
-Chose between Deno and Nodejs as runtime for `.js` and `.ts` files.
+Chose between `Deno`, `Bun` and `Nodejs` as runtime for `.js` and `.ts` files.
 
 <!-- tabs:start -->
 <!-- ---------- -->
@@ -6819,7 +6819,7 @@ int main() {
 
     /*
     * @param window The window number
-    * @param runtime Deno | Nodejs | None
+    * @param runtime Deno | Bun | Nodejs | None
     */
 
     webui_set_runtime(win, Deno);
@@ -6847,7 +6847,7 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/serve_a_
 int main() {
 
     /*
-    * @param runtime Deno | Nodejs | None
+    * @param runtime Deno | Bun | Nodejs | None
     */
 
     win.set_runtime(Deno);
@@ -6872,11 +6872,23 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/serv
 ```python
 # Deno
 win.set_runtime(webui.runtime.deno)
-win.show("my_file.ts")
+
+# Bun
+win.set_runtime(webui.runtime.bun)
 
 # Nodejs
 win.set_runtime(webui.runtime.nodejs)
-win.show("my_file.js")
+
+# Now, any HTTP request to any `.js` or `.ts` file
+# will be interpreted by Deno.
+# 
+# JavaScript:
+# 
+# var xmlHttp = new XMLHttpRequest();
+# xmlHttp.open('GET', 'test.ts?foo=123&bar=456', false);
+# xmlHttp.send(null);
+# 
+# console.log(xmlHttp.responseText);
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -6890,11 +6902,23 @@ win.show("my_file.js")
 ```go
 // Deno
 webui.SetRuntime(win, webui.Deno)
-webui.Show(win, "my_file.ts")
+
+// Bun
+webui.SetRuntime(win, webui.Bun)
 
 // Nodejs
 webui.SetRuntime(win, webui.Nodejs)
-webui.Show(win, "my_file.js")
+
+// Now, any HTTP request to any `.js` or `.ts` file
+// will be interpreted by Deno.
+//
+// JavaScript:
+//
+// var xmlHttp = new XMLHttpRequest();
+// xmlHttp.open('GET', 'test.ts?foo=123&bar=456', false);
+// xmlHttp.send(null);
+//
+// console.log(xmlHttp.responseText);
 ```
 <!-- ---------- -->
 #### **Nim**
@@ -6902,11 +6926,23 @@ webui.Show(win, "my_file.js")
 ```nim
 # Deno
 myWindow.runtime = Deno
-myWindow.show("my_file.ts")
+
+# Bun
+myWindow.runtime = Bun
 
 # Nodejs
 myWindow.runtime = NodeJS
-myWindow.show("my_file.js")
+
+# Now, any HTTP request to any `.js` or `.ts` file
+# will be interpreted by Deno.
+# 
+# JavaScript:
+# 
+# var xmlHttp = new XMLHttpRequest();
+# xmlHttp.open('GET', 'test.ts?foo=123&bar=456', false);
+# xmlHttp.send(null);
+# 
+# console.log(xmlHttp.responseText);
 ```
 <!-- ---------- -->
 #### **V**
@@ -6914,17 +6950,40 @@ myWindow.show("my_file.js")
 ```v
 // Deno
 win.set_runtime(.runtime_deno)
-win.show("my_file.ts")
+
+// Bun
+win.set_runtime(.runtime_bun)
 
 // Nodejs
 win.set_runtime(.runtime_nodejs)
-win.show("my_file.js")
+
+// Now, any HTTP request to any `.js` or `.ts` file
+// will be interpreted by Deno.
+//
+// JavaScript:
+//
+// var xmlHttp = new XMLHttpRequest();
+// xmlHttp.open('GET', 'test.ts?foo=123&bar=456', false);
+// xmlHttp.send(null);
+//
+// console.log(xmlHttp.responseText);
 ```
 <!-- ---------- -->
 #### **Odin**
 <!-- ---------- -->
 ```odin
 // In development...
+
+// Now, any HTTP request to any `.js` or `.ts` file
+// will be interpreted by Deno.
+//
+// JavaScript:
+//
+// var xmlHttp = new XMLHttpRequest();
+// xmlHttp.open('GET', 'test.ts?foo=123&bar=456', false);
+// xmlHttp.send(null);
+//
+// console.log(xmlHttp.responseText);
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -6932,11 +6991,23 @@ win.show("my_file.js")
 ```zig
 // Deno
 win.setRuntime(.Deno);
-win.show("my_file.ts");
+
+// Bun
+win.setRuntime(.Bun);
 
 // Nodejs
 win.setRuntime(.Nodejs);
-win.show("my_file.js");
+
+// Now, any HTTP request to any `.js` or `.ts` file
+// will be interpreted by Deno.
+//
+// JavaScript:
+//
+// var xmlHttp = new XMLHttpRequest();
+// xmlHttp.open('GET', 'test.ts?foo=123&bar=456', false);
+// xmlHttp.send(null);
+//
+// console.log(xmlHttp.responseText);
 ```
 <!-- ---------- -->
 #### **Rust**
@@ -6944,11 +7015,23 @@ win.show("my_file.js");
 ```rust
 // Deno
 win.set_runtime(webui::WebUIRuntime::Deno);
-win.show("my_file.ts");
+
+// Bun
+win.set_runtime(webui::WebUIRuntime::Bun);
 
 // Nodejs
 win.set_runtime(webui::WebUIRuntime::Nodejs);
-win.show("my_file.js");
+
+// Now, any HTTP request to any `.js` or `.ts` file
+// will be interpreted by Deno.
+//
+// JavaScript:
+//
+// var xmlHttp = new XMLHttpRequest();
+// xmlHttp.open('GET', 'test.ts?foo=123&bar=456', false);
+// xmlHttp.send(null);
+//
+// console.log(xmlHttp.responseText);
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -8896,6 +8979,315 @@ const char* url = webui_start_server(myWindow, "/full/root/path");
 <!-- ---------- -->
 ```cpp
 std::string url = myWindow.start_server("/full/root/path");
+```
+<!-- ---------- -->
+#### **Python**
+<!-- ---------- -->
+```python
+# In development...
+```
+<!-- ---------- -->
+#### **Deno**
+<!-- ---------- -->
+```ts
+// In development...
+```
+<!-- ---------- -->
+#### **Go**
+<!-- ---------- -->
+```go
+// In development...
+```
+<!-- ---------- -->
+#### **Nim**
+<!-- ---------- -->
+```nim
+// In development...
+```
+<!-- ---------- -->
+#### **V**
+<!-- ---------- -->
+```v
+// In development...
+```
+<!-- ---------- -->
+#### **Odin**
+<!-- ---------- -->
+```odin
+// In development...
+```
+<!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+// In development...
+```
+<!-- ---------- -->
+#### **Rust**
+<!-- ---------- -->
+```rust
+// In development...
+```
+<!-- ---------- -->
+#### **Other...**
+<!-- ---------- -->
+**Pascal**
+<!-- ---------- -->
+```pascal
+// In development...
+```
+<!-- ---------- -->
+**Bun**
+<!-- ---------- -->
+```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C-Sharp**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
+**Basic**
+<!-- ---------- -->
+```basic
+// In development...
+```
+<!-- ---------- -->
+<!-- tabs:end -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_mime_type
+
+Get the HTTP mime type of a file.
+
+<!-- tabs:start -->
+<!-- ---------- -->
+#### **C**
+<!-- ---------- -->
+```c
+const char* mime = webui_get_mime_type("foo.png");
+```
+<!-- ---------- -->
+#### **C++**
+<!-- ---------- -->
+```cpp
+std::string mime = webui::get_mime_type("foo.png");
+```
+<!-- ---------- -->
+#### **Python**
+<!-- ---------- -->
+```python
+# In development...
+```
+<!-- ---------- -->
+#### **Deno**
+<!-- ---------- -->
+```ts
+// In development...
+```
+<!-- ---------- -->
+#### **Go**
+<!-- ---------- -->
+```go
+// In development...
+```
+<!-- ---------- -->
+#### **Nim**
+<!-- ---------- -->
+```nim
+// In development...
+```
+<!-- ---------- -->
+#### **V**
+<!-- ---------- -->
+```v
+// In development...
+```
+<!-- ---------- -->
+#### **Odin**
+<!-- ---------- -->
+```odin
+// In development...
+```
+<!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+// In development...
+```
+<!-- ---------- -->
+#### **Rust**
+<!-- ---------- -->
+```rust
+// In development...
+```
+<!-- ---------- -->
+#### **Other...**
+<!-- ---------- -->
+**Pascal**
+<!-- ---------- -->
+```pascal
+// In development...
+```
+<!-- ---------- -->
+**Bun**
+<!-- ---------- -->
+```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C-Sharp**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
+**Basic**
+<!-- ---------- -->
+```basic
+// In development...
+```
+<!-- ---------- -->
+<!-- tabs:end -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_port
+
+Get the network port of a running window. This can be useful to determine the HTTP link of `webui.js`.
+
+<!-- tabs:start -->
+<!-- ---------- -->
+#### **C**
+<!-- ---------- -->
+```c
+size_t port = webui_get_port(myWindow);
+```
+<!-- ---------- -->
+#### **C++**
+<!-- ---------- -->
+```cpp
+size_t port = myWindow.get_port();
+```
+<!-- ---------- -->
+#### **Python**
+<!-- ---------- -->
+```python
+# In development...
+```
+<!-- ---------- -->
+#### **Deno**
+<!-- ---------- -->
+```ts
+// In development...
+```
+<!-- ---------- -->
+#### **Go**
+<!-- ---------- -->
+```go
+// In development...
+```
+<!-- ---------- -->
+#### **Nim**
+<!-- ---------- -->
+```nim
+// In development...
+```
+<!-- ---------- -->
+#### **V**
+<!-- ---------- -->
+```v
+// In development...
+```
+<!-- ---------- -->
+#### **Odin**
+<!-- ---------- -->
+```odin
+// In development...
+```
+<!-- ---------- -->
+#### **Zig**
+<!-- ---------- -->
+```zig
+// In development...
+```
+<!-- ---------- -->
+#### **Rust**
+<!-- ---------- -->
+```rust
+// In development...
+```
+<!-- ---------- -->
+#### **Other...**
+<!-- ---------- -->
+**Pascal**
+<!-- ---------- -->
+```pascal
+// In development...
+```
+<!-- ---------- -->
+**Bun**
+<!-- ---------- -->
+```ts
+// In development...
+```
+<!-- ---------- -->
+**Swift**
+<!-- ---------- -->
+```swift
+// In development...
+```
+<!-- ---------- -->
+**C-Sharp**
+<!-- ---------- -->
+```csharp
+// In development...
+```
+<!-- ---------- -->
+**Basic**
+<!-- ---------- -->
+```basic
+// In development...
+```
+<!-- ---------- -->
+<!-- tabs:end -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_free_port
+
+Get an available usable free network port.
+
+<!-- tabs:start -->
+<!-- ---------- -->
+#### **C**
+<!-- ---------- -->
+```c
+size_t port = webui_get_free_port();
+```
+<!-- ---------- -->
+#### **C++**
+<!-- ---------- -->
+```cpp
+size_t port = webui::get_free_port();
 ```
 <!-- ---------- -->
 #### **Python**
