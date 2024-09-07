@@ -199,6 +199,14 @@ exe.linkLibrary(zig_webui.artifact("webui"));
 2. Bring in the static [WebUI static release](https://github.com/webui-dev/webui/releases) or [build action](https://github.com/webui-dev/webui/actions?query=branch%3Amain) file for your platform and place it in your project's root directory.
 
 <!-- ---------- -->
+#### ** PHP **
+<!-- ---------- -->
+
+```sh
+composer require kingbes/webui
+```
+
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -349,6 +357,20 @@ pub fn main() {
 }
 ```
 [More Rust Examples](https://github.com/webui-dev/rust-webui/tree/main/examples).
+
+#### **PHP **
+
+```php
+require "./vendor/autoload.php";
+
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+$Webui->show($win, "<html><script src=\"webui.js\"></script> Hello World from PHP! </html>");
+$Webui->wait();
+```
+
 #### **Other...**
 **Pascal**
 ```sh
@@ -457,6 +479,17 @@ var new_window = webui.newWindow();
 <!-- ---------- -->
 ```rust
 let win = webui::Window::new();
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+// Later
+$Webui->show($win, "index.html");
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -591,6 +624,23 @@ window.show("index.html")
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+
+/*
+* @param window The window number
+*/
+$win = 1;
+$Webui->newWindowId($win);
+
+// Later
+$Webui->show($win,"index.html");
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -715,6 +765,20 @@ window.show("index.html")
 <!-- ---------- -->
 ```rust
 // In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+
+$win = $Webui->getNewWindowId();
+
+// Later
+$Webui->newWindowId($win);
+$Webui->show($win,"index.html");
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -920,6 +984,24 @@ win.bind("MyID", my_function);
 win.bind("MyID2", |_: webui::Event| -> String {
     // <button id="MyID2">Hello</button> gets clicked!
     "".to_string()
+});
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+use Kingbes\JavaScript;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+// bind
+$bind = $Webui->bind(
+    $win, 
+    "hello", 
+    function ($event, JavaScript $js) {
+    //
 });
 ```
 <!-- ---------- -->
@@ -1173,6 +1255,31 @@ fn event_handler(e: webui::Event) {
 win.bind("", event_handler);
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+$Webui->bind(
+    $win, 
+    "hello", 
+    function ($event, JavaScript $js) {
+
+    /*$event = object(FFI\CData:struct webui_event_t*)#6 (1) {
+        [0]=>
+        object(FFI\CData:struct webui_event_t)#9 (8) {
+            ["window"]=> int // The window object number
+            ["event_type"]=> int // Event type
+            ["element"]=> string // HTML element ID
+            ["event_number"]=> int // Internal
+            ["bind_id"]=> int // Bind ID
+            ["client_id"]=> int // Client's unique ID
+            ["connection_id"]=> int // Client's connection ID
+            ["cookies"]=> string // Client's full cookies
+        }
+    } */
+
+});
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -1350,6 +1457,37 @@ let bestBrowser = window.getBestBrowser()
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+
+/*
+    NoBrowser,      // 0. No web browser
+    AnyBrowser,     // 1. Default recommended web browser
+    Chrome,         // 2. Google Chrome
+    Firefox,        // 3. Mozilla Firefox
+    Edge,           // 4. Microsoft Edge
+    Safari,         // 5. Apple Safari
+    Chromium,       // 6. The Chromium Project
+    Opera,          // 7. Opera Browser
+    Brave,          // 8. The Brave Browser
+    Vivaldi,        // 9. The Vivaldi Browser
+    Epic,           // 10. The Epic Browser
+    Yandex,         // 11. The Yandex Browser
+    ChromiumBased,  // 12. Any Chromium based browser
+    WebView,        // 13. WebView (Non-web-browser)
+*/
+
+/*
+* @param window The window number
+*/
+$Webui->getBestBrowser($win);
+
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -1525,6 +1663,22 @@ win.show("file.html");
 win.show("https://mydomain.com");
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+
+/*
+* @param window The window number
+* @param content The HTML, URL, Or a local file
+*/
+$Webui->show($win, "index.html");
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -1695,6 +1849,37 @@ const successed = myWindow.showBrowser("<html><script src=\"webui.js\"> ... </ht
 win.show_browser("<html><script src=\"/webui.js\"> ... </html>", webui::WebUIBrowser::Chrome);
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+/*  NoBrowser = 0,  // 0. No web browser
+    AnyBrowser = 1, // 1. Default recommended web browser
+    Chrome,         // 2. Google Chrome
+    Firefox,        // 3. Mozilla Firefox
+    Edge,           // 4. Microsoft Edge
+    Safari,         // 5. Apple Safari
+    Chromium,       // 6. The Chromium Project
+    Opera,          // 7. Opera Browser
+    Brave,          // 8. The Brave Browser
+    Vivaldi,        // 9. The Vivaldi Browser
+    Epic,           // 10. The Epic Browser
+    Yandex,         // 11. The Yandex Browser
+    ChromiumBased,  // 12. Any Chromium based browser
+    WebView,        // 13. WebView (Non-web-browser) */
+
+/*
+* @param window The window number
+* @param content The HTML, Or a local file
+* @param browser The web browser to be used number
+*/
+$Webui->showBrowser($win, "index.html", 4);
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -1825,6 +2010,12 @@ window.showWv("index.html")
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -1945,6 +2136,22 @@ window.kiosk = true
 <!-- ---------- -->
 ```rust
 // In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+
+/*
+* @param window The window number
+* @param status True or False
+*/
+$Webui->setKiosk($win, true);
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -2110,6 +2317,17 @@ fn main() {
 }
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+
+
+$Webui->wait();
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -2247,6 +2465,21 @@ win.close();
 win.close();
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+
+/*
+* @param window The window number
+*/
+$Webui->close($win);
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -2366,6 +2599,21 @@ window.destroy()
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+
+/*
+* @param window The window number
+*/
+$Webui->destroy($win);
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -2477,6 +2725,17 @@ webui.exit();
 <!-- ---------- -->
 ```rust
 webui::exit();
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+
+
+$Webui->exit();
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -2603,6 +2862,22 @@ window.rootFolder = "/home/Foo/Bar/"
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+
+/*
+* @param window The window number
+* @param path The local folder full path
+*/
+$Webui->setRootFolder($win, "/home/Foo/Bar/");
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -2724,6 +2999,21 @@ setDefaultRootFolder("/home/Foo/Bar/")
 <!-- ---------- -->
 ```rust
 // In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+
+/*
+* @param path The local folder full path
+*/
+$Webui->setDefaultRootFolder("/home/Foo/Bar/");
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -2970,6 +3260,24 @@ fn my_file_handler(filename: *const i8, len: *mut i32) -> *const std::os::raw::c
 win.set_file_handler(my_file_handler);
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+
+/*
+* @param window The window number
+* @param handler The handler function
+*/
+$Webui->setFileHandler($win, function(string $filename,int $length){
+    //
+});
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -3119,6 +3427,25 @@ if win.is_shown() {
     println!("The window is still running");
 } else {
     println!("The window is closed.");
+}
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+
+/*
+* @param window The window number
+*/
+if($Webui->isShown($win)){
+    // Window is shown
+}else{
+    // Window is closed
 }
 ```
 <!-- ---------- -->
@@ -3274,6 +3601,24 @@ webui::set_timeout(10);
 // Now, After 10 seconds, if the browser did
 // not get started, wait() will break
 webui::wait();
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+
+/*
+* @param second The timeout in seconds
+*/
+$Webui->setTimeout(30);
+
+$Webui->show($win, "index.html");
+$Webui->wait();
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -3447,6 +3792,23 @@ let my_icon_type = "image/svg+xml";
 win.set_icon(my_icon, my_icon_type);
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+
+/*
+* @param window The window number
+* @param icon The icon as string: `<svg>...</svg>`
+* @param icon_type The icon type: `image/svg+xml`
+*/
+$Webui->setIcon($win, "<svg>...</svg>", "image/svg+xml");
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -3575,6 +3937,12 @@ let base64 = encode("Foo Bar")
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -3713,6 +4081,12 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -3840,6 +4214,12 @@ bindings.free(buffer)
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -3973,6 +4353,12 @@ bindings.free(buffer)
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -4126,6 +4512,12 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -4248,6 +4640,22 @@ int main() {
 <!-- ---------- -->
 ```rust
 // In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+
+/*
+* @param window The window number
+* @param status True or False
+*/
+$Webui->setHide($win, true);
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -4374,6 +4782,23 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+
+/*
+* @param window The window number
+* @param width The window width
+* @param height The window height
+*/
+$Webui->setSize($win, 800, 600);
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -4496,6 +4921,23 @@ int main() {
 <!-- ---------- -->
 ```rust
 // In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+use Kingbes\Webui;
+
+$Webui = new Webui;
+$win = $Webui->newWindow();
+
+
+/*
+ * @param window The window number
+* @param x The window X
+* @param y The window Y
+*/
+$Webui->setPosition($win, 100, 100);
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -4624,6 +5066,12 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -4748,6 +5196,12 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -4864,6 +5318,12 @@ int main() {
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -4994,6 +5454,12 @@ int main() {
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -5133,6 +5599,12 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -5245,6 +5717,12 @@ int main() {
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -5364,6 +5842,12 @@ int main() {
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -5490,6 +5974,12 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -5607,6 +6097,12 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -5721,6 +6217,12 @@ int main() {
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -5861,6 +6363,12 @@ int main() {
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -6065,6 +6573,12 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -6225,6 +6739,12 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -6369,6 +6889,12 @@ int main() {
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -6523,6 +7049,12 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -6765,6 +7297,12 @@ fn main() {
 fn event_handler(e: webui::Event) {
   e.get_window().run_js("console.log('Hello from the event handler!')");
 }
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
 ```
 <!-- ---------- -->
 #### **Other...**
@@ -7034,6 +7572,12 @@ win.set_runtime(webui::WebUIRuntime::Nodejs);
 // console.log(xmlHttp.responseText);
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -7150,6 +7694,12 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -7284,6 +7834,12 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -7398,6 +7954,12 @@ void callback(webui::window::event* e) {
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -7520,6 +8082,12 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -7636,6 +8204,12 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -7758,6 +8332,12 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -7872,6 +8452,12 @@ void callback(webui::window::event* e) {
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -7994,6 +8580,12 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -8108,6 +8700,12 @@ void callback(webui::window::event* e) {
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -8230,6 +8828,12 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -8344,6 +8948,12 @@ void callback(webui::window::event* e) {
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -8466,6 +9076,12 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -8582,6 +9198,12 @@ void callback(webui::window::event* e) {
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -8704,6 +9326,12 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -8823,6 +9451,12 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -8923,6 +9557,12 @@ webui::open_url("https://webui.me");
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -9029,6 +9669,12 @@ std::string url = myWindow.start_server("/full/root/path");
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -9129,6 +9775,12 @@ std::string mime = webui::get_mime_type("foo.png");
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
@@ -9235,6 +9887,12 @@ size_t port = myWindow.get_port();
 // In development...
 ```
 <!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
+// In development...
+```
+<!-- ---------- -->
 #### **Other...**
 <!-- ---------- -->
 **Pascal**
@@ -9335,6 +9993,12 @@ size_t port = webui::get_free_port();
 #### **Rust**
 <!-- ---------- -->
 ```rust
+// In development...
+```
+<!-- ---------- -->
+#### **PHP**
+<!-- ---------- -->
+```php
 // In development...
 ```
 <!-- ---------- -->
