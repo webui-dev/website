@@ -962,7 +962,7 @@ win.bind("MyID", my_function)
 #### **Zig**
 <!-- ---------- -->
 ```zig
-fn myFunction(e: webui.Event) void {
+fn myFunction(e: *webui.Event) void {
     // <button id="MyID">Hello</button> gets clicked!
 }
 
@@ -1213,7 +1213,7 @@ fn my_function(e &webui.Event) {
 //    event_number: usize,      // Internal WebUI
 //    bind_id: usize,           // Bind ID
 
-fn myFunction(e: webui.Event) void {
+fn myFunction(e: *webui.Event) void {
 
     std.debug.print("Hi!, You clicked on {s} element\n", e.element);
 
@@ -7262,7 +7262,7 @@ fn my_function(e &webui.Event) {
 #### **Zig**
 <!-- ---------- -->
 ```zig
-fn myFunction(e: webui.Event) void {
+fn myFunction(e: *webui.Event) void {
     // Create a buffer to hold the response
     var response: [64]u8 = std.mem.zeroes([64]u8);
 
