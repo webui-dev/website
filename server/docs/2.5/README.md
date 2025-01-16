@@ -106,8 +106,14 @@ v install https://github.com/webui-dev/v-webui
 #### **Odin**
 <!-- ---------- -->
 ```sh
+# Add odin-webui as a submodule to your project
 git submodule add https://github.com/webui-dev/odin-webui.git webui
+
+# Linux/MacOS
 webui/setup.sh
+
+# Windows
+webui/setup.ps1
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -327,10 +333,10 @@ ui.wait()
 ```odin
 package main
 
-import ui "webui/webui.odin"
+import ui "webui"
 
 main :: proc() {
-	win := ui.new_window()
+	win: uint = ui.new_window()
 	ui.show(win, "<html><script src=\"webui.js\"></script> Hello World from Odin! </html>")
 	ui.wait()
 }
@@ -466,7 +472,10 @@ mut myWindow := ui.new_window()
 #### **Odin**
 <!-- ---------- -->
 ```odin
-myWindow := ui.new_window()
+my_window: uint = ui.new_window()
+
+// Later
+ui.show(my_window, "index.html")
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -609,7 +618,21 @@ window.show("index.html")
 #### **Odin**
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+    /*
+    * @param window_number The window number (should be > 0, and < 255)
+    */
+
+    win: uint = 1
+    ui.new_window_id(win)
+
+    // Later
+    ui.show(win, "index.html")
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -752,7 +775,18 @@ window.show("index.html")
 #### **Odin**
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+    win: uint = ui.get_new_window_id()
+
+    // Later
+    ui.new_window_id(win)
+    ui.show(win, "index.html")
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -956,7 +990,32 @@ win.bind("MyID", my_function)
 #### **Odin**
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+events :: proc "c" (e: ^ui.Event) {
+    context = runtime.default_context()
+    //
+}
+
+callback :: proc "c" (e: ^ui.Event) {
+    context = runtime.default_context()
+    //
+}
+
+main :: proc() {
+
+    /*
+    * @param window The window number
+    * @param element The HTML element / JavaScript object
+    * @param func The callback function
+    */
+
+    ui.bind(win, "", events)
+    ui.bind(win, "callback", callback)
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -1200,7 +1259,59 @@ fn my_function(e &webui.Event) {
 #### **Odin**
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+/*
+    Event :: struct {
+    	window: c.size_t,
+    	event_type: EventType,
+    	element: cstring,
+    	event_number: c.size_t,
+    	bind_id: c.size_t,
+    	client_id: c.size_t,
+    	connection_id: c.size_t,
+    	cookies: cstring,
+    }
+
+    EventType :: enum {
+    	Disconnected, 		// 0. Window disconnection event
+    	Connected,        	// 1. Window connection event
+    	MouseClick,      	// 2. Mouse click event
+    	Navigation,       	// 3. Window navigation event
+    	Callback,         	// 4. Function call event
+    }
+*/
+
+events :: proc "c" (e: ^ui.Event) {
+	context = runtime.default_context()
+
+	switch e.event_type {
+		case .Connected:
+			fmt.println("Connected.")
+		case .Disconnected:
+			fmt.println("Disconnected.")
+		case .MouseClick:
+			fmt.println("Click.")
+		case .Navigation:
+			target, _ := ui.get_arg(string, e)
+			fmt.println("Starting navigation to:", target)
+		case .Callback:
+			fmt.println("Callback")
+	}
+}
+
+main :: proc() {
+
+    /*
+    * @param window The window number
+    * @param element The HTML ID
+    * @param func The callback function
+    */
+
+    ui.bind(win, "", events)
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -1442,7 +1553,37 @@ let bestBrowser = window.getBestBrowser()
 #### **Odin**
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+    /*
+        Browser :: enum {
+        	NoBrowser,  	// 0. No web browser
+        	AnyBrowser, 	// 1. Default recommended web browser
+        	Chrome,         // 2. Google Chrome
+        	Firefox,        // 3. Mozilla Firefox
+        	Edge,           // 4. Microsoft Edge
+        	Safari,         // 5. Apple Safari
+        	Chromium,       // 6. The Chromium Project
+        	Opera,          // 7. Opera Browser
+        	Brave,          // 8. The Brave Browser
+        	Vivaldi,        // 9. The Vivaldi Browser
+        	Epic,           // 10. The Epic Browser
+        	Yandex,         // 11. The Yandex Browser
+        	ChromiumBased,  // 12. Any Chromium based browser
+        	Webview,        // 13. WebView (Non-web-browser)
+        }
+    */
+
+    /*
+    * @param window The window number
+    */
+
+    browserID: c.size_t = ui.get_best_browser(myWindow)
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -1642,9 +1783,22 @@ myWindow.show('https://mydomain.com')
 #### **Odin**
 <!-- ---------- -->
 ```odin
-ui.show(myWindow, "<html><script src=\"/webui.js\"> ... </html>");
-ui.show(myWindow, "file.html");
-ui.show(myWindow, "https://mydomain.com");
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+    /*
+    * @param window The window number
+    * @param content The HTML, URL, Or a local file
+    */
+
+    ui.show(myWindow, "<html><script src=\"/webui.js\"> ... </html>")
+    ui.show(myWindow, "file.html")
+    ui.show(myWindow, "https://mydomain.com")
+}
+
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -1834,7 +1988,40 @@ myWindow.show_browser('<html><script src="/webui.js"> ... </html>', .chrome)
 #### **Odin**
 <!-- ---------- -->
 ```odin
-ui.show_browser(myWindow, <html><script src=\"/webui.js\"> ... </html>", Chrome);
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+    /*
+        Browser :: enum {
+        	NoBrowser,  	// 0. No web browser
+        	AnyBrowser, 	// 1. Default recommended web browser
+        	Chrome,         // 2. Google Chrome
+        	Firefox,        // 3. Mozilla Firefox
+        	Edge,           // 4. Microsoft Edge
+        	Safari,         // 5. Apple Safari
+        	Chromium,       // 6. The Chromium Project
+        	Opera,          // 7. Opera Browser
+        	Brave,          // 8. The Brave Browser
+        	Vivaldi,        // 9. The Vivaldi Browser
+        	Epic,           // 10. The Epic Browser
+        	Yandex,         // 11. The Yandex Browser
+        	ChromiumBased,  // 12. Any Chromium based browser
+        	Webview,        // 13. WebView (Non-web-browser)
+        }
+    */
+
+    /*
+    * @param window The window number
+    * @param content The HTML, Or a local file
+    * @param browser The web browser to be used
+    */
+
+    ui.show_browser(myWindow, <html><script src=\"/webui.js\"> ... </html>", .Chrome)
+}
+
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -1995,7 +2182,19 @@ window.showWv("index.html")
 #### **Odin**
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+    /*
+    * @param window The window number
+    * @param content The HTML, URL, Or a local file
+    */
+
+    ui.show_wv(myWindow, "index.html")
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -2123,7 +2322,19 @@ window.kiosk = true
 #### **Odin**
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+    /*
+    * @param window The window number
+    * @param status True or False
+    */
+
+    ui.set_kiosk(myWindow, true)
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -2291,8 +2502,16 @@ fn main() {
 #### **Odin**
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+    ui.wait()
+}
 ```
+Full Odin Example: https://github.com/webui-dev/odin-webui/blob/main/examples/minimal.odin
 <!-- ---------- -->
 #### **Zig**
 <!-- ---------- -->
@@ -2450,7 +2669,27 @@ win.close()
 #### **Odin**
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+callback :: proc "c" (e: ^ui.Event) {
+
+    /*
+    * @param e The event struct
+    */
+
+    ui.close_client(e)
+}
+
+main :: proc() {
+
+    /*
+    * @param window The window number
+    */
+
+    ui.close(win)
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -2584,7 +2823,18 @@ window.destroy()
 #### **Odin**
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+    /*
+    * @param window The window number
+    */
+
+    ui.destroy(win)
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -2709,10 +2959,16 @@ exit()
 webui.exit()
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -2844,10 +3100,16 @@ window.rootFolder = "/home/Foo/Bar/"
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -2983,10 +3245,16 @@ setDefaultRootFolder("/home/Foo/Bar/")
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -3163,10 +3431,16 @@ Full Nim example: <https://github.com/webui-dev/nim-webui/tree/main/examples/ser
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -3404,10 +3678,16 @@ if webui.is_shown(win) {
 }
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -3575,10 +3855,16 @@ wait()
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -3753,10 +4039,16 @@ window.setIcon(icon, mimeType)
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -3922,10 +4214,16 @@ let base64 = encode("Foo Bar")
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -4063,10 +4361,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -4199,10 +4503,16 @@ bindings.free(buffer)
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -4338,10 +4648,16 @@ bindings.free(buffer)
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -4494,10 +4810,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -4624,10 +4946,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -4764,10 +5092,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -4905,10 +5239,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -5048,10 +5388,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -5178,10 +5524,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -5303,10 +5655,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -5439,10 +5797,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -5581,10 +5945,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -5702,10 +6072,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -5827,10 +6203,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -5956,10 +6338,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -6079,10 +6467,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -6202,10 +6596,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -6348,10 +6748,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -6555,10 +6961,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -6721,10 +7133,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -6874,10 +7292,16 @@ int main() {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -7034,10 +7458,16 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -7253,10 +7683,16 @@ fn my_function(e &webui.Event) {
 }
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -7507,10 +7943,16 @@ win.set_runtime(.runtime_nodejs)
 // console.log(xmlHttp.responseText);
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 
 // Now, any HTTP request to any `.js` or `.ts` file
 // will be interpreted by Deno.
@@ -7679,10 +8121,16 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -7816,10 +8264,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -7939,10 +8393,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -8064,10 +8524,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -8189,10 +8655,16 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -8314,10 +8786,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -8437,10 +8915,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -8562,10 +9046,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -8685,10 +9175,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -8810,10 +9306,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -8933,10 +9435,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -9058,10 +9566,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -9183,10 +9697,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -9308,10 +9828,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -9433,10 +9959,16 @@ void callback(webui::window::event* e) {
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -9542,10 +10074,16 @@ webui::open_url("https://webui.me");
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -9651,10 +10189,16 @@ std::string url = myWindow.start_server("/full/root/path");
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -9760,10 +10304,16 @@ std::string mime = webui::get_mime_type("foo.png");
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -9869,10 +10419,16 @@ size_t port = myWindow.get_port();
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
@@ -9978,10 +10534,16 @@ size_t port = webui::get_free_port();
 // In development...
 ```
 <!-- ---------- -->
-#### **Odin**
+#### **Odin**       TODO:
 <!-- ---------- -->
 ```odin
-// In development...
+package main
+
+import ui "webui"
+
+main :: proc() {
+
+}
 ```
 <!-- ---------- -->
 #### **Zig**
