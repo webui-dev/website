@@ -3,7 +3,7 @@
 ![Logo](data/webui_120.svg)
 
 # WebUI v2.5 Documentation
-***[ ! ] Beta 2 - Not Complete Yet***
+***[ ! ] Beta 3 - Not Complete Yet***
 
 > Use any web browser or WebView as GUI, with your preferred language in the backend and modern web technologies in the frontend, all in a lightweight portable library.
 
@@ -260,10 +260,10 @@ Minimal example
 
 int main() {
 
-	size_t win = webui_new_window();
-	webui_show(win, "<html><script src=\"webui.js\"></script> Hello World from C! </html>");
-	webui_wait();
-	return 0;
+    size_t win = webui_new_window();
+    webui_show(win, "<html><script src=\"webui.js\"></script> Hello World from C! </html>");
+    webui_wait();
+    return 0;
 }
 ```
 [More C Examples](https://github.com/webui-dev/webui/tree/main/examples/C).
@@ -273,10 +273,10 @@ int main() {
 
 int main() {
 
-	webui::window win;
-	win.show("<html><script src=\"webui.js\"></script> Hello World from C++! </html>");
-	webui::wait();
-	return 0;
+    webui::window win;
+    win.show("<html><script src=\"webui.js\"></script> Hello World from C++! </html>");
+    webui::wait();
+    return 0;
 }
 ```
 [More C++ Examples](https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B).
@@ -305,9 +305,9 @@ package main
 import "github.com/webui-dev/go-webui"
 
 func main() {
-	win := webui.NewWindow()
-	win.Show("<html><script src=\"webui.js\"></script> Hello World from Go! </html>")
-	webui.Wait()
+    win := webui.NewWindow()
+    win.Show("<html><script src=\"webui.js\"></script> Hello World from Go! </html>")
+    webui.Wait()
 }
 ```
 [More Go Examples](https://github.com/webui-dev/go-webui/tree/main/examples).
@@ -338,7 +338,7 @@ ui.wait()
 
     main :: proc() {
         my_window: uint = ui.new_window()
-        ui.show(my_window, "<html> <script src=\"webui.js\"></script> Thanks for using WebUI! </html>")
+        ui.show(my_window, "<html> <script src=\"webui.js\"></script> Hello World from Odin! </html>")
         ui.wait()
     }
 ```
@@ -353,6 +353,7 @@ pub fn main() !void {
     webui.wait();
 }
 ```
+[More Zig Examples](https://github.com/webui-dev/zig-webui/tree/main/examples).
 #### **Rust**
 ```rust
 use webui_rs::webui;
@@ -951,8 +952,8 @@ webui.bind("MyID", ({ data }) => {
 <!-- ---------- -->
 ```go
 func my_function(e webui.Event) string {
-	// <button id="MyID">Hello</button> gets clicked!
-	return ""
+    // <button id="MyID">Hello</button> gets clicked!
+    return ""
 }
 
 webui.Bind(win, "MyID", my_function)
@@ -988,7 +989,7 @@ window.bind("", events)
 import vwebui as webui
 
 fn my_function_string(e &webui.Event) {
-	// <button id="MyID">Hello</button> gets clicked!
+    // <button id="MyID">Hello</button> gets clicked!
 }
 
 win.bind("MyID", my_function)
@@ -1213,8 +1214,8 @@ webui.bind("", handleEvent);
 <!-- ---------- -->
 ```go
 func my_function(e webui.Event) string {
-	fmt.Printf("Hi!, You clicked on element: %s\n", e.Element)
-	return ""
+    fmt.Printf("Hi!, You clicked on element: %s\n", e.Element)
+    return ""
 }
 
 // Empty ID means all events on all elements
@@ -1257,8 +1258,8 @@ window.bind("") do (e: Event):
 <!-- ---------- -->
 ```v
 fn my_function(e &webui.Event) {
-	// Get target element
-	target_element := e.element
+    // Get target element
+    target_element := e.element
 }
 ```
 <!-- ---------- -->
@@ -1271,41 +1272,41 @@ import ui "webui"
 
 /*
     Event :: struct {
-    	window: c.size_t,
-    	event_type: EventType,
-    	element: cstring,
-    	event_number: c.size_t,
-    	bind_id: c.size_t,
-    	client_id: c.size_t,
-    	connection_id: c.size_t,
-    	cookies: cstring,
+        window: c.size_t,
+        event_type: EventType,
+        element: cstring,
+        event_number: c.size_t,
+        bind_id: c.size_t,
+        client_id: c.size_t,
+        connection_id: c.size_t,
+        cookies: cstring,
     }
 
     EventType :: enum {
-    	Disconnected, 		// 0. Window disconnection event
-    	Connected,        	// 1. Window connection event
-    	MouseClick,      	// 2. Mouse click event
-    	Navigation,       	// 3. Window navigation event
-    	Callback,         	// 4. Function call event
+        Disconnected,         // 0. Window disconnection event
+        Connected,            // 1. Window connection event
+        MouseClick,          // 2. Mouse click event
+        Navigation,           // 3. Window navigation event
+        Callback,             // 4. Function call event
     }
 */
 
 events :: proc "c" (e: ^ui.Event) {
-	context = runtime.default_context()
+    context = runtime.default_context()
 
-	switch e.event_type {
-		case .Connected:
-			fmt.println("Connected.")
-		case .Disconnected:
-			fmt.println("Disconnected.")
-		case .MouseClick:
-			fmt.println("Click.")
-		case .Navigation:
-			target, _ := ui.get_arg(string, e)
-			fmt.println("Starting navigation to:", target)
-		case .Callback:
-			fmt.println("Callback")
-	}
+    switch e.event_type {
+        case .Connected:
+            fmt.println("Connected.")
+        case .Disconnected:
+            fmt.println("Disconnected.")
+        case .MouseClick:
+            fmt.println("Click.")
+        case .Navigation:
+            target, _ := ui.get_arg(string, e)
+            fmt.println("Starting navigation to:", target)
+        case .Callback:
+            fmt.println("Callback")
+    }
 }
 
 main :: proc() {
@@ -1567,20 +1568,20 @@ main :: proc() {
 
     /*
         Browser :: enum {
-        	NoBrowser,  	// 0. No web browser
-        	AnyBrowser, 	// 1. Default recommended web browser
-        	Chrome,         // 2. Google Chrome
-        	Firefox,        // 3. Mozilla Firefox
-        	Edge,           // 4. Microsoft Edge
-        	Safari,         // 5. Apple Safari
-        	Chromium,       // 6. The Chromium Project
-        	Opera,          // 7. Opera Browser
-        	Brave,          // 8. The Brave Browser
-        	Vivaldi,        // 9. The Vivaldi Browser
-        	Epic,           // 10. The Epic Browser
-        	Yandex,         // 11. The Yandex Browser
-        	ChromiumBased,  // 12. Any Chromium based browser
-        	Webview,        // 13. WebView (Non-web-browser)
+            NoBrowser,      // 0. No web browser
+            AnyBrowser,     // 1. Default recommended web browser
+            Chrome,         // 2. Google Chrome
+            Firefox,        // 3. Mozilla Firefox
+            Edge,           // 4. Microsoft Edge
+            Safari,         // 5. Apple Safari
+            Chromium,       // 6. The Chromium Project
+            Opera,          // 7. Opera Browser
+            Brave,          // 8. The Brave Browser
+            Vivaldi,        // 9. The Vivaldi Browser
+            Epic,           // 10. The Epic Browser
+            Yandex,         // 11. The Yandex Browser
+            ChromiumBased,  // 12. Any Chromium based browser
+            Webview,        // 13. WebView (Non-web-browser)
         }
     */
 
@@ -2001,20 +2002,20 @@ main :: proc() {
 
     /*
         Browser :: enum {
-        	NoBrowser,  	// 0. No web browser
-        	AnyBrowser, 	// 1. Default recommended web browser
-        	Chrome,         // 2. Google Chrome
-        	Firefox,        // 3. Mozilla Firefox
-        	Edge,           // 4. Microsoft Edge
-        	Safari,         // 5. Apple Safari
-        	Chromium,       // 6. The Chromium Project
-        	Opera,          // 7. Opera Browser
-        	Brave,          // 8. The Brave Browser
-        	Vivaldi,        // 9. The Vivaldi Browser
-        	Epic,           // 10. The Epic Browser
-        	Yandex,         // 11. The Yandex Browser
-        	ChromiumBased,  // 12. Any Chromium based browser
-        	Webview,        // 13. WebView (Non-web-browser)
+            NoBrowser,      // 0. No web browser
+            AnyBrowser,     // 1. Default recommended web browser
+            Chrome,         // 2. Google Chrome
+            Firefox,        // 3. Mozilla Firefox
+            Edge,           // 4. Microsoft Edge
+            Safari,         // 5. Apple Safari
+            Chromium,       // 6. The Chromium Project
+            Opera,          // 7. Opera Browser
+            Brave,          // 8. The Brave Browser
+            Vivaldi,        // 9. The Vivaldi Browser
+            Epic,           // 10. The Epic Browser
+            Yandex,         // 11. The Yandex Browser
+            ChromiumBased,  // 12. Any Chromium based browser
+            Webview,        // 13. WebView (Non-web-browser)
         }
     */
 
@@ -2492,14 +2493,14 @@ Full Nim example: <https://github.com/webui-dev/nim-webui/tree/main/examples/min
 <!-- ---------- -->
 ```v
 fn main() {
-	// Create windows...
-	// Bind HTML elements...
-	// Show the windows...
-	// Show a window using the embedded HTML
+    // Create windows...
+    // Bind HTML elements...
+    // Show the windows...
+    // Show a window using the embedded HTML
 
-	// Wait until all windows get closed
-	// or when calling webui.exit()
-	win.wait()
+    // Wait until all windows get closed
+    // or when calling webui.exit()
+    win.wait()
 }
 ```
 <!-- ---------- -->
@@ -3505,8 +3506,8 @@ fn my_files_handler(filename: []const u8) ?[]u8 {
         const buf = std.fmt.bufPrint(dynamic_content,
             \\  <html>
             \\      This is a dynamic file content example. <br>
-            \\	    Count: {} <a href="dynamic.html">[Refresh]</a><br>
-            \\	    <script src="webui.js"></script>
+            \\        Count: {} <a href="dynamic.html">[Refresh]</a><br>
+            \\        <script src="webui.js"></script>
             \\  </html>
             // webui.js, to keep connection with WebUI
         , .{count}) catch unreachable;
@@ -3674,9 +3675,9 @@ else
 <!-- ---------- -->
 ```ts
 if (MyWindow.isShown)
-	console.log("The window is still running")
+    console.log("The window is still running")
 else
-	console.log("The window is closed.")
+    console.log("The window is closed.")
 ```
 <!-- ---------- -->
 #### **Go**
@@ -3702,9 +3703,9 @@ else:
 <!-- ---------- -->
 ```v
 if webui.is_shown(win) {
-	println('The window is still running')
+    println('The window is still running')
 } else {
-	println('The window is closed.')
+    println('The window is closed.')
 }
 ```
 <!-- ---------- -->
@@ -4812,6 +4813,12 @@ Send raw data (_binary_) to the UI.
 <!-- ---------- -->
 #### **C**
 <!-- ---------- -->
+```js
+    function myJavaScriptFunc(rawData) {
+        // `rawData` is a Uint8Array variable
+    }
+```
+
 ```c
 #include "webui.h"
 
@@ -4831,17 +4838,17 @@ int main() {
     
     unsigned char buffer[3] = { 0x01, 0x02, 0x03 }; // Any data type
     webui_send_raw(win, "myJavaScriptFunc", buffer, 3);
-
-    // JavaScript:
-    //
-    // function myJavaScriptFunc(rawData) {
-    //    `rawData` is Uint8Array type
-    // }
 }
 ```
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
+```js
+    function myJavaScriptFunc(rawData) {
+        // `rawData` is a Uint8Array variable
+    }
+```
+
 ```cpp
 #include "webui.hpp"
 
@@ -4860,12 +4867,6 @@ int main() {
     
     unsigned char buffer[3] = { 0x01, 0x02, 0x03 }; // Any data type
     win.send_raw("myJavaScriptFunc", buffer, 3);
-
-    // JavaScript:
-    //
-    // function myJavaScriptFunc(rawData) {
-    //    `rawData` is Uint8Array type
-    // }
 }
 ```
 <!-- ---------- -->
@@ -4901,6 +4902,12 @@ int main() {
 <!-- ---------- -->
 #### **Odin**
 <!-- ---------- -->
+```js
+    function myJavaScriptFunc(rawData) {
+        // `rawData` is a Uint8Array variable
+    }
+```
+
 ```odin
 package main
 
@@ -4923,12 +4930,6 @@ main :: proc() {
 
     buffer: []byte = { 0x01, 0x02, 0x03 } // Any data type
     ui.send_raw(my_window, "myJavaScriptFunc", raw_data(buffer), len(buffer))
-
-    // JavaScript:
-    //
-    // function myJavaScriptFunc(rawData) {
-    //    'rawData' is Uint8Array type
-    // }
 }
 ```
 <!-- ---------- -->
@@ -6385,7 +6386,7 @@ import ui "webui"
 
 main :: proc() {
 
-	ui.delete_all_profiles()
+    ui.delete_all_profiles()
 }
 ```
 <!-- ---------- -->
@@ -7318,7 +7319,7 @@ int main() {
     // in one single thread, other UI events
     // will be blocked until first event end
 
-	// JavaScript:
+    // JavaScript:
     // foo();
     // bar();
 }
@@ -7351,7 +7352,7 @@ int main() {
     // in one single thread, other UI events
     // will be blocked until first event end
 
-	// JavaScript:
+    // JavaScript:
     // foo();
     // bar();
 }
@@ -7988,14 +7989,14 @@ myWindow.bind("ExampleElement") do (e: Event):
 <!-- ---------- -->
 ```v
 fn my_function(e &webui.Event) {
-	// Run JavaScript
-	response := e.window.script('return 2*2;', 0, 64)
+    // Run JavaScript
+    response := e.window.script('return 2*2;', 0, 64)
 
-	// Print the result
-	println('JavaScript Response: ${response.int()}') // 4
+    // Print the result
+    println('JavaScript Response: ${response.int()}') // 4
 
-	// Run JavaScript quickly with no waiting for the response
-	e.window.run("alert('Fast!');")
+    // Run JavaScript quickly with no waiting for the response
+    e.window.run("alert('Fast!');")
 }
 ```
 <!-- ---------- -->
@@ -8433,8 +8434,8 @@ Get how many arguments there are in an event.
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// callback("Foo", "Bar", 123, true);
+    // JavaScript:
+    // callback("Foo", "Bar", 123, true);
 
     size_t count = webui_get_count(e); // 4
 }
@@ -8447,8 +8448,8 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// callback("Foo", "Bar", 123, true);
+    // JavaScript:
+    // callback("Foo", "Bar", 123, true);
 
     size_t count = e->get_count(); // 4
 }
@@ -8583,8 +8584,8 @@ Get an argument as integer at a specific index.
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// callback(12345, 6789);
+    // JavaScript:
+    // callback(12345, 6789);
 
     long long int n1 = webui_get_int_at(e, 0);
     long long int n2 = webui_get_int_at(e, 1);
@@ -8598,8 +8599,8 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// callback(12345, 6789);
+    // JavaScript:
+    // callback(12345, 6789);
 
     long long int n1 = e->get_int(0);
     long long int n2 = e->get_int(1);
@@ -8722,8 +8723,8 @@ Get the first argument as integer.
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// callback(123456);
+    // JavaScript:
+    // callback(123456);
 
     long long int num = webui_get_int(e);
 }
@@ -8736,8 +8737,8 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// callback(123456);
+    // JavaScript:
+    // callback(123456);
 
     long long int num = e->get_int();
 }
@@ -8858,8 +8859,8 @@ Get an argument as float at a specific index.
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// callback(12.34, 56.789);
+    // JavaScript:
+    // callback(12.34, 56.789);
 
     double f1 = webui_get_float_at(e, 0);
     double f2 = webui_get_float_at(e, 1);
@@ -8873,8 +8874,8 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// callback(12.34, 56.789);
+    // JavaScript:
+    // callback(12.34, 56.789);
 
     double f1 = e->get_float(0);
     double f2 = e->get_float(1);
@@ -8997,8 +8998,8 @@ Get the first argument as float.
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// callback(123.456);
+    // JavaScript:
+    // callback(123.456);
 
     double f = webui_get_float(e);
 }
@@ -9011,8 +9012,8 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// callback(123.456);
+    // JavaScript:
+    // callback(123.456);
 
     double f = e->get_float();
 }
@@ -9135,8 +9136,8 @@ Get an argument as string at a specific index.
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// callback("Foo", "Bar");
+    // JavaScript:
+    // callback("Foo", "Bar");
 
     const char* foo = webui_get_string_at(e, 0);
     const char* bar = webui_get_string_at(e, 1);
@@ -9150,8 +9151,8 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// callback("Foo", "Bar");
+    // JavaScript:
+    // callback("Foo", "Bar");
 
     const char* foo = e->get_string(0);
     const char* bar = e->get_string(1);
@@ -9274,8 +9275,8 @@ Get the first argument as string.
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// callback("Foo Bar");
+    // JavaScript:
+    // callback("Foo Bar");
 
     const char* name = webui_get_string(e);
 }
@@ -9288,8 +9289,8 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// callback("Foo Bar");
+    // JavaScript:
+    // callback("Foo Bar");
 
     const char* name = e->get_string();
 }
@@ -9410,8 +9411,8 @@ Get an argument as boolean at a specific index.
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// callback(true, false);
+    // JavaScript:
+    // callback(true, false);
 
     bool status1 = webui_get_bool_at(e, 0);
     bool status2 = webui_get_bool_at(e, 1);
@@ -9425,8 +9426,8 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// callback(true, false);
+    // JavaScript:
+    // callback(true, false);
 
     bool status1 = e->get_bool(0);
     bool status2 = e->get_bool(1);
@@ -9549,8 +9550,8 @@ Get the first argument as boolean.
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// callback(true);
+    // JavaScript:
+    // callback(true);
 
     bool status = webui_get_bool(e);
 }
@@ -9563,8 +9564,8 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// callback(true);
+    // JavaScript:
+    // callback(true);
 
     bool status = e->get_bool();
 }
@@ -9685,8 +9686,8 @@ Get the size in bytes of an argument at a specific index.
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// callback("Foo", "Bar");
+    // JavaScript:
+    // callback("Foo", "Bar");
 
     size_t fooLen = webui_get_size_at(e, 0);
     size_t barLen = webui_get_size_at(e, 1);
@@ -9700,8 +9701,8 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// callback("Foo", "Bar");
+    // JavaScript:
+    // callback("Foo", "Bar");
 
     size_t fooLen = e->get_size(0);
     size_t barLen = e->get_size(1);
@@ -9824,8 +9825,8 @@ Get size in bytes of the first argument.
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// callback("Foo");
+    // JavaScript:
+    // callback("Foo");
 
     size_t fooLen = webui_get_size(e);
 }
@@ -9838,8 +9839,8 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// callback("Foo");
+    // JavaScript:
+    // callback("Foo");
 
     size_t fooLen = e->get_size();
 }
@@ -9957,14 +9958,18 @@ Return the response to JavaScript as integer.
 <!-- ---------- -->
 #### **C**
 <!-- ---------- -->
+```js
+async function myJavaScript() {
+    var num = Number(await callback());
+    console.log(num);
+}
+```
+
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// var num = await callback();
-
-    // Return
-	webui_return_int(e, 123456);
+    // Return integer
+    webui_return_int(e, 123456);
 }
 ```
 
@@ -9972,14 +9977,18 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
+```js
+async function myJavaScript() {
+    var num = Number(await callback());
+    console.log(num);
+}
+```
+
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// var num = await callback();
-
-    // Return
-	e->return_int(123456);
+    // Return integer
+    e->return_int(123456);
 }
 ```
 <!-- ---------- -->
@@ -10015,6 +10024,13 @@ void callback(webui::window::event* e) {
 <!-- ---------- -->
 #### **Odin**
 <!-- ---------- -->
+```js
+async function myJavaScript() {
+    var num = Number(await callback());
+    console.log(num);
+}
+```
+
 ```odin
 package main
 
@@ -10023,10 +10039,7 @@ import ui "webui"
 callback :: proc "c" (e: ^ui.Event) {
     context = runtime.default_context()
 
-    // JavaScript:
-    // var num = await callback();
-
-    // Return
+    // Return integer
     ui.return_int(e, 123456)
 }
 ```
@@ -10096,14 +10109,18 @@ Return the response to JavaScript as float.
 <!-- ---------- -->
 #### **C**
 <!-- ---------- -->
+```js
+async function myJavaScript() {
+    var f = Number(await callback());
+    console.log(f);
+}
+```
+
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// var f = await callback();
-
-    // Return
-	webui_return_float(e, 123.456);
+    // Return float
+    webui_return_float(e, 123.456);
 }
 ```
 
@@ -10111,14 +10128,18 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
+```js
+async function myJavaScript() {
+    var f = Number(await callback());
+    console.log(f);
+}
+```
+
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// var f = await callback();
-
-    // Return
-	e->return_float(123.456);
+    // Return float
+    e->return_float(123.456);
 }
 ```
 <!-- ---------- -->
@@ -10154,6 +10175,13 @@ void callback(webui::window::event* e) {
 <!-- ---------- -->
 #### **Odin**
 <!-- ---------- -->
+```js
+async function myJavaScript() {
+    var f = Number(await callback());
+    console.log(f);
+}
+```
+
 ```odin
 package main
 
@@ -10162,10 +10190,7 @@ import ui "webui"
 callback :: proc "c" (e: ^ui.Event) {
     context = runtime.default_context()
 
-    // JavaScript:
-    // var f = await callback();
-
-    // Return
+    // Return float
     ui.return_float(e, 123.456)
 }
 ```
@@ -10235,14 +10260,18 @@ Return the response to JavaScript as string.
 <!-- ---------- -->
 #### **C**
 <!-- ---------- -->
+```js
+async function myJavaScript() {
+    var name = await callback();
+    console.log(name);
+}
+```
+
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// var name = await callback();
-
-    // Return
-	webui_return_string(e, "Foo Bar");
+    // Return string
+    webui_return_string(e, "Foo Bar");
 }
 ```
 
@@ -10250,14 +10279,18 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
+```js
+async function myJavaScript() {
+    var name = await callback();
+    console.log(name);
+}
+```
+
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// var name = await callback();
-
-    // Return
-	e->return_string("Foo Bar");
+    // Return string
+    e->return_string("Foo Bar");
 }
 ```
 <!-- ---------- -->
@@ -10293,6 +10326,13 @@ void callback(webui::window::event* e) {
 <!-- ---------- -->
 #### **Odin**
 <!-- ---------- -->
+```js
+async function myJavaScript() {
+    var name = await callback();
+    console.log(name);
+}
+```
+
 ```odin
 package main
 
@@ -10301,10 +10341,7 @@ import ui "webui"
 callback :: proc "c" (e: ^ui.Event) {
     context = runtime.default_context()
 
-    // JavaScript:
-    // var name = await callback();
-
-    // Return
+    // Return string
     ui.return_string(e, "Foo Bar")
 }
 ```
@@ -10374,14 +10411,18 @@ Return the response to JavaScript as boolean.
 <!-- ---------- -->
 #### **C**
 <!-- ---------- -->
+```js
+async function myJavaScript() {
+    var status = Boolean(Number(await callback()));
+    console.log(status);
+}
+```
+
 ```c
 void callback(webui_event_t* e) {
 
-	// JavaScript:
-	// var status = await callback();
-
-    // Return
-	webui_return_bool(e, true);
+    // Return boolean
+    webui_return_bool(e, true);
 }
 ```
 
@@ -10389,14 +10430,18 @@ Full C Example: https://github.com/webui-dev/webui/tree/main/examples/C/call_c_f
 <!-- ---------- -->
 #### **C++**
 <!-- ---------- -->
+```js
+async function myJavaScript() {
+    var status = Boolean(Number(await callback()));
+    console.log(status);
+}
+```
+
 ```cpp
 void callback(webui::window::event* e) {
 
-	// JavaScript:
-	// var status = await callback();
-
-    // Return
-	e->return_bool(true);
+    // Return boolean
+    e->return_bool(true);
 }
 ```
 <!-- ---------- -->
@@ -10432,6 +10477,13 @@ void callback(webui::window::event* e) {
 <!-- ---------- -->
 #### **Odin**
 <!-- ---------- -->
+```js
+async function myJavaScript() {
+    var status = Boolean(Number(await callback()));
+    console.log(status);
+}
+```
+
 ```odin
 package main
 
@@ -10440,10 +10492,7 @@ import ui "webui"
 callback :: proc "c" (e: ^ui.Event) {
     context = runtime.default_context()
 
-    // JavaScript:
-    // var status = await callback();
-
-    // Return
+    // Return boolean
     ui.return_bool(e, true)
 }
 ```
@@ -10684,7 +10733,7 @@ main :: proc() {
 
     /*
     * @param window The window number
-	* @param content The HTML, Or a local file
+    * @param content The HTML, Or a local file
     */
 
     url: cstring = ui.start_server(myWindow, "/full/root/path")
@@ -11264,4 +11313,13 @@ Enable WebUI debug logging in the console logs.
 
 ```js
 webui.setLogging(true);
+```
+
+### JavaScript - allowNavigation
+
+When binding all events on the backend, WebUI blocks all navigation events and sends them to the backend. This API allows you to control that behavior.
+
+```js
+webui.allowNavigation(true); // Allow navigation
+window.location.replace('https://test.com'); // This will now proceed as usual
 ```
