@@ -284,8 +284,8 @@ int main() {
 ```python
 from webui import webui
 
-win = webui.window()
-win.show('<html><script src="webui.js"></script> Hello World from Python! </html>')
+my_window = webui.Window()
+my_window.show('<html><script src="webui.js"></script> Hello World! </html>')
 webui.wait()
 ```
 [More Python Examples](https://github.com/webui-dev/python-webui/tree/main/examples).
@@ -441,7 +441,14 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-win = webui.window()
+from webui import webui
+
+# this way of initialization uses "new_window" internally
+my_window = webui.Window()
+
+# More code...
+
+webui.wait()
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -591,7 +598,14 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+# this way of initialization uses "new_window_id" internally
+my_window = webui.Window(1)
+
+# More code...
+
+webui.wait()
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -748,7 +762,10 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+window_id = webui.get_new_window_id()
+print(f"Available window ID: {window_id}")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -933,10 +950,17 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-def my_function(e: webui.event):
-    # <button id="MyID">Hello</button> gets clicked!
+from webui import webui
 
-MyWindow.bind("MyID", my_function)
+def my_function(event: webui.Event):
+    print("Event received:", event)
+    
+my_window = webui.Window()
+# The bind function returns the bind id. 
+# Handling this return is optional.
+# my_window.bind("myFunction", my_function)
+bind_id = my_window.bind("myFunction", my_function)
+print(f"Function bound with ID: {bind_id}")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -1193,11 +1217,14 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-def events(e: webui.event):
+from webui import webui
+
+def events(e: webui.Event):
     print('Hi!, You clicked on ' + e.element + ' element')
 
+my_window = webui.Window()
 # Empty ID means all events on all elements
-win.bind("", events)
+my_window.bind("", events)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -1508,7 +1535,12 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+browser_id = my_window.get_best_browser()
+print(f"Recommended browser ID: {browser_id}")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -1745,9 +1777,18 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-win.show('<html><script src="/webui.js"> ... </html>')
-win.show('file.html')
-win.show('https://mydomain.com')
+from webui import webui
+
+my_window = webui.Window()
+
+# The "show" function returns true if the window shows 
+# with zero problem, False if something went wrong.
+# success = my_window.show("<html>...</html>")
+# success = my_window.show("index.html")
+# success = my_window.show("http://example.com")
+
+# Handling the return is optional.
+my_window.show("index.html")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -1960,7 +2001,15 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-win.show('<html><script src="/webui.js"> ... </html>', webui.browser.chrome)
+from webui import webui
+
+my_window = webui.Window()
+
+# success = my_window.show_browser("<html>...</html>", webui.Browser.Chrome)
+# success = my_window.show_browser("index.html", webui.Browser.Firefox)
+
+# Handling the return is optional.
+my_window.show_browser("index.html", webui.Browser.AnyBrowser)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -2157,7 +2206,15 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+# success = my_window.show_wv("<html>...</html>")
+# success = my_window.show_wv("index.html")
+# success = my_window.show_wv("http://example.com")
+
+my_window.show_wv("index.html")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -2297,7 +2354,12 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+my_window.set_kiosk(True)    # Enable Kiosk mode
+# my_window.set_kiosk(False) # Disable Kiosk mode
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -2442,13 +2504,12 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 #### **Python**
 <!-- ---------- -->
 ```python
-# Create windows...
-# Bind HTML elements...
-# Show the windows...
+from webui import webui
 
-# Wait until all windows get closed
-# or when calling win.exit()
-webui.wait()
+# Other webui function calls / code...
+
+# At the end of the main driver
+webui.wait()  # Wait until all windows are closed before continuing
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -2644,7 +2705,11 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-win.close()
+from webui import webui
+
+my_window = webui.Window()
+
+my_window.close()  # Close the current window.
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -2798,7 +2863,11 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+my_window.destroy()  # Close and free resources for the current window.
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -2936,7 +3005,11 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-webui.exit()
+from webui import webui
+
+# Other code...
+
+webui.exit()  # Close all WebUI windows and stop waiting
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -3078,7 +3151,14 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+# Handling the return boolean is optional.
+success = my_window.set_root_folder("/home/Foo/Bar/")
+if success:
+    print("Root folder set successfully.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -3229,7 +3309,12 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+# Handling the return boolean is optional.
+success = webui.set_default_root_folder("/home/Foo/Bar/")
+if success:
+    print("Default root folder set successfully.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -3665,10 +3750,14 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-if win.is_shown():
-    print("The window is still running")
-else
-    print("The window is closed.")
+from webui import webui
+
+my_window = webui.Window()
+
+if my_window.is_shown():
+    print("The window is still open.")
+else:
+    print("The window has been closed.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -3861,7 +3950,10 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-webui_set_timeout(10);
+from webui import webui
+
+# Set a timeout of 30 seconds for window connections
+webui.set_timeout(30)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -4034,18 +4126,11 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# SVG Icon
-my_icon = "<svg>...</svg>"
-my_icon_type = "image/svg+xml"
+from webui import webui
 
-# PNG Icon
-# my_icon = "data:image/..."
-# my_icon_type = "image/png"
+my_window = webui.Window()
 
-# When the web browser ask for `favicon.ico`, WebUI will
-# send a redirection to `favicon.svg`, the body will be `myIcon`
-# and the mime-type will be `myIconType`
-win.set_icon(myIcon, myIconType)
+my_window.set_icon("<svg>...</svg>", "image/svg+xml")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -4238,7 +4323,10 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+encoded_string = webui.ui_encode("Foo Bar")
+print(f"Base64 Encoded: {encoded_string}")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -4397,7 +4485,10 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+decoded_string = webui.ui_decode("SGVsbG8=")
+print(f"Decoded String: {decoded_string}")  # Output: Hello
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -4545,7 +4636,11 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_buffer = webui.malloc(1024)
+
+webui.free(my_buffer)  # Free the allocated buffer
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -4697,7 +4792,12 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+buffer = webui.malloc(1024)
+if buffer:
+    print(f"Memory allocated at address: {buffer}")
+    webui.free(buffer)  # Free the allocated memory
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -4873,7 +4973,13 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+my_buffer = webui.malloc(1024)
+
+my_window.send_raw("myJavaScriptFunc", my_buffer, 64)
+# Sends 64 bytes of raw data to the JavaScript function `myJavaScriptFunc`.
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -5030,7 +5136,12 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+my_window.set_hide(True)  # Hide the window
+my_window.set_hide(False) # Show the window
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -5182,7 +5293,11 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+my_window.set_size(800, 600)  # Set window size to 800x600 pixels
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -5336,7 +5451,11 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+my_window.set_position(100, 100)  # Move window to (100, 100) on the screen
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -5492,7 +5611,12 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+my_window.set_profile("Bar", "/Home/Foo/Bar")  # Use a custom profile
+my_window.set_profile("", "")  # Use the default profile
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -5635,7 +5759,11 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+my_window.set_proxy("http://127.0.0.1:8888")  # Set the proxy server
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -5772,7 +5900,12 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+url = my_window.get_url()
+print(f"Current URL: {url}")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -5919,7 +6052,12 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+my_window.set_public(True)  # Enable public network access
+my_window.set_public(False) # Restrict access to local connections
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -6078,7 +6216,11 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+my_window.navigate("http://domain.com")  # Navigate to the specified URL
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -6218,7 +6360,10 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+webui.wait()
+webui.clean() # Free all WebUI-related resources
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -6350,7 +6495,11 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+webui.wait()  
+webui.delete_all_profiles()  # Delete all browser profiles
+webui.clean()  
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -6486,7 +6635,11 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+my_window.delete_profile()  # Delete the browser profile for this window
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -6620,7 +6773,12 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+parent_pid = my_window.get_parent_process_id()
+print(f"Parent Process ID: {parent_pid}")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -6754,7 +6912,12 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+child_pid = my_window.get_child_process_id()
+print(f"Child Process ID: {child_pid}")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -6911,7 +7074,15 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+success = my_window.set_port(8080)
+if success:
+    print("WebUI is now using port 8080.")
+else:
+    print("Port 8080 is unavailable.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -7140,7 +7311,9 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+webui.set_config(webui.Config.show_wait_connection, False)  # Disable waiting for connection
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -7361,7 +7534,12 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+my_window.set_event_blocking(True)  # Enable blocking event processing
+my_window.set_event_blocking(False) # Enable non-blocking event processing
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -7547,7 +7725,17 @@ int main() {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+success = webui.set_tls_certificate(
+    "-----BEGIN CERTIFICATE-----\n...",
+    "-----BEGIN PRIVATE KEY-----\n..."
+)
+
+if success:
+    print("TLS certificate successfully set.")
+else:
+    print("Failed to set TLS certificate.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -7726,7 +7914,11 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+my_window.run("alert('Hello');")  # Run an alert in the web UI
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -7927,17 +8119,15 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C%2B%2B/
 #### **Python**
 <!-- ---------- -->
 ```python
-# Run JavaScript to get the password
-res = e.window.script("return 2*2;")
+from webui import webui
 
-# Check for any error
-if res.error is True:
-    print("JavaScript Error: " + res.data)
+my_window = webui.Window()
+
+result = my_window.script("return 4 + 6;")
+if result.error:
+    print("JavaScript execution failed.")
 else:
-    print("JavaScript Response: " + res.data) # 4
-
-# Run JavaScript quickly with no waiting for the response
-e.window.run("alert('Fast!')")
+    print(f"JavaScript result: {result.response}")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -8202,25 +8392,11 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/serv
 #### **Python**
 <!-- ---------- -->
 ```python
-# Deno
-win.set_runtime(webui.runtime.deno)
+from webui import webui
 
-# Bun
-win.set_runtime(webui.runtime.bun)
+my_window = webui.Window()
 
-# Nodejs
-win.set_runtime(webui.runtime.nodejs)
-
-# Now, any HTTP request to any `.js` or `.ts` file
-# will be interpreted by Deno.
-# 
-# JavaScript:
-# 
-# var xmlHttp = new XMLHttpRequest();
-# xmlHttp.open('GET', 'test.ts?foo=123&bar=456', false);
-# xmlHttp.send(null);
-# 
-# console.log(xmlHttp.responseText);
+my_window.set_runtime(webui.Runtime.Bun)  # Use Bun as the JavaScript/TypeScript runtime
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -8460,7 +8636,11 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    count = e.get_count()
+    print(f"The event has {count} arguments.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -8610,7 +8790,11 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    value = e.get_int_at(0)
+    print(f"The integer at index 0 is {value}.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -8747,7 +8931,11 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    value = e.get_int()
+    print(f"The first argument is {value}.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -8885,7 +9073,11 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    value = e.get_float_at(0)
+    print(f"The float at index 0 is {value}.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -9024,7 +9216,11 @@ Full C++ Example: https://github.com/webui-dev/webui/tree/main/examples/C++/call
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    value = e.get_float()
+    print(f"The first argument as a float is {value}.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -9162,7 +9358,11 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    value = e.get_string_at(0)
+    print(f"The string at index 0 is '{value}'.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -9299,7 +9499,11 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    value = e.get_string()
+    print(f"The first argument as a string is '{value}'.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -9437,7 +9641,11 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    is_valid = e.get_bool_at(0)
+    print(f"The boolean value at index 0 is {is_valid}.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -9574,7 +9782,11 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    is_valid = e.get_bool()
+    print(f"The first argument as a boolean is {is_valid}.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -9712,7 +9924,11 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    arg_size = e.get_size_at(0)
+    print(f"The size of the argument at index 0 is {arg_size} bytes.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -9849,7 +10065,11 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    arg_size = e.get_size()
+    print(f"The size of the first argument is {arg_size} bytes.")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -9995,7 +10215,10 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    e.return_int(123)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -10146,7 +10369,10 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    e.return_float(123.456)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -10297,7 +10523,10 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    e.return_string("Response...")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -10448,7 +10677,10 @@ void callback(webui::window::event* e) {
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+def callback(e: webui.Event):
+    e.return_bool(True)
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -10575,7 +10807,9 @@ webui::open_url("https://webui.me");
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+webui.open_url("https://webui.me")  # Open the WebUI website in the default browser
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -10695,7 +10929,12 @@ std::string url = myWindow.start_server("/full/root/path");
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+url = my_window.start_server("/full/root/path")
+print(f"Server started at: {url}")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -10816,7 +11055,10 @@ std::string mime = webui::get_mime_type("foo.png");
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+mime_type = webui.get_mime_type("foo.png")
+print(f"MIME type: {mime_type}")  # Output: image/png
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -10936,7 +11178,12 @@ size_t port = myWindow.get_port();
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+my_window = webui.Window()
+
+port = my_window.get_port()
+print(f"WebUI is running on port: {port}")
 ```
 <!-- ---------- -->
 #### **Deno**
@@ -11056,7 +11303,10 @@ size_t port = webui::get_free_port();
 #### **Python**
 <!-- ---------- -->
 ```python
-# In development...
+from webui import webui
+
+port = webui.get_free_port()
+print(f"Available port: {port}")
 ```
 <!-- ---------- -->
 #### **Deno**
