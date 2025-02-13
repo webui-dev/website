@@ -285,7 +285,7 @@ int main() {
 from webui import webui
 
 my_window = webui.Window()
-my_window.show('<html><script src="webui.js"></script> Hello World! </html>')
+my_window.show('<html><script src="webui.js"></script> Hello World from Python! </html>')
 webui.wait()
 ```
 [More Python Examples](https://github.com/webui-dev/python-webui/tree/main/examples).
@@ -7312,6 +7312,37 @@ int main() {
 <!-- ---------- -->
 ```python
 from webui import webui
+
+# Control if `show()`, `show_browser()` and
+# `show_wv()` should wait for the window to connect
+# before returns or not.
+#
+# show_wait_connection = 0,
+
+# Control if WebUI should block and process the UI events
+# one a time in a single thread `True`, or process every
+# event in a new non-blocking thread `False`. This updates
+# all windows. You can use `set_event_blocking()` for
+# a specific single window update.
+#
+# ui_event_blocking,
+
+# Automatically refresh the window UI when any file in the
+# root folder gets changed.
+#
+# folder_monitor,
+
+# Allow multiple clients to connect to the same window,
+# This is helpful for web apps (non-desktop software),
+# Please see the documentation for more details.
+#
+# multi_client,
+
+# Allow multiple clients to connect to the same window,
+# This is helpful for web apps (non-desktop software),
+# Please see the documentation for more details.
+#
+# use_cookies,
 
 webui.set_config(webui.Config.show_wait_connection, False)  # Disable waiting for connection
 ```
