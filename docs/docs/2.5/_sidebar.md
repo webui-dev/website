@@ -1,5 +1,5 @@
 * **Languages**
-  * [C](c.md)
+  * [C](README.md)
   * [C++](cpp.md)
   * [Python](python.md)
   * [Deno](deno.md)
@@ -10,5 +10,6 @@
   * [Odin](odin.md)
   * [Zig](zig.md)
   * [Rust](rust.md)
+* **WebUI.JS**
   * [JavaScript](javascript.md)
 

@@ -11,14 +11,14 @@
 
 ## Available APIs
 
-- [JavaScript - call](#javascript---call)
-- [JavaScript - isConnected](#javascript---isconnected)
-- [JavaScript - setEventCallback](#javascript---seteventcallback)
-- [JavaScript - encode](#javascript---encode)
-- [JavaScript - decode](#javascript---decode)
-- [JavaScript - isHighContrast](#javascript---ishighcontrast)
-- [JavaScript - setLogging](#javascript---setlogging)
-- [JavaScript - allowNavigation](#javascript---allownavigation)
+- [JavaScript - call](#javascript-call)
+- [JavaScript - isConnected](#javascript-isconnected)
+- [JavaScript - setEventCallback](#javascript-seteventcallback)
+- [JavaScript - encode](#javascript-encode)
+- [JavaScript - decode](#javascript-decode)
+- [JavaScript - isHighContrast](#javascript-ishighcontrast)
+- [JavaScript - setLogging](#javascript-setlogging)
+- [JavaScript - allowNavigation](#javascript-allownavigation)
 
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
