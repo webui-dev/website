@@ -31,28 +31,43 @@
 <body>
   <div id="app"></div>
   <script>
-    window.$docsify = {
-      name: 'WebUI',
-      repo: 'https://github.com/webui-dev/webui',
-      homepage: 'README.md',
-      auto2top: true,
-      loadSidebar: true,
-      hideSidebar: false,
-      loadNavbar: false,
-      autoHeader: false,
-      coverpage: false,
-      loadNavbar: false,
-      tabs: {
-        theme      : 'classic',
-        tabComments: false,
-        tabHeadings: true
-      }
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Configure Docsify
+      window.$docsify = {
+        name: 'WebUI',
+        repo: 'https://github.com/webui-dev/webui',
+        homepage: 'README.md',
+        auto2top: true,
+        loadSidebar: true,
+        hideSidebar: false,
+        loadNavbar: false,
+        autoHeader: false,
+        coverpage: false,
+        tabs: {
+          theme      : 'classic',
+          tabComments: false,
+          tabHeadings: true
+        }
+      };
+      
+      // Initialize mermaid
+      if (typeof mermaid !== 'undefined') {
+        mermaid.initialize({ 
+          startOnLoad: true,
+          theme: 'dark',
+          securityLevel: 'loose'
+        });
+      };
+
+    });
   </script>
   <!-- Docsify v4 -->
   <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
   <!-- Docsify Tabs -->
   <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+  <!-- mermaid -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <!-- Syntax Highlighter -->
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-c.min.js"></script> <!-- C -->
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-cpp.min.js"></script> <!-- C++ -->

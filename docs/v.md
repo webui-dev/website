@@ -11,97 +11,88 @@
 </div>
 
 
-## Available APIs
-
-### Windows
-- [new_window](#new_window)
-- [new_window_id](#new_window_id)
-- [show](#show)
-- [show_browser](#show_browser)
-- [show_wv](#show_wv)
-- [show_client](#show_client)
-- [start_server](#start_server)
-- [wait](#wait)
-- [wait_async](#wait_async)
-- [close](#close)
-- [close_client](#close_client)
-- [destroy](#destroy)
-- [exit](#exit)
-- [is_shown](#is_shown)
-- [focus](#focus)
-- [minimize](#minimize)
-- [maximize](#maximize)
-- [navigate](#navigate)
-- [navigate_client](#navigate_client)
-
-### Binding & Events
-- [bind](#bind)
-- [event](#event)
-
-### JavaScript
-- [run](#run)
-- [run_client](#run_client)
-- [script](#script)
-- [script_client](#script_client)
-- [get_arg](#get_arg)
-- [set_runtime](#set_runtime)
-
-### Window Appearance
-- [set_size](#set_size)
-- [set_minimum_size](#set_minimum_size)
-- [set_position](#set_position)
-- [set_center](#set_center)
-- [set_hide](#set_hide)
-- [set_kiosk](#set_kiosk)
-- [set_icon](#set_icon)
-- [set_frameless](#set_frameless)
-- [set_transparent](#set_transparent)
-- [set_resizable](#set_resizable)
-- [set_high_contrast](#set_high_contrast)
-- [is_high_contrast](#is_high_contrast)
-
-### Browser & Profiles
-- [get_best_browser](#get_best_browser)
-- [browser_exist](#browser_exist)
-- [set_profile](#set_profile)
-- [set_proxy](#set_proxy)
-- [set_public](#set_public)
-- [set_custom_parameters](#set_custom_parameters)
-- [set_browser_folder](#set_browser_folder)
-- [delete_profile](#delete_profile)
-- [delete_all_profiles](#delete_all_profiles)
-
-### Server & Network
-- [set_root_folder](#set_root_folder)
-- [get_url](#get_url)
-- [open_url](#open_url)
-- [get_port](#get_port)
-- [set_port](#set_port)
-- [get_free_port](#get_free_port)
-- [get_mime_type](#get_mime_type)
-
-### Configuration
-- [set_config](#set_config)
-- [set_event_blocking](#set_event_blocking)
-- [set_timeout](#set_timeout)
-
-### Utilities
-- [encode](#encode)
-- [decode](#decode)
-- [clean](#clean)
-- [get_last_error](#get_last_error)
-
-### Process Info
-- [get_parent_process_id](#get_parent_process_id)
-- [get_child_process_id](#get_child_process_id)
-
-### SSL/TLS
-- [set_tls_certificate](#set_tls_certificate)
-
-### Other
+## Getting Started
 - [Download And Install](#download-and-install)
 - [Minimal Example](#minimal-example)
-- [JavaScript APIs](javascript.md)
+
+## Available APIs
+- **Windows**
+  - [new_window](#new_window)
+  - [new_window_id](#new_window_id)
+  - [show](#show)
+  - [show_browser](#show_browser)
+  - [show_wv](#show_wv)
+  - [show_client](#show_client)
+  - [start_server](#start_server)
+  - [wait](#wait)
+  - [wait_async](#wait_async)
+  - [close](#close)
+  - [close_client](#close_client)
+  - [destroy](#destroy)
+  - [exit](#exit)
+  - [is_shown](#is_shown)
+  - [focus](#focus)
+  - [minimize](#minimize)
+  - [maximize](#maximize)
+  - [navigate](#navigate)
+  - [navigate_client](#navigate_client)
+- **Binding & Events**
+  - [bind](#bind)
+  - [event](#event)
+- **JavaScript**
+  - [run](#run)
+  - [run_client](#run_client)
+  - [script](#script)
+  - [script_client](#script_client)
+  - [get_arg](#get_arg)
+  - [set_runtime](#set_runtime)
+- **Window Appearance**
+  - [set_size](#set_size)
+  - [set_minimum_size](#set_minimum_size)
+  - [set_position](#set_position)
+  - [set_center](#set_center)
+  - [set_hide](#set_hide)
+  - [set_kiosk](#set_kiosk)
+  - [set_icon](#set_icon)
+  - [set_frameless](#set_frameless)
+  - [set_transparent](#set_transparent)
+  - [set_resizable](#set_resizable)
+  - [set_high_contrast](#set_high_contrast)
+  - [is_high_contrast](#is_high_contrast)
+- **Browser & Profiles**
+  - [get_best_browser](#get_best_browser)
+  - [browser_exist](#browser_exist)
+  - [set_profile](#set_profile)
+  - [set_proxy](#set_proxy)
+  - [set_public](#set_public)
+  - [set_custom_parameters](#set_custom_parameters)
+  - [set_browser_folder](#set_browser_folder)
+  - [delete_profile](#delete_profile)
+  - [delete_all_profiles](#delete_all_profiles)
+- **Server & Network**
+  - [set_root_folder](#set_root_folder)
+  - [get_url](#get_url)
+  - [open_url](#open_url)
+  - [get_port](#get_port)
+  - [set_port](#set_port)
+  - [get_free_port](#get_free_port)
+  - [get_mime_type](#get_mime_type)
+- **Configuration**
+  - [set_config](#set_config)
+  - [set_event_blocking](#set_event_blocking)
+  - [set_timeout](#set_timeout)
+- **Utilities**
+  - [encode](#encode)
+  - [decode](#decode)
+  - [clean](#clean)
+  - [get_last_error](#get_last_error)
+- **Process Info**
+  - [get_parent_process_id](#get_parent_process_id)
+  - [get_child_process_id](#get_child_process_id)
+- **SSL/TLS**
+  - [set_tls_certificate](#set_tls_certificate)
+
+[JavaScript APIs](javascript.md)
 
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -237,15 +228,44 @@ fn my_handler(e &ui.Event) {
 
 Show a window using embedded HTML, a local file, or a URL. If the window is already open, it will be refreshed. This refreshes all clients in multi-client mode.
 
-Pass an empty string or `''` to start in folder mode using the current root folder.
+WebUI will try this pattern:
 
-WebUI picks the best available renderer in this order:
+<div class="mermaid">
+flowchart TD
+    A[Microsoft Windows] --> B(WebView2Loader.dll ?)
+    B --> |Not Found| D[Any Chromium Based Browser ?]
+    B --> |Found| C[<strong>Show WebView2 window</strong>]
+    D --> |Not Found| F[Any Other Browser ?]
+    D --> |Found| E[<strong>Show chromium-based browser window</strong>. <em>Most cases will be Microsoft Edge</em>]
+    F --> |Not Found| J[Use default browser]
+    F --> |Found| I[<strong>Use that browser</strong>. <em>e.g. Firefox</em>]
+</div>
 
-- **Windows**: WebView2 → Chromium-based browser → any browser → default browser
-- **Linux**: WebKit GTK → Chromium-based browser → any browser → default browser
-- **macOS**: WebKit → Chromium-based browser → any browser → Safari
+<div class="mermaid">
+flowchart TD
+    A[Linux] --> B(WebKit GTK v3 ?)
+    B --> |Not Found| D[Any Chromium Based Browser ?]
+    B --> |Found| C[<strong>Show WebView GTK window</strong>]
+    D --> |Not Found| F[Any Other Browser ?]
+    D --> |Found| E[<strong>Show chromium-based browser window</strong>. <em>e.g. Chromium</em>]
+    F --> |Not Found| J[Use default browser]
+    F --> |Found| I[<strong>Use that browser</strong>. <em>Most cases will be Firefox</em>]
+</div>
 
-> To force a specific browser use `show_browser()`. To force WebView use `show_wv()`.
+<div class="mermaid">
+flowchart TD
+    A[macOS] --> B(WebKit ?)
+    B --> |Not Found| D[Any Chromium Based Browser ?]
+    B --> |Found| C[<strong>Show WebKit window</strong>. <em>Most cases</em>]
+    D --> |Not Found| F[Any Other Browser ?]
+    D --> |Found| E[<strong>Show chromium-based browser window</strong>. <em>e.g. Chrome</em>]
+    F --> |Not Found| J[Use default browser. <em>e.g. Safari</em>]
+    F --> |Found| I[<strong>Use that browser</strong>. <em>e.g. Firefox</em>]
+</div>
+
+> To use only a specific browser please use `show_browser()`
+
+> To use only WebView please use `show_wv()`
 
 ```v
 win.show('<html><script src="webui.js"></script> Hello! </html>')!
@@ -258,7 +278,6 @@ win.show('index.html', await: true)!
 // Wait with a custom timeout (default is 10 seconds)
 win.show('index.html', await: true, timeout: 5)!
 ```
-
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---

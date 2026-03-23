@@ -11,91 +11,87 @@
 </div>
 
 
+## Getting Started
+- [Download And Install](#download-and-install)
+- [Minimal Example](#minimal-example)
+
 ## Available APIs
-
-**Window Management**
-- [new_window](#new_window)
-- [show](#show)
-- [show_browser](#show_browser)
-- [show_wv](#show_wv)
-- [start_server](#start_server)
-- [close](#close)
-- [destroy](#destroy)
-- [exit](#exit)
-- [wait](#wait)
-- [wait_async](#wait_async)
-- [is_shown](#is_shown)
-- [focus](#focus)
-- [set_hide](#set_hide)
-- [set_kiosk](#set_kiosk)
-- [set_size](#set_size)
-- [set_position](#set_position)
-- [set_center](#set_center)
-- [set_minimum_size](#set_minimum_size)
-- [minimize](#minimize)
-- [maximize](#maximize)
-- [set_resizable](#set_resizable)
-- [set_frameless](#set_frameless)
-- [set_transparent](#set_transparent)
-- [set_high_contrast](#set_high_contrast)
-- [is_high_contrast](#is_high_contrast)
-- [set_icon](#set_icon)
-- [set_timeout](#set_timeout)
-- [get_best_browser](#get_best_browser)
-- [get_url](#get_url)
-- [get_port](#get_port)
-- [set_port](#set_port)
-- [get_free_port](#get_free_port)
-- [get_parent_process_id](#get_parent_process_id)
-- [get_child_process_id](#get_child_process_id)
-- [get_hwnd](#get_hwnd)
-
-**Event Binding**
-- [bind](#bind)
-- [event](#event)
-
-**JavaScript Execution**
-- [run](#run)
-- [run_js](#run_js)
-- [send_raw](#send_raw)
-
-**Multi-Client (Event Methods)**
-- [show_client](#show_client)
-- [close_client](#close_client)
-- [navigate_client](#navigate_client)
-- [run_client](#run_client)
-- [script_client](#script_client)
-- [send_raw_client](#send_raw_client)
-
-**Browser & Profile**
-- [set_profile](#set_profile)
-- [delete_profile](#delete_profile)
-- [delete_all_profiles](#delete_all_profiles)
-- [set_proxy](#set_proxy)
-- [set_custom_parameters](#set_custom_parameters)
-- [set_browser_folder](#set_browser_folder)
-- [browser_exist](#browser_exist)
-- [open_url](#open_url)
-
-**Server & Files**
-- [set_root_folder](#set_root_folder)
-- [set_default_root_folder](#set_default_root_folder)
-- [set_file_handler](#set_file_handler)
-- [set_file_handler_window](#set_file_handler_window)
-- [get_mime_type](#get_mime_type)
-- [set_public](#set_public)
-- [navigate](#navigate)
-
-**Configuration**
-- [set_config](#set_config)
-- [set_runtime](#set_runtime)
-- [set_event_blocking](#set_event_blocking)
-- [set_tls_certificate](#set_tls_certificate)
-- [clean](#clean)
-
-**Error Handling**
-- [get_last_error_number](#get_last_error_number)
-- [get_last_error_message](#get_last_error_message)
+- **Window Management**
+  - [new_window](#new_window)
+  - [show](#show)
+  - [show_browser](#show_browser)
+  - [show_wv](#show_wv)
+  - [start_server](#start_server)
+  - [close](#close)
+  - [destroy](#destroy)
+  - [exit](#exit)
+  - [wait](#wait)
+  - [wait_async](#wait_async)
+  - [is_shown](#is_shown)
+  - [focus](#focus)
+  - [set_hide](#set_hide)
+  - [set_kiosk](#set_kiosk)
+  - [set_size](#set_size)
+  - [set_position](#set_position)
+  - [set_center](#set_center)
+  - [set_minimum_size](#set_minimum_size)
+  - [minimize](#minimize)
+  - [maximize](#maximize)
+  - [set_resizable](#set_resizable)
+  - [set_frameless](#set_frameless)
+  - [set_transparent](#set_transparent)
+  - [set_high_contrast](#set_high_contrast)
+  - [is_high_contrast](#is_high_contrast)
+  - [set_icon](#set_icon)
+  - [set_timeout](#set_timeout)
+  - [get_best_browser](#get_best_browser)
+  - [get_url](#get_url)
+  - [get_port](#get_port)
+  - [set_port](#set_port)
+  - [get_free_port](#get_free_port)
+  - [get_parent_process_id](#get_parent_process_id)
+  - [get_child_process_id](#get_child_process_id)
+  - [get_hwnd](#get_hwnd)
+- **Event Binding**
+  - [bind](#bind)
+  - [event](#event)
+- **JavaScript Execution**
+  - [run](#run)
+  - [run_js](#run_js)
+  - [send_raw](#send_raw)
+- **Multi-Client (Event Methods)**
+  - [show_client](#show_client)
+  - [close_client](#close_client)
+  - [navigate_client](#navigate_client)
+  - [run_client](#run_client)
+  - [script_client](#script_client)
+  - [send_raw_client](#send_raw_client)
+- **Browser & Profile**
+  - [set_profile](#set_profile)
+  - [delete_profile](#delete_profile)
+  - [delete_all_profiles](#delete_all_profiles)
+  - [set_proxy](#set_proxy)
+  - [set_custom_parameters](#set_custom_parameters)
+  - [set_browser_folder](#set_browser_folder)
+  - [browser_exist](#browser_exist)
+  - [open_url](#open_url)
+- **Server & Files**
+  - [set_root_folder](#set_root_folder)
+  - [set_default_root_folder](#set_default_root_folder)
+  - [set_file_handler](#set_file_handler)
+  - [set_file_handler_window](#set_file_handler_window)
+  - [get_mime_type](#get_mime_type)
+  - [set_public](#set_public)
+  - [navigate](#navigate)
+- **Configuration**
+  - [set_config](#set_config)
+  - [set_runtime](#set_runtime)
+  - [set_event_blocking](#set_event_blocking)
+  - [set_tls_certificate](#set_tls_certificate)
+  - [clean](#clean)
+- **Error Handling**
+  - [get_last_error_number](#get_last_error_number)
+  - [get_last_error_message](#get_last_error_message)
 
 [JavaScript APIs](javascript.md)
 
@@ -156,42 +152,48 @@ Show a window using embedded HTML, a local file, or a URL. If the window is alre
 
 WebUI will try this pattern:
 
-- Windows
-  - `WebView2Loader.dll` exists?
-    - Use the WebView2 window.
-  - Any Chromium Based Browser exists?
-    - Use that chromium-based browser (_Most cases will be Microsoft Edge_).
-  - Any Other Browser exists?
-    - Use that browser (_Like Firefox_).
-  - All failed?
-    - Show the UI in the default browser (_Like a normal web site_)
-- Linux
-  - `WebKit GTK v3` exist?
-    - Use the WebView GTK window.
-  - Any Chromium Based Browser exists?
-    - Use that chromium-based browser (_Like Chromium_).
-  - Any Other Browser exists?
-    - Use that browser (_Most cases will be Firefox_).
-  - All failed?
-    - Show the UI in the default browser (_Like a normal web site_)
-- macOS
-  - `WebKit` exist?
-    - Use the WebView window (_Most cases_).
-  - Any Chromium Based Browser exists?
-    - Use that chromium-based browser (_Like Chrome_).
-  - Any Other Browser exists?
-    - Use that browser (_Like Firefox_).
-  - All failed?
-    - Show the UI in the default browser (_Safari, like a normal web site_)
+<div class="mermaid">
+flowchart TD
+    A[Microsoft Windows] --> B(WebView2Loader.dll ?)
+    B --> |Not Found| D[Any Chromium Based Browser ?]
+    B --> |Found| C[<strong>Show WebView2 window</strong>]
+    D --> |Not Found| F[Any Other Browser ?]
+    D --> |Found| E[<strong>Show chromium-based browser window</strong>. <em>Most cases will be Microsoft Edge</em>]
+    F --> |Not Found| J[Use default browser]
+    F --> |Found| I[<strong>Use that browser</strong>. <em>e.g. Firefox</em>]
+</div>
 
-> To use only a specific browser please use `show_browser()`. To use only WebView please use `show_wv()`.
+<div class="mermaid">
+flowchart TD
+    A[Linux] --> B(WebKit GTK v3 ?)
+    B --> |Not Found| D[Any Chromium Based Browser ?]
+    B --> |Found| C[<strong>Show WebView GTK window</strong>]
+    D --> |Not Found| F[Any Other Browser ?]
+    D --> |Found| E[<strong>Show chromium-based browser window</strong>. <em>e.g. Chromium</em>]
+    F --> |Not Found| J[Use default browser]
+    F --> |Found| I[<strong>Use that browser</strong>. <em>Most cases will be Firefox</em>]
+</div>
+
+<div class="mermaid">
+flowchart TD
+    A[macOS] --> B(WebKit ?)
+    B --> |Not Found| D[Any Chromium Based Browser ?]
+    B --> |Found| C[<strong>Show WebKit window</strong>. <em>Most cases</em>]
+    D --> |Not Found| F[Any Other Browser ?]
+    D --> |Found| E[<strong>Show chromium-based browser window</strong>. <em>e.g. Chrome</em>]
+    F --> |Not Found| J[Use default browser. <em>e.g. Safari</em>]
+    F --> |Found| I[<strong>Use that browser</strong>. <em>e.g. Firefox</em>]
+</div>
+
+> To use only a specific browser please use `show_browser()`
+
+> To use only WebView please use `show_wv()`
 
 ```rust
 win.show("<html><script src=\"/webui.js\"> ... </html>");
 win.show("file.html");
 win.show("https://mydomain.com");
 ```
-
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---

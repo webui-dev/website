@@ -11,99 +11,96 @@
 </div>
 
 
+## Getting Started
+- [Download And Install](#download-and-install)
+- [Minimal Example](#minimal-example)
+
 ## Available APIs
-
-**Window**
-- [new WebUI()](#new-webui)
-- [show](#show)
-- [showBrowser](#showbrowser)
-- [showWebView](#showwebview)
-- [startServer](#startserver)
-- [close](#close)
-- [destroy](#destroy)
-- [isShown](#isshown)
-- [minimize](#minimize)
-- [maximize](#maximize)
-- [focus](#focus)
-
-**Binding & Events**
-- [bind](#bind)
-- [event](#event)
-- [run](#run)
-- [script](#script)
-- [scriptClient](#scriptclient)
-- [sendRaw](#sendraw)
-- [setFileHandler](#setfilehandler)
-- [setFileHandlerWindow](#setfilehandlerwindow)
-
-**Window Appearance**
-- [setSize](#setsize)
-- [setMinimumSize](#setminimumsize)
-- [setPosition](#setposition)
-- [setCenter](#setcenter)
-- [setHide](#sethide)
-- [setKiosk](#setkiosk)
-- [setFrameless](#setframeless)
-- [setResizable](#setresizable)
-- [setTransparent](#settransparent)
-- [setHighContrast](#sethighcontrast)
-- [setIcon](#seticon)
-
-**Window Settings**
-- [setRootFolder](#setrootfolder)
-- [setProfile](#setprofile)
-- [deleteProfile](#deleteprofile)
-- [setProxy](#setproxy)
-- [setPublic](#setpublic)
-- [setPort](#setport)
-- [getPort](#getport)
-- [getUrl](#geturl)
-- [navigate](#navigate)
-- [setRuntime](#setruntime)
-- [setCustomParameters](#setcustomparameters)
-- [setEventBlocking](#seteventblocking)
-- [setCloseHandlerWV](#setclosehandlerwv)
-- [getBestBrowser](#getbestbrowser)
-
-**Window Info**
-- [getParentProcessId](#getparentprocessid)
-- [getChildProcessId](#getchildprocessid)
-- [windowId](#windowid)
-- [getHwnd](#gethwnd)
-- [win32GetHwnd](#win32gethwnd)
-
-**Global (Static)**
-- [WebUI.wait](#webuiwait)
-- [WebUI.waitAsync](#webuiwaitasync)
-- [WebUI.exit](#webuiexit)
-- [WebUI.clean](#webuiclean)
-- [WebUI.setTimeout](#webuisettimeout)
-- [WebUI.setMultiClient](#webuisetmulticlient)
-- [WebUI.setDefaultRootFolder](#webuisetdefaultrootfolder)
-- [WebUI.setBrowserFolder](#webuisetbrowserfolder)
-- [WebUI.setFolderMonitor](#webuisetfoldermonitor)
-- [WebUI.setTLSCertificate](#webuitlscertificate)
-- [WebUI.browserExist](#webuibrowserexist)
-- [WebUI.isHighContrast](#webuiishighcontrast)
-- [WebUI.openUrl](#webuiopenurl)
-- [WebUI.getFreePort](#webuigetfreeport)
-- [WebUI.getNewWindowId](#webuigetnewwindowid)
-- [WebUI.newWindowId](#webuinewwindowid)
-- [WebUI.getMimeType](#webuigetmimetype)
-- [WebUI.setLogger](#webuilogger)
-- [WebUI.getLastErrorNumber](#webuilasterrornumber)
-- [WebUI.getLastErrorMessage](#webuilasterrormessage)
-- [WebUI.deleteAllProfiles](#webuideleteallprofiles)
-- [WebUI.encode](#webuiencode)
-- [WebUI.decode](#webuidecode)
-- [WebUI.malloc](#webuimalloc)
-- [WebUI.free](#webuifree)
-- [WebUI.version](#webuiversion)
-
-**Enums**
-- [WebUI.Browser](#webuibrowser)
-- [WebUI.EventType](#webuieventtype)
-- [WebUI.Runtime](#webuiruntime)
+- **Window**
+  - [new WebUI()](#new-webui)
+  - [show](#show)
+  - [showBrowser](#showbrowser)
+  - [showWebView](#showwebview)
+  - [startServer](#startserver)
+  - [close](#close)
+  - [destroy](#destroy)
+  - [isShown](#isshown)
+  - [minimize](#minimize)
+  - [maximize](#maximize)
+  - [focus](#focus)
+- **Binding & Events**
+  - [bind](#bind)
+  - [event](#event)
+  - [run](#run)
+  - [script](#script)
+  - [scriptClient](#scriptclient)
+  - [sendRaw](#sendraw)
+  - [setFileHandler](#setfilehandler)
+  - [setFileHandlerWindow](#setfilehandlerwindow)
+- **Window Appearance**
+  - [setSize](#setsize)
+  - [setMinimumSize](#setminimumsize)
+  - [setPosition](#setposition)
+  - [setCenter](#setcenter)
+  - [setHide](#sethide)
+  - [setKiosk](#setkiosk)
+  - [setFrameless](#setframeless)
+  - [setResizable](#setresizable)
+  - [setTransparent](#settransparent)
+  - [setHighContrast](#sethighcontrast)
+  - [setIcon](#seticon)
+- **Window Settings**
+  - [setRootFolder](#setrootfolder)
+  - [setProfile](#setprofile)
+  - [deleteProfile](#deleteprofile)
+  - [setProxy](#setproxy)
+  - [setPublic](#setpublic)
+  - [setPort](#setport)
+  - [getPort](#getport)
+  - [getUrl](#geturl)
+  - [navigate](#navigate)
+  - [setRuntime](#setruntime)
+  - [setCustomParameters](#setcustomparameters)
+  - [setEventBlocking](#seteventblocking)
+  - [setCloseHandlerWV](#setclosehandlerwv)
+  - [getBestBrowser](#getbestbrowser)
+- **Window Info**
+  - [getParentProcessId](#getparentprocessid)
+  - [getChildProcessId](#getchildprocessid)
+  - [windowId](#windowid)
+  - [getHwnd](#gethwnd)
+  - [win32GetHwnd](#win32gethwnd)
+- **Global (Static)**
+  - [WebUI.wait](#webuiwait)
+  - [WebUI.waitAsync](#webuiwaitasync)
+  - [WebUI.exit](#webuiexit)
+  - [WebUI.clean](#webuiclean)
+  - [WebUI.setTimeout](#webuisettimeout)
+  - [WebUI.setMultiClient](#webuisetmulticlient)
+  - [WebUI.setDefaultRootFolder](#webuisetdefaultrootfolder)
+  - [WebUI.setBrowserFolder](#webuisetbrowserfolder)
+  - [WebUI.setFolderMonitor](#webuisetfoldermonitor)
+  - [WebUI.setTLSCertificate](#webuitlscertificate)
+  - [WebUI.browserExist](#webuibrowserexist)
+  - [WebUI.isHighContrast](#webuiishighcontrast)
+  - [WebUI.openUrl](#webuiopenurl)
+  - [WebUI.getFreePort](#webuigetfreeport)
+  - [WebUI.getNewWindowId](#webuigetnewwindowid)
+  - [WebUI.newWindowId](#webuinewwindowid)
+  - [WebUI.getMimeType](#webuigetmimetype)
+  - [WebUI.setLogger](#webuilogger)
+  - [WebUI.getLastErrorNumber](#webuilasterrornumber)
+  - [WebUI.getLastErrorMessage](#webuilasterrormessage)
+  - [WebUI.deleteAllProfiles](#webuideleteallprofiles)
+  - [WebUI.encode](#webuiencode)
+  - [WebUI.decode](#webuidecode)
+  - [WebUI.malloc](#webuimalloc)
+  - [WebUI.free](#webuifree)
+  - [WebUI.version](#webuiversion)
+- **Enums**
+  - [WebUI.Browser](#webuibrowser)
+  - [WebUI.EventType](#webuieventtype)
+  - [WebUI.Runtime](#webuiruntime)
 - [WebUI.LoggerLevel](#webuiloggerlevel)
 
 [JavaScript APIs](javascript.md)
@@ -174,20 +171,50 @@ const myWindow = new WebUI();
 
 Show a window using embedded HTML, a local file path, or a URL. If the window is already open, it will be refreshed. Resolves once the browser is connected and ready.
 
-WebUI automatically picks the best available renderer:
+WebUI will try this pattern:
 
-- **Windows**: WebView2 → Chromium-based browser → any browser → default browser
-- **Linux**: WebKit GTK → Chromium-based browser → any browser → default browser
-- **macOS**: WebKit → Chromium-based browser → any browser → Safari
+<div class="mermaid">
+flowchart TD
+    A[Microsoft Windows] --> B(WebView2Loader.dll ?)
+    B --> |Not Found| D[Any Chromium Based Browser ?]
+    B --> |Found| C[<strong>Show WebView2 window</strong>]
+    D --> |Not Found| F[Any Other Browser ?]
+    D --> |Found| E[<strong>Show chromium-based browser window</strong>. <em>Most cases will be Microsoft Edge</em>]
+    F --> |Not Found| J[Use default browser]
+    F --> |Found| I[<strong>Use that browser</strong>. <em>e.g. Firefox</em>]
+</div>
 
-> To force a specific browser use [`showBrowser()`](#showbrowser). To force WebView use [`showWebView()`](#showwebview).
+<div class="mermaid">
+flowchart TD
+    A[Linux] --> B(WebKit GTK v3 ?)
+    B --> |Not Found| D[Any Chromium Based Browser ?]
+    B --> |Found| C[<strong>Show WebView GTK window</strong>]
+    D --> |Not Found| F[Any Other Browser ?]
+    D --> |Found| E[<strong>Show chromium-based browser window</strong>. <em>e.g. Chromium</em>]
+    F --> |Not Found| J[Use default browser]
+    F --> |Found| I[<strong>Use that browser</strong>. <em>Most cases will be Firefox</em>]
+</div>
+
+<div class="mermaid">
+flowchart TD
+    A[macOS] --> B(WebKit ?)
+    B --> |Not Found| D[Any Chromium Based Browser ?]
+    B --> |Found| C[<strong>Show WebKit window</strong>. <em>Most cases</em>]
+    D --> |Not Found| F[Any Other Browser ?]
+    D --> |Found| E[<strong>Show chromium-based browser window</strong>. <em>e.g. Chrome</em>]
+    F --> |Not Found| J[Use default browser. <em>e.g. Safari</em>]
+    F --> |Found| I[<strong>Use that browser</strong>. <em>e.g. Firefox</em>]
+</div>
+
+> To use only a specific browser please use `showBrowser()`
+
+> To use only WebView please use `showWebView()`
 
 ```ts
 await myWindow.show('<html><script src="webui.js"></script> Hello! </html>');
 await myWindow.show('index.html');
 await myWindow.show('https://mydomain.com');
 ```
-
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
