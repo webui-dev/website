@@ -55,6 +55,24 @@
 - **Event Binding**
   - [bind](#bind)
   - [event](#event)
+- **Event Arguments**
+  - [get_count](#get_count)
+  - [get_string](#get_string)
+  - [get_string_at](#get_string_at)
+  - [get_int](#get_int)
+  - [get_int_at](#get_int_at)
+  - [get_float](#get_float)
+  - [get_float_at](#get_float_at)
+  - [get_bool](#get_bool)
+  - [get_bool_at](#get_bool_at)
+  - [get_size](#get_size)
+  - [get_size_at](#get_size_at)
+  - [get_bytes](#get_bytes)
+  - [get_bytes_at](#get_bytes_at)
+  - [return_int](#return_int)
+  - [return_float](#return_float)
+  - [return_string](#return_string)
+  - [return_bool](#return_bool)
 - **JavaScript Execution**
   - [run](#run)
   - [run_js](#run_js)
@@ -80,6 +98,7 @@
   - [set_default_root_folder](#set_default_root_folder)
   - [set_file_handler](#set_file_handler)
   - [set_file_handler_window](#set_file_handler_window)
+  - [malloc](#malloc)
   - [get_mime_type](#get_mime_type)
   - [set_public](#set_public)
   - [navigate](#navigate)
@@ -206,28 +225,28 @@ Show a window using a specific web browser.
 > On macOS, the browser's icon may still appear in the Dock after exit. We recommend using `show_wv()` on macOS to avoid this.
 
 ```rust
-win.show_browser("<html><script src=\"/webui.js\"> ... </html>", webui::WebUIBrowser::Chrome);
-win.show_browser("index.html", webui::WebUIBrowser::Firefox);
-win.show_browser("index.html", webui::WebUIBrowser::ChromiumBased);
+win.show_browser("<html><script src=\"/webui.js\"> ... </html>", webui::Browser::Chrome);
+win.show_browser("index.html", webui::Browser::Firefox);
+win.show_browser("index.html", webui::Browser::ChromiumBased);
 ```
 
 Available browser values:
 
 ```rust
-webui::WebUIBrowser::NoBrowser
-webui::WebUIBrowser::AnyBrowser
-webui::WebUIBrowser::Chrome
-webui::WebUIBrowser::Firefox
-webui::WebUIBrowser::Edge
-webui::WebUIBrowser::Safari
-webui::WebUIBrowser::Chromium
-webui::WebUIBrowser::Opera
-webui::WebUIBrowser::Brave
-webui::WebUIBrowser::Vivaldi
-webui::WebUIBrowser::Epic
-webui::WebUIBrowser::Yandex
-webui::WebUIBrowser::ChromiumBased
-webui::WebUIBrowser::Webview
+webui::Browser::NoBrowser
+webui::Browser::AnyBrowser
+webui::Browser::Chrome
+webui::Browser::Firefox
+webui::Browser::Edge
+webui::Browser::Safari
+webui::Browser::Chromium
+webui::Browser::Opera
+webui::Browser::Brave
+webui::Browser::Vivaldi
+webui::Browser::Epic
+webui::Browser::Yandex
+webui::Browser::ChromiumBased
+webui::Browser::Webview
 ```
 
 
@@ -660,16 +679,32 @@ Every event callback receives an `Event` struct that contains information about 
 
 ```rust
 fn event_handler(e: webui::Event) {
-    // e.window      — window ID
-    // e.event_type  — WebUIEvent variant (Connected, Disconnected, MouseClick, Navigation, Callback)
-    // e.element     — raw pointer to the element name string
+    // e.window       — window ID
+    // e.event_type   — EventType variant (Connected, Disconnected, MouseClick, Navigation, Callback)
     // e.event_number — unique event number
-    // e.bind_id     — bind ID returned by bind()
+    // e.bind_id      — bind ID returned by bind()
 
-    println!("Event on element, window ID: {}", e.window);
+    println!("Event on window ID: {}", e.window);
 
     // Get a Window object from the event
     let win = e.get_window();
+
+    // Read arguments passed from JavaScript
+    let s   = e.get_string();          // first arg as String
+    let s2  = e.get_string_at(1);      // second arg as String
+    let n   = e.get_int();             // first arg as i64
+    let n2  = e.get_int_at(1);         // second arg as i64
+    let f   = e.get_float();           // first arg as f64
+    let b   = e.get_bool();            // first arg as bool
+    let sz  = e.get_size();            // byte length of first arg
+    let cnt = e.get_count();           // total number of arguments
+    let raw = e.get_bytes();           // first arg as Vec<u8>
+
+    // Return a value back to JavaScript
+    e.return_int(42);
+    e.return_float(3.14);
+    e.return_string("hello");
+    e.return_bool(true);
 }
 
 // Empty element name catches all events on all elements
@@ -679,11 +714,257 @@ win.bind("", event_handler);
 Event types:
 
 ```rust
-webui::WebUIEvent::WebUiEventConnected      // Browser connected
-webui::WebUIEvent::WebUiEventDisconnected   // Browser disconnected
-webui::WebUIEvent::WebUiEventMouseClick     // Element clicked
-webui::WebUIEvent::WebUiEventNavigation     // Navigation occurred
-webui::WebUIEvent::WebUiEventCallback       // JavaScript called a bound function
+webui::EventType::Connected     // Browser connected
+webui::EventType::Disconnected  // Browser disconnected
+webui::EventType::MouseClick    // Element clicked
+webui::EventType::Navigation    // Navigation occurred
+webui::EventType::Callback      // JavaScript called a bound function
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_count
+
+Get the total number of arguments passed from JavaScript to this event.
+
+```rust
+fn my_func(e: webui::Event) {
+    let count = e.get_count();
+    println!("Received {} argument(s)", count);
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_string
+
+Get the first argument as a `String`.
+
+```rust
+fn my_func(e: webui::Event) {
+    let name = e.get_string();
+    println!("Name: {}", name);
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_string_at
+
+Get an argument at a specific index as a `String`. Index `0` is the first argument.
+
+```rust
+fn my_func(e: webui::Event) {
+    let first  = e.get_string_at(0);
+    let second = e.get_string_at(1);
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_int
+
+Get the first argument as an `i64`.
+
+```rust
+fn my_func(e: webui::Event) {
+    let value = e.get_int();
+    println!("Value: {}", value);
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_int_at
+
+Get an argument at a specific index as an `i64`.
+
+```rust
+fn my_func(e: webui::Event) {
+    let x = e.get_int_at(0);
+    let y = e.get_int_at(1);
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_float
+
+Get the first argument as an `f64`.
+
+```rust
+fn my_func(e: webui::Event) {
+    let ratio = e.get_float();
+    println!("Ratio: {:.2}", ratio);
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_float_at
+
+Get an argument at a specific index as an `f64`.
+
+```rust
+fn my_func(e: webui::Event) {
+    let lat = e.get_float_at(0);
+    let lon = e.get_float_at(1);
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_bool
+
+Get the first argument as a `bool`.
+
+```rust
+fn my_func(e: webui::Event) {
+    if e.get_bool() {
+        println!("Enabled");
+    }
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_bool_at
+
+Get an argument at a specific index as a `bool`.
+
+```rust
+fn my_func(e: webui::Event) {
+    let a = e.get_bool_at(0);
+    let b = e.get_bool_at(1);
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_size
+
+Get the byte length of the first argument.
+
+```rust
+fn my_func(e: webui::Event) {
+    let len = e.get_size();
+    println!("First argument is {} bytes", len);
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_size_at
+
+Get the byte length of an argument at a specific index.
+
+```rust
+fn my_func(e: webui::Event) {
+    let len0 = e.get_size_at(0);
+    let len1 = e.get_size_at(1);
+    println!("Arg 0: {} bytes, Arg 1: {} bytes", len0, len1);
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_bytes
+
+Get the first argument as raw bytes (`Vec<u8>`). Useful for binary data sent from JavaScript.
+
+```rust
+fn my_func(e: webui::Event) {
+    let data = e.get_bytes();
+    println!("Received {} bytes", data.len());
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### get_bytes_at
+
+Get an argument at a specific index as raw bytes (`Vec<u8>`).
+
+```rust
+fn my_func(e: webui::Event) {
+    let chunk0 = e.get_bytes_at(0);
+    let chunk1 = e.get_bytes_at(1);
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### return_int
+
+Return an `i64` value back to JavaScript as the result of this callback.
+
+```rust
+fn multiply(e: webui::Event) {
+    let a = e.get_int_at(0);
+    let b = e.get_int_at(1);
+    e.return_int(a * b);
+}
+```
+
+On the JavaScript side:
+```js
+const result = await multiply(3, 7); // result === 21
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### return_float
+
+Return an `f64` value back to JavaScript as the result of this callback.
+
+```rust
+fn get_pi(e: webui::Event) {
+    e.return_float(std::f64::consts::PI);
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### return_string
+
+Return a `&str` value back to JavaScript as the result of this callback.
+
+```rust
+fn greet(e: webui::Event) {
+    let name = e.get_string();
+    let msg  = format!("Hello, {}!", name);
+    e.return_string(&msg);
+}
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### return_bool
+
+Return a `bool` value back to JavaScript as the result of this callback.
+
+```rust
+fn is_valid(e: webui::Event) {
+    let input = e.get_string();
+    e.return_bool(!input.is_empty());
+}
 ```
 
 
@@ -711,13 +992,17 @@ fn on_click(e: webui::Event) {
 Execute JavaScript and get the response back. Returns a `JavaScript` struct containing the result or an error.
 
 ```rust
-let result = win.run_js("return 2 + 2;");
+// The second argument is the response buffer size in bytes (0 = default 8 KB).
+let result = win.run_js("return 2 + 2;", 0);
 
 if result.error {
     println!("JS Error: {}", result.data);
 } else {
     println!("JS Result: {}", result.data); // "4"
 }
+
+// Custom buffer size when you expect a large response
+let result = win.run_js("return JSON.stringify(bigObject);", 1024 * 64);
 ```
 
 The `JavaScript` struct:
@@ -931,8 +1216,8 @@ webui::set_browser_folder("/opt/custom-browser/");
 Check whether a specific web browser is installed on the system.
 
 ```rust
-if webui::browser_exist(webui::WebUIBrowser::Chrome) {
-    win.show_browser("index.html", webui::WebUIBrowser::Chrome);
+if webui::browser_exist(webui::Browser::Chrome) {
+    win.show_browser("index.html", webui::Browser::Chrome);
 } else {
     win.show("index.html");
 }
@@ -980,16 +1265,31 @@ webui::set_default_root_folder("/home/user/myapp/public");
 Set a custom handler function to intercept and serve file requests. Return `null` to let WebUI handle the file normally (serve from disk or return 404).
 
 ```rust
+use webui_rs::webui;
+use std::ffi::CStr;
+use std::os::raw::c_void;
+
 unsafe extern "C" fn my_file_handler(
     filename: *const i8,
-    len: *mut i32,
-) -> *const std::os::raw::c_void {
-    let filename = unsafe { std::ffi::CStr::from_ptr(filename).to_str().unwrap() };
+    length: *mut i32,
+) -> *const c_void {
+    let name = CStr::from_ptr(filename).to_str().unwrap_or("");
 
-    if filename == "/hello.txt" {
-        let content = "Hello from Rust!";
-        unsafe { *len = content.len() as i32 };
-        return content.as_ptr() as *const std::os::raw::c_void;
+    if name == "/hello.txt" {
+        // Static response — no allocation needed, WebUI reads immediately
+        static RESPONSE: &[u8] = b"HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 16\r\n\r\nHello from Rust!";
+        return RESPONSE.as_ptr() as *const c_void;
+    }
+
+    if name == "/dynamic.html" {
+        // Dynamic response — use webui::malloc so WebUI frees the buffer after serving
+        let body = format!("<html><p>Time: {}</p></html>", std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH).unwrap().as_secs());
+        let response = format!(
+            "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: {}\r\n\r\n{}",
+            body.len(), body
+        );
+        return webui::malloc(&response, length);
     }
 
     // Return null to fall back to normal file serving
@@ -1018,6 +1318,41 @@ unsafe extern "C" fn my_handler(
 }
 
 win.set_file_handler_window(my_handler);
+```
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### malloc
+
+Allocate a response buffer owned by WebUI so it automatically frees the memory after serving the response. Use this inside a `set_file_handler` callback when the content is generated dynamically at runtime.
+
+> For static content (compile-time strings or `&[u8]` literals), you can return a raw pointer directly without allocation.
+
+```rust
+use webui_rs::webui;
+use std::ffi::CStr;
+use std::os::raw::c_void;
+
+unsafe extern "C" fn my_file_handler(
+    filename: *const i8,
+    length: *mut i32,
+) -> *const c_void {
+    let name = CStr::from_ptr(filename).to_str().unwrap_or("");
+
+    if name == "/page.html" {
+        let body = format!("<html><p>Counter: {}</p></html>", get_counter());
+        let response = format!(
+            "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: {}\r\n\r\n{}",
+            body.len(), body
+        );
+        // webui::malloc copies `response` into a WebUI-managed buffer.
+        // WebUI will free the buffer automatically after serving.
+        return webui::malloc(&response, length);
+    }
+
+    std::ptr::null()
+}
 ```
 
 
@@ -1071,27 +1406,27 @@ Set global WebUI configuration options.
 
 ```rust
 // Block until event callbacks return (default: non-blocking)
-webui::set_config(webui::WebUIConfig::UiEventBlocking, true);
+webui::set_config(webui::Config::UiEventBlocking, true);
 
 // Enable folder monitoring for live-reload
-webui::set_config(webui::WebUIConfig::FolderMonitor, true);
+webui::set_config(webui::Config::FolderMonitor, true);
 
 // Enable multi-client support (multiple browser tabs per window)
-webui::set_config(webui::WebUIConfig::MultiClient, true);
+webui::set_config(webui::Config::MultiClient, true);
 
 // Control cookie usage
-webui::set_config(webui::WebUIConfig::UseCookies, false);
+webui::set_config(webui::Config::UseCookies, false);
 ```
 
 Available config options:
 
 ```rust
-webui::WebUIConfig::ShowWaitConnection   // Show a loading indicator while waiting for connection
-webui::WebUIConfig::UiEventBlocking      // Make event callbacks block until they return
-webui::WebUIConfig::FolderMonitor        // Monitor root folder and reload on file changes
-webui::WebUIConfig::MultiClient          // Allow multiple browser clients per window
-webui::WebUIConfig::UseCookies           // Use cookies for client identification
-webui::WebUIConfig::AsynchronousResponse // Allow asynchronous event responses
+webui::Config::ShowWaitConnection   // Show a loading indicator while waiting for connection
+webui::Config::UiEventBlocking      // Make event callbacks block until they return
+webui::Config::FolderMonitor        // Monitor root folder and reload on file changes
+webui::Config::MultiClient          // Allow multiple browser clients per window
+webui::Config::UseCookies           // Use cookies for client identification
+webui::Config::AsynchronousResponse // Allow asynchronous event responses
 ```
 
 
@@ -1103,16 +1438,16 @@ Choose a JavaScript runtime (`Deno`, `Bun`, or `NodeJS`) for serving `.js` and `
 
 ```rust
 // Use Deno
-win.set_runtime(webui::WebUIRuntime::Deno);
+win.set_runtime(webui::Runtime::Deno);
 
 // Use Bun
-win.set_runtime(webui::WebUIRuntime::Bun);
+win.set_runtime(webui::Runtime::Bun);
 
 // Use Node.js
-win.set_runtime(webui::WebUIRuntime::NodeJS);
+win.set_runtime(webui::Runtime::NodeJS);
 
 // Disable runtime (serve files as-is)
-win.set_runtime(webui::WebUIRuntime::None);
+win.set_runtime(webui::Runtime::None);
 ```
 
 Once set, any browser HTTP request to a `.js` or `.ts` file will be processed by the selected runtime before being served.
