@@ -177,7 +177,7 @@ Copy `webui.pb` and the appropriate library file for your platform into your pro
 ---
 ### Minimal Example
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -195,7 +195,7 @@ webui_wait()
 
 Create a new window object. Returns a window number used with all other WebUI APIs.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -215,7 +215,7 @@ Create a new window object using a specified ID.
 
 > The `id` should be between 1 and `#WEBUI_MAX_IDS`
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -234,7 +234,7 @@ webui_show(window, "index.html")
 
 Get a free window ID that can be used with `webui_new_window_id()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define id.i, window.i
@@ -292,7 +292,7 @@ flowchart TD
 
 > To use only WebView please use `webui_show_wv()`
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -325,7 +325,7 @@ Show a window using a specific web browser.
 
 > On macOS, the browser's icon may still appear in the Dock after exit. We recommend using `webui_show_wv()` on macOS to avoid this.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -373,7 +373,7 @@ Show a **WebView** window using embedded HTML, a URL, or a local file. If the wi
 >
 > macOS Dependencies: WebKit (_WKWebView_).
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -393,7 +393,7 @@ webui_show_wv(window, "index.html")
 
 Show a window for a specific single client. Useful in multi-client mode to send different content to different connected clients.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -413,7 +413,7 @@ EndProcedure
 
 Start only the local web server without opening a browser window, and return the URL. Useful for headless web app scenarios.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i, *url
@@ -435,7 +435,7 @@ Debug "Server URL: " + PeekS(*url, -1, #PB_Ascii)
 
 Close a specific window. The window object will still exist and can be shown again later.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -454,7 +454,7 @@ webui_close(window)
 
 Close the connection for a specific single client only, without closing the window for other connected clients.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -472,7 +472,7 @@ Close a specific window and free all related memory resources.
 
 > This will make the window object unavailable. If you want to simply close a window and reopen it later, please use `webui_close()` instead.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -490,7 +490,7 @@ webui_destroy(window)
 
 Close all open windows. This will make `webui_wait()` return (_Break_).
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -513,7 +513,7 @@ webui_wait()
 
 Block the current thread and wait until all opened windows get closed.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -534,7 +534,7 @@ Non-blocking alternative to `webui_wait()`. Returns `#True` if at least one wind
 
 > In WebView mode, you must call this from the main thread.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -555,7 +555,7 @@ Wend
 
 Check if the specified window is still running.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -577,7 +577,7 @@ EndIf
 
 Bring a window to the front and give it keyboard focus.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -594,7 +594,7 @@ webui_focus(window)
 
 Minimize a WebView window.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -611,7 +611,7 @@ webui_minimize(window)
 
 Maximize a WebView window.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -628,7 +628,7 @@ webui_maximize(window)
 
 Set the window in Kiosk mode (_Full screen_).
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -649,7 +649,7 @@ webui_show(window, "index.html")
 
 Set the window size.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -673,7 +673,7 @@ Set the minimum allowed window size. The user will not be able to resize the win
 
 > Currently works on Windows only.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -695,7 +695,7 @@ webui_show(window, "index.html")
 
 Set the window position on screen.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -719,7 +719,7 @@ Center the window on the screen.
 
 > Call this before `webui_show()` for best results. Works better with WebView.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -738,7 +738,7 @@ Start the window in hidden mode. The window will be running but not visible.
 
 > Should be called before `webui_show()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -761,7 +761,7 @@ Remove the window frame and title bar (borderless/frameless mode).
 
 > Works with WebView windows only.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -786,7 +786,7 @@ Enable or disable window background transparency.
 
 > Works with WebView windows only. The web content must also use a transparent background for this to be visible.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -809,7 +809,7 @@ Control whether the user can resize the window.
 
 > Works with WebView windows only.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -830,7 +830,7 @@ webui_show_wv(window, "index.html")
 
 Set the default embedded HTML favicon. The icon is served automatically by WebUI's built-in server.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -851,7 +851,7 @@ webui_set_icon(window, "<svg>...</svg>", "image/svg+xml")
 
 Mark the window as supporting high-contrast mode. Use this together with CSS to build a better high-contrast theme.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -871,7 +871,7 @@ webui_set_high_contrast(window, #True)
 
 Check if the operating system is currently using a high-contrast theme.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -891,7 +891,7 @@ EndIf
 
 Add custom command-line parameters to the browser launch command.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -912,7 +912,7 @@ webui_show(window, "index.html")
 
 Set a callback to intercept the close event of a WebView window. Return `#False` from the handler to prevent the window from closing; return `#True` to allow it.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC.i myCloseHandler(window.i)
@@ -939,7 +939,7 @@ webui_wait()
 
 Navigate all connected clients of a window to a specific URL.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -967,7 +967,7 @@ webui_navigate(window, "/foo/bar.html")
 
 Navigate a specific single client to a URL, without affecting other connected clients.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -989,7 +989,7 @@ Get the current URL of a running window's web server.
 
 > By default, WebUI only allows access to this URL from localhost.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i, *url
@@ -1008,7 +1008,7 @@ Debug "Window URL: " + PeekS(*url, -1, #PB_Ascii)
 
 Open a URL in the operating system's default web browser (not a WebUI window).
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 webui_open_url("https://webui.me")
@@ -1021,7 +1021,7 @@ webui_open_url("https://webui.me")
 
 Allow the window's web server URL to be accessible from external devices on the network.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -1047,7 +1047,7 @@ Bind an HTML element click event or a JavaScript function call to a PureBasic ca
 
 > Callback procedures must be declared with `ProcedureC` (C calling convention) and receive a `*e.webui_event_t` pointer.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myFunction(*e.webui_event_t)
@@ -1082,7 +1082,7 @@ webui_wait()
 
 Every callback receives a `*e.webui_event_t` pointer with information about the current event.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC events(*e.webui_event_t)
@@ -1128,7 +1128,7 @@ webui_wait()
 
 Attach arbitrary user data to a specific binding. The data can be retrieved later inside the callback using `webui_get_context()`. Must be called after `webui_bind()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Structure UserInfo
@@ -1167,7 +1167,7 @@ webui_wait()
 
 Retrieve the user data pointer previously attached to a binding with `webui_set_context()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myFunction(*e.webui_event_t)
@@ -1184,7 +1184,7 @@ EndProcedure
 
 Control whether UI events from this window are processed one at a time in a single blocking thread (`#True`), or each in a new non-blocking thread (`#False`). Use `webui_set_config(#ui_event_blocking, ...)` to apply to all windows.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC foo(*e.webui_event_t) : EndProcedure ; long task
@@ -1209,7 +1209,7 @@ webui_set_event_blocking(window, #True)
 
 Control WebUI global behaviour. It's recommended to call this at the beginning, before `webui_show()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ;
@@ -1243,7 +1243,7 @@ webui_set_config(#asynchronous_response, #False)
 
 Set the maximum time in seconds to wait for the browser window to connect after calling `webui_show()`. A value of `0` means wait forever.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -1266,7 +1266,7 @@ webui_wait()
 
 Run JavaScript in the window without waiting for a response. Sends to all connected clients.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1299,7 +1299,7 @@ Full PureBasic Example: https://github.com/webui-dev/purebasic-webui/tree/main/e
 
 Run JavaScript for a specific single client without waiting for a response.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1319,7 +1319,7 @@ EndProcedure
 
 Run JavaScript and get the response back. Make sure your buffer is large enough to hold the response.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i, *response
@@ -1352,7 +1352,7 @@ Full PureBasic Example: https://github.com/webui-dev/purebasic-webui/tree/main/e
 
 Run JavaScript for a specific single client and get the response back.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1382,7 +1382,7 @@ EndProcedure
 
 Choose between `Deno`, `Bun`, and `Nodejs` as the runtime for `.js` and `.ts` files served by the web server.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -1413,7 +1413,7 @@ Full PureBasic Example: https://github.com/webui-dev/purebasic-webui/tree/main/e
 
 Get the number of arguments passed to the callback from JavaScript.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1436,7 +1436,7 @@ Full PureBasic Example: https://github.com/webui-dev/purebasic-webui/tree/main/e
 
 Get the first argument as a 64-bit integer.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1457,7 +1457,7 @@ EndProcedure
 
 Get an argument as a 64-bit integer at a specific index.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1479,7 +1479,7 @@ EndProcedure
 
 Get the first argument as a double-precision float.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1502,7 +1502,7 @@ Full PureBasic Example: https://github.com/webui-dev/purebasic-webui/tree/main/e
 
 Get an argument as a double-precision float at a specific index.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1524,7 +1524,7 @@ EndProcedure
 
 Get the first argument as a pointer to a null-terminated ASCII string.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1545,7 +1545,7 @@ EndProcedure
 
 Get an argument as a pointer to a null-terminated ASCII string at a specific index.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1567,7 +1567,7 @@ EndProcedure
 
 Get the first argument as a boolean (non-zero = `#True`, zero = `#False`).
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1592,7 +1592,7 @@ EndProcedure
 
 Get an argument as a boolean at a specific index.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1614,7 +1614,7 @@ EndProcedure
 
 Get the size in bytes of the first argument. Useful for raw binary data.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1635,7 +1635,7 @@ EndProcedure
 
 Get the size in bytes of an argument at a specific index.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1664,7 +1664,7 @@ async function myJavaScript() {
 }
 ```
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1687,7 +1687,7 @@ async function myJavaScript() {
 }
 ```
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1710,7 +1710,7 @@ async function myJavaScript() {
 }
 ```
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1733,7 +1733,7 @@ async function myJavaScript() {
 }
 ```
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1756,7 +1756,7 @@ function myJavaScriptFunc(rawData) {
 }
 ```
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i, *buffer
@@ -1791,7 +1791,7 @@ function myJavaScriptFunc(rawData) {
 }
 ```
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -1819,7 +1819,7 @@ EndProcedure
 
 Set a custom handler to serve files. The handler receives the requested filename and must return a complete HTTP response (headers + body). Replaces any handler set with `webui_set_file_handler_window()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC.i myHandler(filename.p-Ascii, *length)
@@ -1858,7 +1858,7 @@ Full PureBasic Example: https://github.com/webui-dev/purebasic-webui/tree/main/e
 
 Same as `webui_set_file_handler()`, but the handler also receives the window number. Replaces any handler set with `webui_set_file_handler()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC.i myHandler(window.i, filename.p-Ascii, *length)
@@ -1887,7 +1887,7 @@ Set the web-server root folder path for a specific window.
 
 > Should be called before `webui_show()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -1910,7 +1910,7 @@ Set the web-server root folder path for all windows.
 
 > Should be called before `webui_show()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ;
@@ -1927,7 +1927,7 @@ webui_set_default_root_folder("/home/Foo/Bar/")
 
 Get the HTTP MIME type string for a given file extension.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define *mime
@@ -1943,7 +1943,7 @@ Debug PeekS(*mime, -1, #PB_Ascii) ; "image/png"
 
 Get the recommended web browser ID for this window. If a browser is already in use, returns that browser's ID.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i, browserID.i
@@ -1960,7 +1960,7 @@ Debug "Best browser ID: " + Str(browserID)
 
 Check whether a specific web browser is installed on the system.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -1983,7 +1983,7 @@ Set the web browser profile to use. An empty `name` and `path` uses the default 
 
 > Must be called before `webui_show()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -2011,7 +2011,7 @@ Set the web browser proxy server.
 
 > Must be called before `webui_show()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -2032,7 +2032,7 @@ webui_show(window, "index.html")
 
 Set a custom folder path where WebUI should look for the browser executable.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -2057,7 +2057,7 @@ Delete the local web-browser profile folder for a specific window.
 
 > [!] This can break functionality of other windows using the same browser profile.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -2078,7 +2078,7 @@ Delete all local web-browser profile folders created by WebUI.
 
 > Recommended to call after all windows are closed, before `webui_clean()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -2097,7 +2097,7 @@ webui_clean()
 
 Get the network port used by the running window's web server.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i, port.i
@@ -2116,7 +2116,7 @@ Debug "WebUI JS URL: http://localhost:" + Str(port) + "/webui.js"
 
 Set a specific network port for the window's web server.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
@@ -2142,7 +2142,7 @@ webui_show(window, "index.html")
 
 Find and return an available (unused) network port.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define port.i
@@ -2158,7 +2158,7 @@ Debug "Free port: " + Str(port)
 
 Get the process ID of the backend application (the parent process).
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i, pid.i
@@ -2177,7 +2177,7 @@ Debug "Backend PID: " + Str(pid)
 
 Get the process ID of the browser window child process. In WebView mode, returns the parent PID.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i, pid.i
@@ -2196,7 +2196,7 @@ Debug "Browser PID: " + Str(pid)
 
 Get the native window handle. On Windows returns `HWND`. On Linux returns `GtkWindow*` (WebView only).
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i, *hwnd
@@ -2219,7 +2219,7 @@ Get the Win32 `HWND` window handle. More reliable with WebView than web browser 
 
 > Windows only.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i, *hwnd
@@ -2238,7 +2238,7 @@ webui_show(window, "index.html")
 
 Safely allocate memory using the WebUI memory management system. Can be freed with `webui_free()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define *buffer
@@ -2261,7 +2261,7 @@ webui_free(*buffer)
 
 Safely free a buffer previously allocated by `webui_malloc()` or returned by WebUI APIs such as `webui_encode()` and `webui_decode()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define *encoded
@@ -2279,7 +2279,7 @@ webui_free(*encoded)
 
 Copy raw bytes from a source buffer to a destination buffer.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define *src, *dst
@@ -2305,7 +2305,7 @@ FreeMemory(*dst)
 
 Encode a string to Base64. Returns a pointer to the encoded buffer — must be freed with `webui_free()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define *encoded
@@ -2326,7 +2326,7 @@ webui_free(*encoded)
 
 Decode a Base64-encoded string. Returns a pointer to the decoded buffer — must be freed with `webui_free()`.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ProcedureC myCallback(*e.webui_event_t)
@@ -2356,7 +2356,7 @@ Set the SSL/TLS certificate and private key (both in PEM format). If called with
 
 > This works only with the TLS build of WebUI (`webui-2-secure`).
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ;
@@ -2378,7 +2378,7 @@ EndIf
 
 Set a custom logging function to receive WebUI's internal log messages.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 ;
@@ -2414,7 +2414,7 @@ webui_wait()
 
 Get the error code from the most recent WebUI operation that failed.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i, err.i
@@ -2434,7 +2434,7 @@ EndIf
 
 Get the human-readable error message from the most recent WebUI operation that failed.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i, *msg
@@ -2454,7 +2454,7 @@ EndIf
 
 Free all memory resources used by WebUI. Should be called only once at the very end of your application, after `webui_wait()` returns.
 
-```pb
+```basic
 XIncludeFile "webui.pb"
 
 Define window.i
