@@ -266,6 +266,8 @@ flowchart TD
     F --> |Found| I[<strong>Use that browser</strong>. <em>e.g. Firefox</em>]
 </div>
 
+---
+
 <div class="mermaid">
 flowchart TD
     A[Linux] --> B(WebKit GTK v3 ?)
@@ -276,6 +278,8 @@ flowchart TD
     F --> |Not Found| J[Use default browser]
     F --> |Found| I[<strong>Use that browser</strong>. <em>Most cases will be Firefox</em>]
 </div>
+
+---
 
 <div class="mermaid">
 flowchart TD
