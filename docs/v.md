@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo](data/webui_v.svg)
+![Logo](data/webui_v.png)
 
 # WebUI v2.5 - V Documentation
 

@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo](data/webui_rust.svg)
+![Logo](data/webui_rust.png)
 
 # WebUI v2.5 - Rust Documentation
 

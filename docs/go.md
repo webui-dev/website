@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo](data/webui_go.svg)
+![Logo](data/webui_go.png)
 
 # WebUI v2.5 - Go Documentation
 

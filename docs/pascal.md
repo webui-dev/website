@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo](data/webui_pascal.svg)
+![Logo](data/webui_pascal.png)
 
 # WebUI v2.5 - Pascal Documentation
 

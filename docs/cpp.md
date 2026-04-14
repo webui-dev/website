@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo](data/webui_cpp.svg)
+![Logo](data/webui_cpp.png)
 
 # WebUI v2.5 - C++ Documentation
 

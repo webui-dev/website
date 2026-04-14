@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo](data/webui_python.svg)
+![Logo](data/webui_python.png)
 
 # WebUI v2.5 - Python Documentation
 

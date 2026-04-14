@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo](data/webui_javascript.svg)
+![Logo](data/webui_javascript.png)
 
 # WebUI v2.5 - JavaScript Frontend APIs
 

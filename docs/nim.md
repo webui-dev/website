@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo](data/webui_nim.svg)
+![Logo](data/webui_nim.png)
 
 # WebUI v2.5 - Nim Documentation
 

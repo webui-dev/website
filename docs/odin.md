@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo](data/webui_odin.svg)
+![Logo](data/webui_odin.png)
 
 # WebUI v2.5 - Odin Documentation
 

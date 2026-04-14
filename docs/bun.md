@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo](data/webui_bun.svg)
+![Logo](data/webui_bun.png)
 
 # WebUI v2.5 - Bun Documentation
 
