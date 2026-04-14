@@ -508,18 +508,17 @@ See [set_context](#set_context) for a full example.
 ---
 ### get_arg
 
-Parse the first JavaScript argument into a Go type. Supports `string`, `int`, `float64`, `bool`, and any JSON-decodable struct.
+Parse the first JavaScript argument into a Go type. Supports `string`, `int`, `float64`, `bool`, `[]byte`, and any JSON-decodable struct.
 
 ```go
 webui.Bind[string](win, "greet", func(e webui.Event) string {
     name, err := webui.GetArg[string](e)
-    if err != nil {
-        return "error: " + err.Error()
-    }
-    return "Hello, " + name + "!"
+    age, err := webui.GetArg[int](e)
+    num, err := webui.GetArg[float64](e)
+    status, err := webui.GetArg[bool](e)
+    data, err := webui.GetArg[[]byte](e)
 })
 ```
-
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 ---
