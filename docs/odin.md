@@ -245,10 +245,10 @@ WebUI will try this pattern:
 
 <div class="mermaid">
 flowchart TD
-    A[Microsoft Windows] --> B(WebView2Loader.dll ?)
-    B --> |Not Found| D[Any Chromium Based Browser ?]
-    B --> |Found| C[<strong>Show WebView2 window</strong>]
-    D --> |Not Found| F[Any Other Browser ?]
+    A[Microsoft Windows] --> B(Explicitly call Show Webview?)
+    B --> |No| D[Any Chromium Based Browser Installed ?]
+    B --> |Yes| C[<strong>Show WebView2 window</strong>]
+    D --> |Not Found| F[Any Other Non-chromium Browser ?]
     D --> |Found| E[<strong>Show chromium-based browser window</strong>. <em>Most cases will be Microsoft Edge</em>]
     F --> |Not Found| J[Use default browser]
     F --> |Found| I[<strong>Use that browser</strong>. <em>e.g. Firefox</em>]
@@ -258,10 +258,10 @@ flowchart TD
 
 <div class="mermaid">
 flowchart TD
-    A[Linux] --> B(WebKit GTK v3 ?)
-    B --> |Not Found| D[Any Chromium Based Browser ?]
-    B --> |Found| C[<strong>Show WebView GTK window</strong>]
-    D --> |Not Found| F[Any Other Browser ?]
+    A[Linux] --> B(Explicitly call Show Webview?)
+    B --> |No| D[Any Chromium Based Browser Installed ?]
+    B --> |Yes| C[<strong>Show WebView GTK window</strong>]
+    D --> |Not Found| F[Any Other Non-chromium Browser ?]
     D --> |Found| E[<strong>Show chromium-based browser window</strong>. <em>e.g. Chromium</em>]
     F --> |Not Found| J[Use default browser]
     F --> |Found| I[<strong>Use that browser</strong>. <em>Most cases will be Firefox</em>]
@@ -271,10 +271,10 @@ flowchart TD
 
 <div class="mermaid">
 flowchart TD
-    A[macOS] --> B(WebKit ?)
-    B --> |Not Found| D[Any Chromium Based Browser ?]
-    B --> |Found| C[<strong>Show WebKit window</strong>. <em>Most cases</em>]
-    D --> |Not Found| F[Any Other Browser ?]
+    A[macOS] --> B(Explicitly call Show Webview?)
+    B --> |No| D[Any Chromium Based Browser Installed ?]
+    B --> |Yes| C[<strong>Show WebKit window</strong>]
+    D --> |Not Found| F[Any Other Non-chromium Browser ?]
     D --> |Found| E[<strong>Show chromium-based browser window</strong>. <em>e.g. Chrome</em>]
     F --> |Not Found| J[Use default browser. <em>e.g. Safari</em>]
     F --> |Found| I[<strong>Use that browser</strong>. <em>e.g. Firefox</em>]
