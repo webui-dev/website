@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo](data/webui_120.svg)
+![Logo](data/webui_zig.svg)
 
 # WebUI v2.5 - Zig Documentation
 

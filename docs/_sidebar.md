@@ -13,6 +13,8 @@
   - [Nim](nim.md)
   - [V](v.md)
   - [Odin](odin.md)
+  - [C#](csharp.md)
+  - [Swift](swift.md)
   - [Pascal](pascal.md)
   - [PureBasic](purebasic.md)
 

@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo](data/webui_120.svg)
+![Logo](data/webui_deno.svg)
 
 # WebUI v2.5 - Deno Documentation
 
