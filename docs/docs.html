@@ -33,6 +33,15 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
+      // Initialize mermaid once (startOnLoad: false — we drive rendering via the Docsify hook below)
+      if (typeof mermaid !== 'undefined') {
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: 'dark',
+          securityLevel: 'loose'
+        });
+      };
+
       // Configure Docsify
       window.$docsify = {
         name: 'WebUI',
@@ -48,16 +57,17 @@
           theme      : 'classic',
           tabComments: false,
           tabHeadings: true
-        }
-      };
-      
-      // Initialize mermaid
-      if (typeof mermaid !== 'undefined') {
-        mermaid.initialize({ 
-          startOnLoad: true,
-          theme: 'dark',
-          securityLevel: 'loose'
-        });
+        },
+        plugins: [
+          function(hook) {
+            // Re-run mermaid after every page navigation
+            hook.doneEach(function() {
+              if (typeof mermaid !== 'undefined') {
+                mermaid.run();
+              }
+            });
+          }
+        ]
       };
 
     });
