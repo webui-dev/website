@@ -1,1 +1,93 @@
-404 Not Found.
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found | WebUI</title>
+    <link rel="stylesheet" href="./assets/tailwind.min.css">
+    <link href="./assets/main.css" rel="stylesheet">
+    <link rel="icon" href="favicon.svg">
+    <style>
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50%       { transform: translateY(-16px); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes countdown {
+        from { stroke-dashoffset: 0; }
+        to   { stroke-dashoffset: 157; }
+      }
+      .float    { animation: float 4s ease-in-out infinite; }
+      .fade-in  { animation: fadeIn 0.8s ease-out forwards; }
+      .fade-in-delay { animation: fadeIn 0.8s ease-out 0.3s both; }
+      .fade-in-delay2 { animation: fadeIn 0.8s ease-out 0.6s both; }
+      .ring { animation: countdown 5s linear forwards; }
+      .gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+  </head>
+  <body class="gradient min-h-screen flex flex-col items-center justify-center text-white font-sans px-4">
+
+    <!-- Logo icon -->
+    <div class="float fade-in mb-2">
+      <img src="./data/webui_120.svg" alt="WebUI" width="128" height="128" class="opacity-90">
+    </div>
+
+    <!-- Floating 404 -->
+    <div class="fade-in mb-6 select-none" aria-hidden="true">
+      <span style="font-size: clamp(6rem, 20vw, 10rem); font-weight: 900; letter-spacing: -0.05em; opacity: 0.15; line-height: 1;">
+        404
+      </span>
+    </div>
+
+    <!-- Card -->
+    <div class="fade-in-delay -mt-16 text-center max-w-lg w-full">
+      <h1 class="text-4xl font-bold mb-3">Page not found</h1>
+      <p class="text-lg opacity-80 mb-8">
+        Looks like this page went missing. You'll be redirected to the
+        documentation in&nbsp;<span id="countdown" class="font-bold">5</span>&nbsp;second<span id="plural">s</span>.
+      </p>
+
+      <!-- Countdown ring + button -->
+      <div class="flex flex-col items-center gap-6">
+        <!-- SVG countdown ring -->
+        <svg width="56" height="56" viewBox="0 0 56 56" class="opacity-70" aria-hidden="true">
+          <circle cx="28" cy="28" r="25" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="3"/>
+          <circle cx="28" cy="28" r="25" fill="none" stroke="white" stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-dasharray="157"
+                  stroke-dashoffset="0"
+                  transform="rotate(-90 28 28)"
+                  class="ring"/>
+        </svg>
+
+        <a href="https://webui.me/docs.html#/"
+           class="fade-in-delay2 inline-block bg-white text-purple-700 font-bold py-3 px-8 shadow-lg hover:bg-opacity-90 transition-opacity">
+          Go to Docs now
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer link -->
+    <p class="fade-in-delay2 mt-12 text-sm opacity-50">
+      <a href="https://webui.me/" class="hover:opacity-80 underline">← Back to webui.me</a>
+    </p>
+
+    <script>
+      var seconds = 5;
+      var el = document.getElementById('countdown');
+      var plural = document.getElementById('plural');
+      var timer = setInterval(function () {
+        seconds--;
+        el.textContent = seconds;
+        plural.textContent = seconds === 1 ? '' : 's';
+        if (seconds <= 0) {
+          clearInterval(timer);
+          window.location.href = 'https://webui.me/docs.html#/';
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
