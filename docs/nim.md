@@ -227,30 +227,30 @@ window.show("index.html")
 window.show("https://mydomain.com")
 
 # Show using a specific browser
-window.show("index.html", Chrome)
+window.show("index.html", WebuiBrowser.wbChrome)
 
 # Show using the first available browser from a set
-window.show("index.html", {Webview, Chrome, Edge})
+window.show("index.html", {WebuiBrowser.wbWebview, WebuiBrowser.wbChrome, WebuiBrowser.wbEdge})
 ```
 
 The `WebuiBrowser` enum:
 
 ```nim
 type WebuiBrowser* = enum
-  NoBrowser     ## 0. No web browser
-  AnyBrowser    ## 1. Default recommended web browser
-  Chrome        ## 2. Google Chrome
-  Firefox       ## 3. Mozilla Firefox
-  Edge          ## 4. Microsoft Edge
-  Safari        ## 5. Apple Safari
-  Chromium      ## 6. The Chromium Project
-  Opera         ## 7. Opera Browser
-  Brave         ## 8. The Brave Browser
-  Vivaldi       ## 9. The Vivaldi Browser
-  Epic          ## 10. The Epic Browser
-  Yandex        ## 11. The Yandex Browser
-  ChromiumBased ## 12. Any Chromium-based browser
-  Webview       ## 13. WebView (not a web browser)
+  wbNoBrowser     ## 0. No web browser
+  wbAnyBrowser    ## 1. Default recommended web browser
+  wbChrome        ## 2. Google Chrome
+  wbFirefox       ## 3. Mozilla Firefox
+  wbEdge          ## 4. Microsoft Edge
+  wbSafari        ## 5. Apple Safari
+  wbChromium      ## 6. The Chromium Project
+  wbOpera         ## 7. Opera Browser
+  wbBrave         ## 8. The Brave Browser
+  wbVivaldi       ## 9. The Vivaldi Browser
+  wbEpic          ## 10. The Epic Browser
+  wbYandex        ## 11. The Yandex Browser
+  wbChromiumBased ## 12. Any Chromium-based browser
+  wbWebview       ## 13. WebView (not a web browser)
 ```
 
 > On macOS, the browser icon may linger in the Dock after exit. Use `showWv()` to avoid this.
@@ -718,7 +718,7 @@ echo "Best browser: ", browser
 Check if a specific web browser is installed on the system.
 
 ```nim
-if browserExist(Chrome):
+if browserExist(WebuiBrowser.wbChrome):
   echo "Chrome is available"
 ```
 
