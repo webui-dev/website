@@ -227,30 +227,30 @@ window.show("index.html")
 window.show("https://mydomain.com")
 
 # Show using a specific browser
-window.show("index.html", Chrome)
+window.show("index.html", WebuiBrowser.wbChrome)
 
 # Show using the first available browser from a set
-window.show("index.html", {Webview, Chrome, Edge})
+window.show("index.html", {WebuiBrowser.wbWebview, WebuiBrowser.wbChrome, WebuiBrowser.wbEdge})
 ```
 
 The `WebuiBrowser` enum:
 
 ```nim
 type WebuiBrowser* = enum
-  NoBrowser     ## 0. No web browser
-  AnyBrowser    ## 1. Default recommended web browser
-  Chrome        ## 2. Google Chrome
-  Firefox       ## 3. Mozilla Firefox
-  Edge          ## 4. Microsoft Edge
-  Safari        ## 5. Apple Safari
-  Chromium      ## 6. The Chromium Project
-  Opera         ## 7. Opera Browser
-  Brave         ## 8. The Brave Browser
-  Vivaldi       ## 9. The Vivaldi Browser
-  Epic          ## 10. The Epic Browser
-  Yandex        ## 11. The Yandex Browser
-  ChromiumBased ## 12. Any Chromium-based browser
-  Webview       ## 13. WebView (not a web browser)
+  wbNoBrowser     ## 0. No web browser
+  wbAnyBrowser    ## 1. Default recommended web browser
+  wbChrome        ## 2. Google Chrome
+  wbFirefox       ## 3. Mozilla Firefox
+  wbEdge          ## 4. Microsoft Edge
+  wbSafari        ## 5. Apple Safari
+  wbChromium      ## 6. The Chromium Project
+  wbOpera         ## 7. Opera Browser
+  wbBrave         ## 8. The Brave Browser
+  wbVivaldi       ## 9. The Vivaldi Browser
+  wbEpic          ## 10. The Epic Browser
+  wbYandex        ## 11. The Yandex Browser
+  wbChromiumBased ## 12. Any Chromium-based browser
+  wbWebview       ## 13. WebView (not a web browser)
 ```
 
 > On macOS, the browser icon may linger in the Dock after exit. Use `showWv()` to avoid this.
@@ -718,7 +718,7 @@ echo "Best browser: ", browser
 Check if a specific web browser is installed on the system.
 
 ```nim
-if browserExist(Chrome):
+if browserExist(WebuiBrowser.wbChrome):
   echo "Chrome is available"
 ```
 
@@ -779,25 +779,25 @@ Event fields:
   e.cookies      : string  -- client's full cookies string
 
 WebuiEvent enum:
-  WEBUI_EVENTS_DISCONNECTED  ## 0. Window disconnection event
-  WEBUI_EVENTS_CONNECTED     ## 1. Window connection event
-  WEBUI_EVENTS_MOUSE_CLICK   ## 2. Mouse click event
-  WEBUI_EVENTS_NAVIGATION    ## 3. Window navigation event
-  WEBUI_EVENTS_CALLBACK      ## 4. Function call event
+  weDisconnected    ## 0. Window disconnection event
+  weConnected       ## 1. Window connection event
+  weMouseClicK      ## 2. Mouse click event
+  weNavigation      ## 3. Window navigation event
+  weCallback        ## 4. Function call event
 ]#
 
 # Bind all events on all elements (empty element string)
 window.bind("") do (e: Event):
   case e.eventType
-  of WEBUI_EVENTS_CONNECTED:
+  of WebuiEvent.weConnected:
     echo "Client connected."
-  of WEBUI_EVENTS_DISCONNECTED:
+  of WebuiEvent.weDisonnected:
     echo "Client disconnected."
-  of WEBUI_EVENTS_MOUSE_CLICK:
+  of WebuiEvent.weMouseClicK:
     echo "Click on: ", e.element
-  of WEBUI_EVENTS_NAVIGATION:
+  of WebuiEvent.weNavigation:
     echo "Navigating to: ", e.element
-  of WEBUI_EVENTS_CALLBACK:
+  of WebuiEvent.weCallback:
     echo "Function called: ", e.element
 ```
 
