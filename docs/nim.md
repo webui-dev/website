@@ -779,25 +779,25 @@ Event fields:
   e.cookies      : string  -- client's full cookies string
 
 WebuiEvent enum:
-  WEBUI_EVENTS_DISCONNECTED  ## 0. Window disconnection event
-  WEBUI_EVENTS_CONNECTED     ## 1. Window connection event
-  WEBUI_EVENTS_MOUSE_CLICK   ## 2. Mouse click event
-  WEBUI_EVENTS_NAVIGATION    ## 3. Window navigation event
-  WEBUI_EVENTS_CALLBACK      ## 4. Function call event
+  weDisconnected    ## 0. Window disconnection event
+  weConnected       ## 1. Window connection event
+  weMouseClicK      ## 2. Mouse click event
+  weNavigation      ## 3. Window navigation event
+  weCallback        ## 4. Function call event
 ]#
 
 # Bind all events on all elements (empty element string)
 window.bind("") do (e: Event):
   case e.eventType
-  of WEBUI_EVENTS_CONNECTED:
+  of WebuiEvent.weConnected:
     echo "Client connected."
-  of WEBUI_EVENTS_DISCONNECTED:
+  of WebuiEvent.weDisonnected:
     echo "Client disconnected."
-  of WEBUI_EVENTS_MOUSE_CLICK:
+  of WebuiEvent.weMouseClicK:
     echo "Click on: ", e.element
-  of WEBUI_EVENTS_NAVIGATION:
+  of WebuiEvent.weNavigation:
     echo "Navigating to: ", e.element
-  of WEBUI_EVENTS_CALLBACK:
+  of WebuiEvent.weCallback:
     echo "Function called: ", e.element
 ```
 
