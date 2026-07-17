@@ -15,6 +15,7 @@
   - [Odin](odin.md)
   - [C#](csharp.md)
   - [Swift](swift.md)
+  - [Elixir](elixir.md)
   - [Pascal](pascal.md)
   - [PureBasic](purebasic.md)
 
