@@ -11,6 +11,7 @@
   - [Rust](rust.md)
   - [Go](go.md)
   - [Nim](nim.md)
+  - [D](d.md)
   - [V](v.md)
   - [Odin](odin.md)
   - [C#](csharp.md)
