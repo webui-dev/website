@@ -14,6 +14,7 @@
 ## Getting Started
 - [Download And Install](#download-and-install)
 - [Minimal Example](#minimal-example)
+- [Memory Safety](#memory-safety)
 
 ## Available APIs
 - **Window**
@@ -181,6 +182,43 @@ void main()
 ```
 
 [More D Examples](https://github.com/webui-dev/d-webui/tree/main/examples).
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+---
+### Memory Safety
+
+The API is usable from `@safe` code. Everything that crosses into C is marked
+`@trusted`, so a module with `@safe:` at the top can create windows, bind
+callables, run JavaScript and read event arguments without escaping to `@system`.
+
+```d
+@safe:
+
+import webui;
+
+void main()
+{
+    auto win = newWindow();
+    win.bind("add", (long a, long b) => a + b);
+    win.show("index.html");
+    wait();
+}
+```
+
+Four entry points stay `@system` on purpose, because no honest `@trusted`
+wrapper exists for them:
+
+| API | Why |
+| --- | --- |
+| `Event.getRaw`, `Event.getRawAt` | Return a slice borrowed from WebUI that dies when the handler returns. Take a `const(ubyte)[]` parameter on the bound callable instead — it receives an owned copy. |
+| `Event.getContext`, `Window.setContext` | Traffic in `void*` whose lifetime the wrapper cannot police. |
+| `Window.getHwnd`, `Window.win32GetHwnd` | Hand out a raw native handle. |
+
+`Window.handle` and the `Event` accessors are read-only for the same reason: the
+C library indexes a fixed-size window table with that number and never
+range-checks it, so a writable field would let `@safe` code cause an
+out-of-bounds access.
 
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -424,18 +462,22 @@ Every event carries information about what triggered it. `Event` repeats the lay
 ```d
 struct Event
 {
-    size_t windowHandle;    // The window handle
-    EventType eventType;    // Event type (connected, click, navigation...)
-    size_t eventNumber;     // Internal WebUI event number
-    size_t bindId;          // Bind ID
-    size_t clientId;        // Client's unique ID
-    size_t connectionId;    // Client's connection ID
+    size_t windowHandle();  // The window handle
+    EventType eventType();  // Event type (connected, click, navigation...)
+    size_t eventNumber();   // Internal WebUI event number
+    size_t bindId();        // Bind ID
+    size_t clientId();      // Client's unique ID
+    size_t connectionId();  // Client's connection ID
 
     Window window();        // The window that raised the event
     string element();       // HTML element ID
     string cookies();       // Client's full cookies
 }
 ```
+
+These are read-only accessors rather than fields. The C library indexes its
+window table with the window number and never range-checks it, so a writable
+field would let `@safe` code trigger an out-of-bounds access.
 
 ```d
 import std.stdio;
@@ -655,7 +697,8 @@ void myFunction(Event* e)
 }
 ```
 
-The same data is available directly through a bound parameter:
+The same data is available directly through a bound parameter, which receives an
+owned copy rather than a borrowed slice and therefore works from `@safe` code:
 
 ```d
 win.bind("upload", (const(ubyte)[] data) {
